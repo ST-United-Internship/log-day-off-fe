@@ -9,6 +9,7 @@ import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
 
+import Notification from "../pages/Notification";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -56,6 +57,10 @@ const privateRoutes = [
       {
         path: "groupdetail",
         element: <GroupDetail />,
+      },
+      {
+        path: "notification",
+        element: <Notification />,
       },
     ],
   },

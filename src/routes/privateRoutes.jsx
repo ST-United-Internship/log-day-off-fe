@@ -6,10 +6,15 @@ import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
+<<<<<<< HEAD
 import Notification from "../pages/Notification";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
+=======
+
+import Notification from "../pages/Notification";
+>>>>>>> f4419a4 (feat: test)
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -62,10 +67,13 @@ const privateRoutes = [
         path: "notification",
         element: <Notification />,
       },
+<<<<<<< HEAD
       {
         path: "workspaces",
         element: <WorkSpace />,
       },
+=======
+>>>>>>> f4419a4 (feat: test)
     ],
   },
 ];

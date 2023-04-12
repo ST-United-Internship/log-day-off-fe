@@ -25,6 +25,7 @@ const privateRoutes = [
         path: "dayoff",
         element: <DayOff />,
       },
+
       {
         path: "workspaces",
         element: <WorkSpace />,

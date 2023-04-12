@@ -5,9 +5,9 @@ import "./LayoutSider.css";
 
 const { Sider } = Layout;
 
-const SiderMenu = ({ navigation }) => {
+const SiderMenu = ({navigation}) => {
   const navigate = useNavigate();
-
+  
   return (
     <Menu
       theme="dark"

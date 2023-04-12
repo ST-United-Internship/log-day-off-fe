@@ -1,9 +1,9 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
-
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
+import GroupDetail from "../pages/GroupDetail";
 
 const privateRoutes = [
   {
@@ -29,6 +29,10 @@ const privateRoutes = [
       {
         path: "requestsDetail",
         element: <RequestsDetail />,
+      },
+      {
+        path: "groupdetail",
+        element: <GroupDetail />,
       },
     ],
   },

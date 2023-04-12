@@ -1,0 +1,32 @@
+.button-action .checkout {
+  background-color: #95de64;
+  color: black;
+  margin-right: 10px;
+}
+
+.button-action .checkout:hover {
+  background-color: green;
+  color: white;
+}
+
+.button-action .closeout {
+  background-color: #ff4d4f;
+  color: black;
+  margin-right: 10px;
+}
+
+.button-action .closeout:hover {
+  background-color: #d71d26;
+  color: white;
+}
+
+.button-action .editout {
+  background-color: #b37feb;
+  color: black;
+  margin-right: 10px;
+}
+
+.button-action .editout:hover {
+  background-color: purple;
+  color: white;
+}

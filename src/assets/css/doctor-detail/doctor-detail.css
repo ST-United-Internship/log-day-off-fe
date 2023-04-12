@@ -1,0 +1,25 @@
+.doctor-detials-lan ul li a {
+  background: #eae4ff;
+  border-radius: 50%;
+  color: #223645;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 60px;
+  line-height: 60px;
+  margin-right: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 60px;
+}
+
+.doctor-detials-lan ul li {
+  display: inline-block;
+}
+.more-service-container {
+  background-color: #fff !important;
+}
+
+doctor-services-detail-container {
+  background-color: #fff !important;
+}

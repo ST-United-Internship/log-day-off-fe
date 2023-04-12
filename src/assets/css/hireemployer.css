@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.hire-employer-container {
+  padding-bottom: 120px;
+  padding-top: 120px;
+  padding-left: 12px;
+  padding-right: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hire-employer {
+  box-shadow: 5px -6px 16px -2px rgba(197, 191, 255, 0.2);
+  background-color: #fff;
+}
+
+.hire-employer .hire-img img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.hire-employer.reverse {
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+.hire-employer .hire-text {
+  padding: 55px;
+}
+
+.hire-employer .hire-text h1 {
+  color: #223645;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  font-size: 54px;
+  margin-top: 0;
+  margin-bottom: 38px;
+  letter-spacing: -0.3px;
+  line-height: 1.22;
+}
+
+.hire-employer .hire-text p {
+  color: #647589;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
+  margin-bottom: 25px;
+  font-family: Rubik;
+}
+
+.hire-employer .hire-text a {
+  background-color: #8fb569;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 0;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: all 0.3s ease 0s;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: 0 8px 16px 0 hsla(90, 34%, 56%, 0.3);
+  border-radius: 30px;
+  padding: 24px 50px 22px 84px;
+  font-family: Rubik;
+}
+
+.hire-employer.reverse a {
+  background-color: #e12454;
+  box-shadow: 0 8px 16px 0 rgba(225, 36, 84, 0.2);
+}
+
+.hire-employer a:hover {
+  background-color: #e12454;
+  box-shadow: 0 8px 16px 0 rgba(225, 36, 84, 0.2);
+}
+
+.hire-employer.reverse a:hover {
+  background-color: #8fb569;
+  box-shadow: 0 8px 16px 0 hsla(90, 34%, 56%, 0.3);
+}
+
+.hire-employer .hire-text span {
+  background: #fff;
+  border-radius: 100%;
+  color: #223645;
+  font-size: 20px;
+  font-weight: 600;
+  height: 50px;
+  left: 5px;
+  line-height: 50px;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  transition: 0.3s;
+  width: 50px;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .hire-employer-container {
+    max-width: 960px;
+  }
+  .hire-employer .hire-text {
+    padding-left: 30px;
+    padding-top: 20px;
+  }
+
+  .hire-employer .hire-text h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+
+  .hire-employer .hire-text p {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .hire-employer-container {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hire-employer-container {
+    max-width: 540px;
+  }
+  .hire-employer .hire-text {
+    padding: 25px;
+  }
+  .hire-employer .hire-text h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+}

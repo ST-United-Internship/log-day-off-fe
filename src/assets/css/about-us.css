@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.about-us-container {
+  width: 100% !important;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+.about-us-container-fluild {
+  background-color: #fff !important;
+}
+.about-us-container .desc {
+  padding: 30px 23px;
+}
+
+.about-us-container .doctor-img {
+  width: 100%;
+}
+
+.about-left {
+  position: relative;
+}
+
+.about-left .medical-icon {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+}
+.desc h6,
+.desc h1,
+.desc p,
+.about-author {
+  padding: 10px 30px;
+}
+
+.desc .about-author {
+  width: 100%;
+  height: auto;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.about-img-container {
+  width: 20%;
+}
+
+.desc .author-desination {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+.desc .author-desination p {
+  margin: 0;
+}
+
+.desc .author-desination p {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.desc h6 {
+  color: #647589;
+  font-family: "Rubik";
+  font-size: 18px;
+  margin: 0 !important;
+  font-weight: 500;
+}
+.desc p {
+  color: #647589;
+  font-family: "Rubik";
+  list-style: 2;
+  margin: 0 !important;
+}
+
+.desc h1 {
+  color: #223645;
+  font-size: 50px;
+  font-family: "Poppins";
+  margin: 0 !important;
+}
+.author-desination > p:nth-child(1) {
+  font-family: "Poppins";
+  color: #223645;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0 !important;
+  line-height: 2;
+}
+.author-desination > p:nth-child(2) {
+  color: #e12454;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 !important;
+}
+
+@media only screen and (max-width: 1105px) {
+  .medical-icon {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .desc h1 {
+    font-size: 5px;
+  }
+  .desc .author-desination p {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 250px) {
+  .desc h1 {
+    font-size: 5px;
+  }
+  .desc .author-desination p {
+    font-size: 5px;
+  }
+  .author-img-container img {
+    width: 100%;
+  }
+
+  #root
+    > div
+    > div.ant-col.ant-col-24.desc.ant-col-lg-12.ant-col-xl-10.css-dev-only-do-not-override-1vtf12y {
+    padding: 2px;
+  }
+  .desc p {
+    margin: 0;
+    padding: 2px;
+    text-align: center;
+  }
+  .about-author {
+    padding: 2px;
+    text-align: center;
+  }
+  .author-desination {
+    text-align: center;
+  }
+  .desc h1,
+  .desc h6 {
+    padding: 2px;
+    text-align: center;
+  }
+  .desc h1 {
+    font-size: 10px;
+    text-align: center;
+  }
+}

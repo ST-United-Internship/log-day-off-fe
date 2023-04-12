@@ -1,0 +1,135 @@
+.area-post {
+  background: url(https://medi-dove.netlify.app/static/media/slider-bg-1.a5b879494592cab4771e.jpg);
+  background-repeat: no-repeat;
+  position: relative;
+  padding-bottom: 120px;
+  padding-top: 115px;
+}
+
+.area-post h1,
+.area-post h5 {
+  margin-top: 0;
+}
+
+.area-post::before {
+  background-color: rgba(19, 35, 47, 0.94);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.area-post .area-row {
+  text-align: center !important;
+}
+
+.area-post .text-center {
+  padding-bottom: 30px;
+}
+
+.area-post .area-row .text-center .text-tittle h1 {
+  line-height: 1.2;
+  color: #fff !important;
+  font-size: 60px;
+  letter-spacing: -0.3px;
+  margin-bottom: 18px;
+}
+
+.area-post .area-row .text-center .text-tittle h5 {
+  color: #899dab;
+  font-family: Rubik, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.button-area .area-colum {
+  background-color: #8fb569;
+  border: none;
+  display: inline-block;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 0;
+  position: relative;
+  transition: all 0.3s ease 0s;
+  box-shadow: 0 8px 16px 0 hsla(90, 34%, 56%, 0.3);
+  border-radius: 30px;
+  padding: 24px 50px 22px 84px;
+}
+
+.button-area .area-colum span {
+  background: #ffffff;
+  border-radius: 100%;
+  color: #223645;
+  font-size: 20px;
+  font-weight: 600;
+  height: 50px;
+  left: 5px;
+  line-height: 50px;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  transition: 0.3s;
+  width: 50px;
+  font-family: Rubik;
+}
+
+.button-area .area-colum a {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center !important;
+}
+
+.button-area .area-colum:hover {
+  background-color: #e12454;
+}
+
+.container > div {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (min-width: 576px) {
+  .container > div {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container > div {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container > div {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container > div {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .area-post .area-row .text-center .text-tittle > h1 {
+    font-size: 47px;
+  }
+}
+
+@media (max-width: 991px) {
+  .area-post .area-row .text-center .text-tittle > h1 {
+    font-size: 53px;
+  }
+}
+
+@media (max-width: 767px) {
+  .area-post .area-row .text-center .text-tittle > h1 {
+    font-size: 32px;
+  }
+}

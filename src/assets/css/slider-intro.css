@@ -1,0 +1,88 @@
+.slick-prev {
+  left: 3% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+}
+
+.slick-prev:before {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/507/507257.png");
+  background-size: 20px 20px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  max-width: 10px;
+  max-height: 10px;
+  content: "";
+  padding: 40px;
+}
+.slick-next:before {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/271/271226.png");
+  background-size: 20px 20px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  max-width: 10px;
+  max-height: 10px;
+  content: "";
+  padding: 40px;
+}
+
+/* On hover button click */
+.slick-prev:before {
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0.1;
+  border: none;
+  transition: 0.3s all linear;
+}
+
+.slick-next:before {
+  cursor: pointer;
+  border: none;
+  visibility: hidden;
+  opacity: 0.1;
+  transition: 0.3s all linear;
+}
+
+.custom-slider:hover > .slick-prev:before {
+  transform: translate(20%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.custom-slider:hover > .slick-next:before {
+  transform: translate(-20%);
+  opacity: 1;
+  visibility: visible;
+}
+
+button.slick-arrow.slick-prev {
+  width: 82px;
+  height: 82px;
+  position: absolute;
+  left: 200px;
+}
+
+button.slick-arrow.slick-next {
+  width: 82px;
+  height: 82px;
+  position: absolute;
+  right: 200px;
+}
+
+.slick-prev:hover::before {
+  background-color: #e12454;
+}
+
+.slick-next:hover::before {
+  background-color: #e12454;
+}

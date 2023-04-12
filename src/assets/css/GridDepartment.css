@@ -1,0 +1,69 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,500,600,700|";
+@font-face {
+  font-family: "Poppins";
+  font-style: italic;
+  font-weight: 100;
+  src: url(https://fonts.gstatic.com/s/poppins/v20/pxiAyp8kv8JHgFVrJJLmE0tMMPKzSQ.woff2)
+    format("woff2");
+}
+
+.header-container > p {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #647589;
+  margin-bottom: 17px;
+}
+
+.img-icon > img {
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 60px;
+}
+.header-container > h1 {
+  text-align: center;
+  font: 60px "Poppins", sans-serif;
+  font-weight: 500;
+  color: #223645;
+  margin: 0;
+  max-width: 600px;
+}
+.header-container > img {
+  margin: 17px 0 65px;
+}
+
+.grap-container {
+  margin-bottom: 100px;
+}
+
+.item-container {
+  background: #fff;
+  text-align: center;
+  height: 400px;
+  width: 400px;
+  margin-left: 20px;
+}
+.item-container .list-item {
+  margin-top: 55px;
+}
+
+.list-item > a {
+  color: #647589;
+  display: inline-block;
+  font-weight: 500;
+  margin-top: 5px;
+}
+.list-item > h2 {
+  font: 26px "Poppins", sans-serif;
+  font-weight: 600;
+}
+.list-item .des-title {
+  font: "Poppins", sans-serif;
+  color: #647589;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
+}

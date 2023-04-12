@@ -1,0 +1,56 @@
+.service-widget {
+  background-color: #fff;
+  border-top: 6px solid #8fb569;
+  box-shadow: 0 8px 16px 0 rgba(200, 183, 255, 0.2);
+  padding: 41px 50px 50px;
+  margin-top: 50px;
+}
+
+.service-widget .widget-title {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.widget-title {
+  display: inline-block;
+  font-size: 21px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.widget-title h3 {
+  font-size: 26px;
+  letter-spacing: -0.3px;
+}
+
+.contact-icon {
+  position: relative;
+}
+.contact-input input {
+  border: 2px solid #f0f8ff;
+  color: #647589;
+  font-weight: 400;
+  height: 60px;
+  padding: 0 0 0 40px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.set-form-btn {
+  margin-bottom: -82px;
+  margin-top: 40px;
+  text-align: center !important;
+}
+
+.btn-icon {
+  background-color: #e12454;
+  border-radius: 30px;
+  box-shadow: 0 8px 16px 0 rgba(225, 36, 84, 0.2);
+  padding: 24px 50px 22px 84px;
+}
+
+.banner-widget img {
+  margin-top: 55px;
+  border: none !important;
+  width: 100%;
+  padding: none !important;
+}

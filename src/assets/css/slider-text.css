@@ -1,0 +1,322 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.slider-item {
+  position: relative;
+  width: 100%;
+}
+
+.slider-item img {
+  width: 100%;
+}
+
+.slider-text-container {
+  z-index: 999;
+  position: absolute;
+  width: 600px;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.slider-text-container p {
+  padding: 5px;
+}
+
+.slider-text-container .btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.slider-text-container .btn-container .btn-appoint {
+  margin-right: 0;
+  font-family: "Rubik";
+}
+.slider-text-container .btn-container .btn-play {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.slider-text-container .first-line {
+  color: #647589;
+  font-family: "Rubik";
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.slider-text-container .second-line {
+  color: #223645;
+  font-family: "Poppins";
+  font-size: 80px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.slider-text-container .third-line {
+  color: #647589;
+  font-family: "Rubik";
+  font-size: 14px;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+.slider-text-container .btn-container .btn-appoint {
+  background-color: #e12454;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  width: 300px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.slider-text-container
+  .btn-container
+  .btn-appoint
+  .anticon.anticon-plus-circle {
+  font-size: 50px;
+  position: absolute;
+  left: 1%;
+  background-color: black;
+  border-radius: 50%;
+  border: none;
+}
+
+.slider-text-container .btn-container .btn-appoint:hover {
+  background-color: #8fb569;
+}
+
+.btn-container .btn-play {
+  background-color: #8fb569;
+  color: #fff;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-container .btn-play .anticon.anticon-play-circle {
+  background-color: #fff;
+  color: #8fb569;
+  border-radius: 50%;
+  border: none;
+}
+.btn-container .btn-play:hover {
+  background-color: #e12454;
+}
+
+.btn-container .btn-play:hover > .anticon.anticon-play-circle {
+  color: #e12454;
+}
+
+/* video */
+
+.show-video {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hide-video {
+  display: none;
+}
+
+.show-video .btn-close {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+}
+
+.show-video div > div {
+  text-align: right;
+  cursor: pointer;
+}
+
+.custom-panel {
+  background-color: #fff;
+  font-weight: 600;
+  font-family: "Rubik";
+  border-radius: 2.75px 2.75px 0px 0px;
+  font-size: 16px;
+}
+.custom-panel .panel-desc {
+  font-size: 14px;
+  font-family: "Rubik";
+  color: #505050;
+  font-weight: 400;
+}
+.custom-panel .anticon.anticon-bell {
+  font-size: 16px !important;
+}
+.ant-collapse-header {
+  padding: 20px 12px !important;
+}
+.show-video > div:nth-child(1) {
+  width: 100%;
+  text-align: center;
+}
+.show-video iframe {
+  width: 80%;
+  height: 500px;
+}
+
+@media screen and (max-width: 1120px) {
+  .slider-text-container {
+    top: 50% !important;
+    left: 50% !important;
+  }
+  p.third-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 15px !important;
+  }
+
+  p.second-line.aos-init.aos-animate {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  p.third-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 25px !important;
+  }
+
+  p.second-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 25px !important;
+  }
+
+  .slider-text-container p.first-line {
+    text-align: center;
+  }
+  .slider-text-container p.second-line {
+    text-align: center;
+  }
+  p.thirst-line {
+    text-align: center;
+    font-size: 10px;
+  }
+
+  p.thirst-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .slider-text-container .btn-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  #root
+    > div:nth-child(1)
+    > div
+    > div.slick-slider.custom-slider.slick-initialized
+    > div
+    > div
+    > div.slick-slide.slick-active.slick-current
+    > div
+    > div
+    > div
+    > p.second-line.aos-init.aos-animate {
+    font-size: 25px !important;
+  }
+
+  .slider-text-container .btn-container .btn-play {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+  }
+  .slider-text-container .btn-container .btn-appoint {
+    width: 200px;
+    height: 40px;
+    font-size: 10px;
+  }
+
+  .slider-text-container
+    .btn-container
+    .btn-appoint
+    .anticon.anticon-plus-circle {
+    font-size: 30px;
+    position: absolute;
+    left: 1%;
+    background-color: black;
+    border-radius: 50%;
+    border: none;
+  }
+
+  .show-video iframe {
+    width: 100%;
+    height: 300px;
+  }
+
+  .thirst-line {
+    text-align: center;
+    font-size: 6px !important;
+  }
+
+  p.first-line.aos-init.aos-animate {
+    font-size: 10px;
+  }
+
+  p.third-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 5px !important;
+  }
+
+  p.second-line.aos-init.aos-animate {
+    font-size: 10px !important;
+  }
+  p.second-line {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #root
+    > div.ant-row.css-dev-only-do-not-override-1vtf12y
+    > div
+    > div.slick-slider.custom-slider.slick-initialized
+    > div
+    > div
+    > div.slick-slide.slick-active.slick-current
+    > div
+    > div
+    > div
+    > p.first-line.aos-init.aos-animate {
+    padding-top: 20px;
+  }
+  p.third-line.aos-init.aos-animate {
+    text-align: center;
+    font-size: 5px !important;
+  }
+
+  #root
+    > div.ant-row.css-dev-only-do-not-override-1vtf12y
+    > div
+    > div.slick-slider.custom-slider.slick-initialized
+    > div
+    > div
+    > div.slick-slide.slick-active.slick-current
+    > div
+    > div
+    > div
+    > p.second-line.aos-init.aos-animate {
+    font-size: 15px !important;
+  }
+}

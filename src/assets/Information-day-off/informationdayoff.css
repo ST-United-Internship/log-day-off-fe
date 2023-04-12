@@ -1,0 +1,45 @@
+.button-dayoff button {
+  margin: 10px;
+}
+
+.button-dayoff button:nth-child(1) {
+  margin-left: 0;
+}
+
+.button-dayoff button:nth-child(2) {
+  margin-left: 0;
+}
+
+.button-dayoff button:nth-child(3) {
+  margin-left: 0;
+}
+
+.button-dayoff .checkout-df {
+  background-color: #95de64;
+  color: black;
+}
+
+.button-dayoff .checkout-df:hover {
+  background-color: green;
+  color: white;
+}
+
+.button-dayoff .closeout-df {
+  background-color: #ff4d4f;
+  color: black;
+}
+
+.button-dayoff .closeout-df:hover {
+  background-color: #d71d26;
+  color: white;
+}
+
+.button-dayoff .editout-df {
+  background-color: #b37feb;
+  color: black;
+}
+
+.button-dayoff .editout-df:hover {
+  background-color: purple;
+  color: white;
+}

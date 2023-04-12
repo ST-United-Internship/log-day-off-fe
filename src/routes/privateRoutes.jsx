@@ -1,6 +1,7 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
+import InformationDayOff from "../pages/InformationDayOff";
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
@@ -90,6 +91,10 @@ const privateRoutes = [
       {
         path: "export-dayoff",
         element: <ExportDayoff />,
+      },
+      {
+        path: "information-day-off",
+        element: <InformationDayOff />,
       },
     ],
   },

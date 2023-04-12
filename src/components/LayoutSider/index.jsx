@@ -1,7 +1,12 @@
 import { Layout } from "antd";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-import { PieChartOutlined, DatabaseOutlined } from "@ant-design/icons";
+import {
+  PieChartOutlined,
+  DatabaseOutlined,
+  UsergroupAddOutlined,
+  GroupOutlined,
+} from "@ant-design/icons";
 
 const { Sider } = Layout;
 
@@ -23,6 +28,28 @@ const items = [
       {
         label: "Address",
         key: "address",
+      },
+    ],
+  },
+  {
+    label: "Members",
+    key: "member",
+    icon: <UsergroupAddOutlined />,
+    children: [
+      {
+        label: "Member",
+        key: "member",
+      },
+    ],
+  },
+  {
+    label: "Groups",
+    key: "group",
+    icon: <GroupOutlined />,
+    children: [
+      {
+        label: "Group",
+        key: "group",
       },
     ],
   },

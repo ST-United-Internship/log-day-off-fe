@@ -2,7 +2,8 @@ import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
 import Request from "../pages/Request";
-import Login from "../pages/Login";
+
+import Members from "../pages/Members";
 
 const privateRoutes = [
   {
@@ -24,9 +25,10 @@ const privateRoutes = [
         path: "dayoff",
         element: <DayOff />,
       },
+
       {
-        path: "login",
-        element: <Login />,
+        path: "members",
+        element: <Members />,
       },
     ],
   },

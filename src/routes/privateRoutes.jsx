@@ -8,6 +8,7 @@ import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
 
+import Notification from "../pages/Notification";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -50,6 +51,10 @@ const privateRoutes = [
       {
         path: "create-user",
         element: <FormUser />,
+      },
+      {
+        path: "notification",
+        element: <Notification />,
       },
     ],
   },

@@ -8,7 +8,6 @@ import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
-
 import Notification from "../pages/Notification";
 const privateRoutes = [
   {

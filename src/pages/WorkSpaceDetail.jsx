@@ -1,6 +1,7 @@
 import { Button, Form, Input, Space, Switch, Table } from "antd";
 import { useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 const columns = [
   {
     title: "Name",
@@ -19,8 +20,14 @@ const columns = [
 
     render: () => (
       <Space size="middle">
-        <Button>Delete</Button>
-        <Button>Edit</Button>
+        <Button className="btn-space">
+          <EditOutlined />
+          Reset Password
+        </Button>
+        <Button className="btn-space">
+          <DeleteOutlined />
+          Remove
+        </Button>
       </Space>
     ),
   },
@@ -48,16 +55,10 @@ const WorkSpaceDetail = () => {
       <Form.Item name={["user", "name"]} label="Name">
         <Input placeholder="" className="workspace-text" />
       </Form.Item>
-      <Button style={{ float: "right" }} className="btn-workspace">
-        + New manager
-      </Button>
-      <Space
-        align="center"
-        style={{
-          marginBottom: 16,
-          marginLeft: "3px",
-        }}
-      >
+      <div className="wrap-btn">
+        <Button className="btn-workspace">+ New manager</Button>
+      </div>
+      <Space align="center" className="head-wrap">
         Status:{""}
         <Switch checked={checkStrictly} onChange={setCheckStrictly} />
       </Space>

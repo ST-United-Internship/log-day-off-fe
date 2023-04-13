@@ -2,10 +2,25 @@
   width: 200px;
 }
 
-.workspace-container .btn-workspace {
+.workspace-container .wrap-btn {
+  padding-bottom: 20px;
+}
+.workspace-container .wrap-btn .btn-workspace {
   float: right;
   background-color: blue;
   color: #fff;
   font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.btn-space {
+  background-color: blue;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.workspace-container .head-wrap {
+  margin-bottom: 16px;
+  margin-left: 3px;
 }

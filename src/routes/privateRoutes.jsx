@@ -2,7 +2,7 @@ import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
 import Request from "../pages/Request";
-
+import RevertChange from "../components/RevertForm/RevertChange";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -22,6 +22,10 @@ const privateRoutes = [
       {
         path: "dayoff",
         element: <DayOff />,
+      },
+      {
+        path: "revertchange",
+        element: <RevertChange />,
       },
     ],
   },

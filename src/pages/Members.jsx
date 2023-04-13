@@ -28,7 +28,9 @@ const columns = [
     title: "Name",
     dataIndex: "col1",
     key: "col1",
+    width: "30%",
   },
+
   {
     title: "Email",
     dataIndex: "col2",

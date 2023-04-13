@@ -6,4 +6,5 @@ export const API_URL = {
   MORE_SERVICES: "home",
   NEWS: "home",
   DEPARTMENT_HEALTH: "departments",
+  LOGIN: "auth/login",
 };

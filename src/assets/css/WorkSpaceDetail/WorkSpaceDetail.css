@@ -1,0 +1,11 @@
+.workspace-container .workspace-text {
+  width: 200px;
+}
+
+.workspace-container .btn-workspace {
+  float: right;
+  background-color: blue;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}

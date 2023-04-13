@@ -1,5 +1,5 @@
 import PublicLayout from "../components/PublicLayout/PublicLayout";
-import Login from "../pages/Login/Login";
+import Login from "../pages/Login";
 
 const routes = [
   {

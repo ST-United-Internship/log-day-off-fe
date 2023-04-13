@@ -1,34 +1,10 @@
 import { Layout } from "antd";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-import { PieChartOutlined, DatabaseOutlined } from "@ant-design/icons";
 
 const { Sider } = Layout;
 
-const items = [
-  {
-    label: "DASHBOARD",
-    key: "dashboard",
-    icon: <PieChartOutlined />,
-  },
-  {
-    label: "MASTERDATA",
-    key: "master",
-    icon: <DatabaseOutlined />,
-    children: [
-      {
-        label: "USERS",
-        key: "users",
-      },
-      {
-        label: "Address",
-        key: "address",
-      },
-    ],
-  },
-];
-
-const SiderMenu = () => {
+const SiderMenu = ({ navigation }) => {
   const navigate = useNavigate();
 
   return (
@@ -36,12 +12,12 @@ const SiderMenu = () => {
       theme="dark"
       mode="inline"
       onClick={({ key }) => navigate(key)}
-      items={items}
+      items={navigation}
     />
   );
 };
 
-const LayoutSider = ({ collapsed }) => {
+const LayoutSider = ({ collapsed, navigation }) => {
   return (
     <Sider
       trigger={null}
@@ -57,7 +33,7 @@ const LayoutSider = ({ collapsed }) => {
           background: "rgba(255, 255, 255, 0.3)",
         }}
       />
-      <SiderMenu />
+      <SiderMenu navigation={navigation} />
     </Sider>
   );
 };

@@ -1,0 +1,112 @@
+import { PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Space, Table } from "antd";
+import "../assets/styles/WorkSpace.css";
+import { ROLE } from "../constants/roles";
+import withAuthorization from "../HOCs/withAuthorization";
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    filters: [
+      {
+        text: "Joe",
+        value: "Joe",
+      },
+      {
+        text: "Jim",
+        value: "Jim",
+      },
+      {
+        text: "Submenu",
+        value: "Submenu",
+        children: [
+          {
+            text: "Green",
+            value: "Green",
+          },
+          {
+            text: "Black",
+            value: "Black",
+          },
+        ],
+      },
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => a.name.length - b.name.length,
+    sortDirections: ["descend"],
+  },
+  {
+    title: "State",
+    dataIndex: "state",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.state.length - b.state.length,
+  },
+  {
+    title: "Managers",
+    dataIndex: "manager",
+    filters: [
+      {
+        text: "London",
+        value: "London",
+      },
+      {
+        text: "New York",
+        value: "New York",
+      },
+    ],
+    onFilter: (value, record) => record.manager.indexOf(value) === 0,
+  },
+];
+const data = [
+  {
+    key: "1",
+    name: "John Brown",
+    state: "Active",
+    manager: "New York No. 1 Lake Park",
+  },
+  {
+    key: "2",
+    name: "Jim Green",
+    state: "Inactive",
+    manager: "London No. 1 Lake Park",
+  },
+  {
+    key: "3",
+    name: "Joe Black",
+    state: "Active",
+    manager: "Sydney No. 1 Lake Park",
+  },
+  {
+    key: "4",
+    name: "Jim Red",
+    state: "Inactive",
+    manager: "London No. 2 Lake Park",
+  },
+];
+const onChange = (pagination, filters, sorter, extra) => {
+  console.log("params", pagination, filters, sorter, extra);
+};
+const WorkSpace = () => (
+  <>
+    <div className="nav-container">
+      <div className="wrapper">
+        <a href="#">Branding</a>
+        <Space wrap>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            style={{ fontWeight: "600" }}
+          >
+            New Workspace
+          </Button>
+          <UserOutlined className="user-icon" />
+        </Space>
+      </div>
+    </div>
+    <Table columns={columns} dataSource={data} onChange={onChange} />
+  </>
+);
+export default withAuthorization([ROLE.ADMIN])(WorkSpace);

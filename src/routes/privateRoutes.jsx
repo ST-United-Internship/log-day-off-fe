@@ -3,6 +3,7 @@ import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import Request from "../pages/Request";
+import WorkSpace from "../pages/WorkSpace";
 
 const privateRoutes = [
   {
@@ -23,6 +24,10 @@ const privateRoutes = [
       {
         path: "dayoff",
         element: <DayOff />,
+      },
+      {
+        path: "workspaces",
+        element: <WorkSpace />,
       },
       {
         path: "403",

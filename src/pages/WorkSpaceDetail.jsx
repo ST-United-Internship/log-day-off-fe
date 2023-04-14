@@ -62,7 +62,7 @@ const WorkSpaceDetail = () => {
         Status:{""}
         <Switch checked={checkStrictly} onChange={setCheckStrictly} />
       </Space>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data}></Table>
     </div>
   );
 };

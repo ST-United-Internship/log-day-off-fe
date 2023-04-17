@@ -1,9 +1,9 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
-import Forbidden from "../pages/Forbidden/Forbidden";
+
 import Request from "../pages/Request";
-import WorkSpace from "../pages/WorkSpace";
+import RequestsDetail from "../pages/Requests-Detail";
 
 const privateRoutes = [
   {
@@ -26,12 +26,8 @@ const privateRoutes = [
         element: <DayOff />,
       },
       {
-        path: "workspaces",
-        element: <WorkSpace />,
-      },
-      {
-        path: "403",
-        element: <Forbidden />,
+        path: "requestsDetail",
+        element: <RequestsDetail />,
       },
     ],
   },

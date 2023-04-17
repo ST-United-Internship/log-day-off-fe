@@ -1,4 +1,6 @@
 import { Table } from "antd";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 
 const data = [
   {
@@ -42,4 +44,4 @@ const Members = () => {
   return <Table dataSource={data} columns={columns} pagination={false} />;
 };
 
-export default Members;
+export default withAuthorization([ROLE.MANAGER])(Members);

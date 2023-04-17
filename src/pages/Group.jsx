@@ -1,4 +1,5 @@
 import { Table } from "antd";
+// import withAuthorization from "../HOCs/withAuthorization";
 
 const columns = [
   {

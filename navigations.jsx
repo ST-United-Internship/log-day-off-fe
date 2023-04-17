@@ -7,6 +7,8 @@ import {
   GroupOutlined,
   UserAddOutlined,
   Loading3QuartersOutlined,
+  UnorderedListOutlined,
+  UserSwitchOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -49,6 +51,7 @@ export const navigations = [
       {
         label: "List",
         key: "workspaces",
+        icon: <UnorderedListOutlined />,
       },
     ],
   },
@@ -57,12 +60,6 @@ export const navigations = [
     key: "members",
     icon: <UserOutlined />,
     authorize: [ROLE.MANAGER],
-  },
-  {
-    label: "REQUESTS DETAIL",
-    key: "requestsDetail",
-    icon: <TableOutlined />,
-    authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
   {
     label: "Group",
@@ -83,8 +80,15 @@ export const navigations = [
     authorize: [ROLE.ADMIN],
     children: [
       {
-        label: "RequestAccount",
+        label: "Request Account",
         key: "request-account",
+        icon: <UserSwitchOutlined />,
+      },
+      {
+        label: "Request Detail",
+        key: "requestsDetail",
+        icon: <TableOutlined />,
+        authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
     ],
   },

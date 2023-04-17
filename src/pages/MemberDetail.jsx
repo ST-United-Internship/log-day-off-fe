@@ -1,5 +1,7 @@
 import { Button, Form, Input } from "antd";
 import "../assets/css/MemberDetailLDO/MemberDetail.css";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 const layout = {
   labelCol: {
     span: 8,
@@ -99,4 +101,4 @@ const MemberDetail = () => (
     </Form>
   </div>
 );
-export default MemberDetail;
+export default withAuthorization([ROLE.MANAGER])(MemberDetail);

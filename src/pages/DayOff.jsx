@@ -1,6 +1,8 @@
 import { Button, Form, Input, Radio, Select, Space } from "antd";
 import { useState } from "react";
 import "../assets/css/DayOffLDO/DayOff.css";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 
 const DayOff = () => {
   const onFinish = (values) => {
@@ -155,4 +157,4 @@ const DayOff = () => {
     </div>
   );
 };
-export default DayOff;
+export default withAuthorization([ROLE.STAFF, ROLE.STAFF])(DayOff);

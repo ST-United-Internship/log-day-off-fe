@@ -5,35 +5,6 @@ import { useNavigate } from "react-router-dom";
 const { Sider } = Layout;
 
 const SiderMenu = ({ navigation }) => {
-const items = [
-  {
-    label: "DASHBOARD",
-    key: "dashboard",
-    icon: <PieChartOutlined />,
-  },
-  {
-    label: "MASTERDATA",
-    key: "master",
-    icon: <DatabaseOutlined />,
-    children: [
-      {
-        label: "USERS",
-        key: "users",
-      },
-      {
-        label: "Address",
-        key: "address",
-      },
-    ],
-  },
-  {
-    label: "DAYOFF",
-    key: "dayoff",
-    icon: <PieChartOutlined />,
-  },
-];
-
-const SiderMenu = () => {
   const navigate = useNavigate();
 
   return (

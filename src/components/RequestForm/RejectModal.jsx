@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import "../assets/reject/rejectmodal.css";
+import "../../assets/reject/rejectmodal.css";
 const RejectModal = () => {
   return (
     <Form className="form-reject">

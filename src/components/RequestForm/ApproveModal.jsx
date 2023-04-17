@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import "../assets/approve/approvemodal.css";
+import "../../assets/approve/approvemodal.css";
 const ApproveModal = () => {
   return (
     <Form className="form-approve">

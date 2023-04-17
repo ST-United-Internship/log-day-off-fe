@@ -2,6 +2,9 @@ import { Button, Form, Input, Space, Switch, Table } from "antd";
 import { useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
+
 const columns = [
   {
     title: "Name",
@@ -66,4 +69,4 @@ const WorkSpaceDetail = () => {
     </div>
   );
 };
-export default WorkSpaceDetail;
+export default withAuthorization([ROLE.ADMIN])(WorkSpaceDetail);

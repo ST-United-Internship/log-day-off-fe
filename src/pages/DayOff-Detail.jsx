@@ -100,4 +100,9 @@ const TableExample = () => {
   );
 };
 
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(TableExample);
+export default withAuthorization([
+  ROLE.ADMIN,
+  ROLE.MANAGER,
+  ROLE.MASTER,
+  ROLE.STAFF,
+])(TableExample);

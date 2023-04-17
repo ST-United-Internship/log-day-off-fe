@@ -8,6 +8,8 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 import "../assets/css/requests.css";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 
 const columns = [
   {
@@ -100,4 +102,4 @@ const TableExample = () => {
   );
 };
 
-export default TableExample;
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(TableExample);

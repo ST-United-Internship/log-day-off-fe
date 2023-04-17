@@ -1,17 +1,21 @@
 import { Col, Row, Input, Button, Form } from "antd";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import "../assets/login/login.css";
-import { useState } from "react";
+import { useLogin } from "../hooks/useAuth";
 
 const GmailLoginForm = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const { mutate: login } = useLogin();
+
+  const onFinish = (values) => {
+    login(values);
+  };
 
   return (
     <div className="login-session">
       <Row className="login-container">
         <Col className="left_side_login" span={12}></Col>
         <Col className="right_side_login" span={24} lg={12}>
-          <Form className="form-login">
+          <Form className="form-login" onFinish={onFinish}>
             <Form.Item className="form-logo">
               <img
                 className="login-image"
@@ -24,7 +28,7 @@ const GmailLoginForm = () => {
 
             <Form.Item
               className="form-name"
-              name="username"
+              name="email"
               rules={[
                 { required: true, message: "Please input your username!" },
               ]}
@@ -49,10 +53,6 @@ const GmailLoginForm = () => {
                 placeholder="Input password"
                 prefix={<KeyOutlined className="site-form-item-icon" />}
                 size="large"
-                visibilityToggle={{
-                  visible: passwordVisible,
-                  onVisibleChange: setPasswordVisible,
-                }}
               />
             </Form.Item>
 

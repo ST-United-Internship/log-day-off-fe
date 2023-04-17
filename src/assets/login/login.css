@@ -41,7 +41,7 @@
   font-size: 20px;
   line-height: 20px;
   margin-bottom: 40px;
-  color: #985d09;
+  color: #1d1f20;
 }
 
 .right_side_login .form-name {
@@ -107,7 +107,7 @@
   left: calc(-1 * var(--borderWidth));
   height: calc(100% + var(--borderWidth) * 2);
   width: calc(100% + var(--borderWidth) * 2);
-  background: linear-gradient(60deg, #ffc857, #90caf9, #ff5d8f);
+  background: linear-gradient(60deg, #ffc857, #90caf9, #ff5d8f, #ff0505);
   z-index: -1;
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
@@ -130,7 +130,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(to left, #ffff, #ffc857);
+  background-color: #fff;
 }
 
 @media only screen and (min-width: 1367px) {

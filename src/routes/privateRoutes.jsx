@@ -2,6 +2,10 @@ import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
 import Request from "../pages/Request";
+import RequestsDetail from "../pages/Requests-Detail";
+import Members from "../pages/Members";
+import Group from "../pages/Group";
+
 
 const privateRoutes = [
   {
@@ -28,9 +32,15 @@ const privateRoutes = [
         path: "requestsDetail",
         element: <RequestsDetail />,
       },
+
       {
-        path: "groupdetail",
-        element: <GroupDetail />,
+        path: "members",
+        element: <Members />,
+      },
+
+      {
+        path: "group",
+        element: <Group />,
       },
       {
         path: "403",

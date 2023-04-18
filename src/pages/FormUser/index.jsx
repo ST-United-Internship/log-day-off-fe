@@ -1,4 +1,4 @@
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, Grid } from "antd";
 import { ROLE } from "../../constants/roles";
 import { getStorageData } from "../../helpers/storage";
 import withAuthorization from "../../HOCs/withAuthorization";
@@ -7,10 +7,12 @@ import { useCreateStaff } from "../../hooks/useCreateStaff";
 import { PROFILE } from "../../constants/auth";
 import "./formuser.css";
 
+const { useBreakpoint } = Grid;
+
 const FormUser = () => {
   const { mutate: createStaff } = useCreateStaff();
   const { mutate: createManager } = useCreateManager();
-
+  const { md } = useBreakpoint();
   const authUser = getStorageData(PROFILE);
 
   const onFinish = (values) => {
@@ -25,17 +27,17 @@ const FormUser = () => {
         break;
     }
   };
+
+  const formLayout = md
+    ? { labelCol: { span: 4 }, wrapperCol: { span: 20 }, layout: "horizontal" }
+    : {
+        labelCol: { span: 24 },
+        wrapperCol: { span: 24 },
+        layout: "vertical",
+      };
+
   return (
-    <Form
-      className="form-user"
-      onFinish={onFinish}
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 20,
-      }}
-    >
+    <Form className="form-user" onFinish={onFinish} {...formLayout}>
       <Form.Item
         label="Username"
         name="username"
@@ -60,7 +62,7 @@ const FormUser = () => {
         rules={[{ required: true, message: "Please input your email!" }]}
         labelAlign="left"
       >
-        <Input placeholder="Email" size="large" />
+        <Input type="email" placeholder="Email" size="large" />
       </Form.Item>
 
       <Form.Item

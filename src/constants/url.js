@@ -9,4 +9,5 @@ export const API_URL = {
   LOGIN: "auth/login",
   CREATE_STAFF: "staffs",
   CREATE_MANAGER: "admin/manager",
+  CREATE_REQUEST: "requests",
 };

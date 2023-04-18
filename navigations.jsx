@@ -58,7 +58,6 @@ export const navigations = [
     authorize: [ROLE.MANAGER],
   },
   {
-
     label: "REQUESTS DETAIL",
 
     label: "RequestsDetail",
@@ -80,5 +79,4 @@ export const navigations = [
     icon: <UserAddOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
-
 ];

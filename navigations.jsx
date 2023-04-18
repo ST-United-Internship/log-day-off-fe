@@ -26,6 +26,10 @@ export const navigations = [
         label: "Address",
         key: "address",
       },
+      {
+        label: "Group",
+        key: "groupdetail",
+      },
     ],
   },
   {

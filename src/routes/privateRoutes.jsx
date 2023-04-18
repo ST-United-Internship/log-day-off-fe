@@ -23,6 +23,27 @@ const privateRoutes = [
         path: "dayoff",
         element: <DayOff />,
       },
+
+      {
+        path: "requestsDetail",
+        element: <RequestsDetail />,
+      },
+      {
+        path: "groupdetail",
+        element: <GroupDetail />,
+      },
+      {
+        path: "403",
+        element: <Forbidden />,
+      },
+      {
+        path: "create-user",
+        element: <FormUser />,
+      },
+      {
+        path: "dayoff",
+        element: <FormUser />,
+      },
     ],
   },
 ];

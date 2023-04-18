@@ -23,9 +23,12 @@ const PrivateLayout = () => {
 
   useEffect(() => {
     if (!isAuth || !authUser) {
+      delete axios.defaults.headers.common["Authorization"];
       removeStorageData(ACCESS_TOKEN);
       removeStorageData(PROFILE);
       navigate("/signin");
+    } else if (!axios.defaults.headers.common["Authorization"]) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + isAuth;
     }
   }, [isAuth, authUser, navigate]);
 

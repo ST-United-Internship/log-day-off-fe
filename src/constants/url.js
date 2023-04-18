@@ -7,4 +7,6 @@ export const API_URL = {
   NEWS: "home",
   DEPARTMENT_HEALTH: "departments",
   LOGIN: "auth/login",
+  CREATE_STAFF: "staffs",
+  CREATE_MANAGER: "admin/manager",
 };

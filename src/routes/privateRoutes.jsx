@@ -1,6 +1,8 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import FormUser from "../pages/FormUser";
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
 import GroupDetail from "../pages/GroupDetail";
@@ -33,6 +35,14 @@ const privateRoutes = [
       {
         path: "groupdetail",
         element: <GroupDetail />,
+      },
+      {
+        path: "403",
+        element: <Forbidden />,
+      },
+      {
+        path: "create-user",
+        element: <FormUser />,
       },
     ],
   },

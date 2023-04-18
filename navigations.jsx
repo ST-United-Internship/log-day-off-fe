@@ -1,16 +1,4 @@
-import {
-  DatabaseOutlined,
-  PieChartOutlined,
-  ReconciliationOutlined,
-<<<<<<< HEAD
-  UserOutlined,
-  TableOutlined,
-  GroupOutlined,
-  UserAddOutlined,
-=======
-  Loading3QuartersOutlined,
->>>>>>> 8dcbed3 (fix: fix component ui)
-} from "@ant-design/icons";
+import { DatabaseOutlined, PieChartOutlined, ReconciliationOutlined, UserOutlined, TableOutlined, GroupOutlined, UserAddOutlined } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
 export const navigations = [
@@ -56,7 +44,6 @@ export const navigations = [
     ],
   },
   {
-<<<<<<< HEAD
     label: "Members",
     key: "members",
     icon: <UserOutlined />,
@@ -79,11 +66,17 @@ export const navigations = [
     key: "create-user",
     icon: <UserAddOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
-=======
-    label: "REQUESTACCOUNT",
-    key: "request-account",
+  },
+  {
+    label: "REQUEST",
+    key: "request",
     icon: <Loading3QuartersOutlined />,
     authorize: [ROLE.ADMIN],
->>>>>>> 8dcbed3 (fix: fix component ui)
+    children: [
+      {
+        label: "RequestAccount",
+        key: "request-account",
+      },
+    ],
   },
 ];

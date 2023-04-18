@@ -11,10 +11,13 @@ import Notification from "../pages/Notification";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
+<<<<<<< HEAD
 import RequestAccount from "../pages/RequestAccount";
 import WorkSpaceDetail from "../pages/WorkSpaceDetail";
 import ExportDayoff from "../pages/ExportGoogleSheet/ExportDayoff";
 
+=======
+>>>>>>> 66b60fe (feat: ldo-13 update)
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -73,11 +76,15 @@ const privateRoutes = [
         path: "notification",
         element: <Notification />,
       },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 66b60fe (feat: ldo-13 update)
       {
         path: "workspaces",
         element: <WorkSpace />,
       },
+<<<<<<< HEAD
 
       {
         path: "request-account",
@@ -96,6 +103,8 @@ const privateRoutes = [
         path: "information-day-off",
         element: <InformationDayOff />,
       },
+=======
+>>>>>>> 66b60fe (feat: ldo-13 update)
     ],
   },
 ];

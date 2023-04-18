@@ -1,5 +1,7 @@
 import { Form, Input, Switch } from "antd";
 import "../assets/notification/notification.css";
+import { ROLE } from "../constants/roles";
+import withAuthorization from "../HOCs/withAuthorization";
 const Notification = () => {
   const onFinish = (values) => {
     console.log("Form values:", values);
@@ -28,4 +30,4 @@ const Notification = () => {
     </Form>
   );
 };
-export default Notification;
+export default withAuthorization([ROLE.MANAGER])(Notification);

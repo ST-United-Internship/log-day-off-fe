@@ -33,6 +33,10 @@ export const navigations = [
         label: "Group",
         key: "groupdetail",
       },
+      {
+        label: "Notifications",
+        key: "notification",
+      },
     ],
   },
   {

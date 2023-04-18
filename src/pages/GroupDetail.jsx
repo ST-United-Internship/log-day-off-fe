@@ -1,6 +1,8 @@
 import { Form, Input, Button } from "antd";
 import { useState } from "react";
 import "../assets/groupdetail/groupdetail.css";
+import { ROLE } from "../constants/roles";
+import withAuthorization from "../HOCs/withAuthorization";
 const { TextArea } = Input;
 
 const GroupDetail = () => {
@@ -55,4 +57,4 @@ const GroupDetail = () => {
   );
 };
 
-export default GroupDetail;
+export default withAuthorization([ROLE.MANAGER])(GroupDetail);

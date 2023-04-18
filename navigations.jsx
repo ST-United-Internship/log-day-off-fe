@@ -2,6 +2,9 @@ import {
   DatabaseOutlined,
   PieChartOutlined,
   ReconciliationOutlined,
+  UserOutlined,
+  TableOutlined,
+  GroupOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -38,5 +41,23 @@ export const navigations = [
         key: "workspaces",
       },
     ],
+  },
+  {
+    label: "Members",
+    key: "members",
+    icon: <UserOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
+  {
+    label: "RequestsDetail",
+    key: "requestsDetail",
+    icon: <TableOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+  },
+  {
+    label: "Group",
+    key: "group",
+    icon: <GroupOutlined />,
+    authorize: [ROLE.MANAGER],
   },
 ];

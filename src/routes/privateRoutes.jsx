@@ -4,6 +4,7 @@ import DayOff from "../pages/DayOff";
 
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
+import Members from "../pages/Members";
 
 const privateRoutes = [
   {
@@ -29,6 +30,14 @@ const privateRoutes = [
       {
         path: "requestsDetail",
         element: <RequestsDetail />,
+      },
+      {
+        path: "members",
+        element: <Members />,
+      },
+      {
+        path: "group",
+        element: <Group />,
       },
     ],
   },

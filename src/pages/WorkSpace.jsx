@@ -6,92 +6,11 @@ import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
 import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
 import { useCreateWorkSpace } from "../hooks/useCreateWorkSpace";
+import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
 
 const WorkSpace = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      filters: [
-        {
-          text: "Joe",
-          value: "Joe",
-        },
-        {
-          text: "Jim",
-          value: "Jim",
-        },
-        {
-          text: "Submenu",
-          value: "Submenu",
-          children: [
-            {
-              text: "Green",
-              value: "Green",
-            },
-            {
-              text: "Black",
-              value: "Black",
-            },
-          ],
-        },
-      ],
-      // specify the condition of filtering result
-      // here is that finding the name started with `value`
-      onFilter: (value, record) => record.name.indexOf(value) === 0,
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ["descend"],
-    },
-    {
-      title: "State",
-      dataIndex: "state",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.state.length - b.state.length,
-    },
-    {
-      title: "Managers",
-      dataIndex: "manager",
-      filters: [
-        {
-          text: "London",
-          value: "London",
-        },
-        {
-          text: "New York",
-          value: "New York",
-        },
-      ],
-      onFilter: (value, record) => record.manager.indexOf(value) === 0,
-    },
-  ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      state: "Active",
-      manager: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      state: "Inactive",
-      manager: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      state: "Active",
-      manager: "Sydney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      state: "Inactive",
-      manager: "London No. 2 Lake Park",
-    },
-  ];
 
   const {
     mutate: createWorkspace,
@@ -100,12 +19,47 @@ const WorkSpace = () => {
     isSuccess,
   } = useCreateWorkSpace();
 
+  const { data: listWorkspace, isLoading: loadListWorkspace } =
+    useGetListWorkspace();
+
+  const dataTable =
+    listWorkspace?.length &&
+    Object.keys(listWorkspace[0]).reduce((prev, curr) => {
+      prev[curr] = curr;
+      return prev;
+    }, {});
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: dataTable?.name,
+    },
+    {
+      title: "State",
+      dataIndex: dataTable?.status,
+    },
+    {
+      title: "Managers",
+      dataIndex: dataTable?.users,
+      render: (users) => {
+        return (
+          <>
+            {users.map((user, index) => {
+              if (index === 0) return <span>{user.username}</span>;
+              return <span>{`, ${user.username}`}</span>;
+            })}
+          </>
+        );
+      },
+    },
+  ];
+
   useEffect(() => {
     if (isSuccess) {
-      message.success("Create work space successfully!");
+      message.success("Create workspace successfully!");
       handleCancel();
     } else if (isError) {
-      message.error("Create work space unsuccessfully!");
+      message.error("Create workspace unsuccessfully!");
     }
   }, [isSuccess]);
 
@@ -125,7 +79,7 @@ const WorkSpace = () => {
   };
 
   return (
-    <>
+    <LoadingComponent isLoading={loadListWorkspace}>
       <div className="nav-container">
         <div className="wrapper">
           <a href="#">Branding</a>
@@ -165,7 +119,7 @@ const WorkSpace = () => {
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
-            autoComplete="off"
+            autoComplete="on"
             form={form}
           >
             <Form.Item
@@ -184,8 +138,8 @@ const WorkSpace = () => {
           </Form>
         </LoadingComponent>
       </Modal>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
-    </>
+      <Table columns={columns} dataSource={listWorkspace} onChange={onChange} />
+    </LoadingComponent>
   );
 };
 

@@ -5,7 +5,8 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../pages/FormUser";
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
-import GroupDetail from "../pages/GroupDetail";
+import Members from "../pages/Members";
+import Group from "../pages/Group";
 
 const privateRoutes = [
   {
@@ -32,9 +33,15 @@ const privateRoutes = [
         path: "requestsDetail",
         element: <RequestsDetail />,
       },
+
       {
-        path: "groupdetail",
-        element: <GroupDetail />,
+        path: "members",
+        element: <Members />,
+      },
+
+      {
+        path: "group",
+        element: <Group />,
       },
       {
         path: "403",

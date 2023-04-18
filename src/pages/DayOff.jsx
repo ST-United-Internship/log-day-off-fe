@@ -1,23 +1,28 @@
 import { Button, Form, Input, Radio, Select, Space } from "antd";
-import { useState } from "react";
 import "../assets/css/DayOffLDO/DayOff.css";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
+import { useCreateRequest } from "../hooks/useCreateRequest";
+import { PROFILE } from "../constants/auth";
+import { getStorageData } from "../helpers/storage";
 
 const DayOff = () => {
+  const { mutate: createRequest } = useCreateRequest();
+  const authUser = getStorageData(PROFILE);
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
-  const [value, setValue] = useState(1);
-  const onChange = (e) => {
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    switch (authUser.role.name) {
+      case ROLE.ADMIN:
+        createRequest({ ...values, userRequestId: authUser.id });
+        break;
+      default:
+        break;
+    }
   };
   return (
     <div className="main-container">
       <Form
-        name="complex-form"
         onFinish={onFinish}
+        name="complex-form"
         labelCol={{
           span: 8,
         }}
@@ -26,8 +31,13 @@ const DayOff = () => {
         }}
         className="full-form"
       >
-        <Form.Item label="Type of day off">
-          <Radio.Group onChange={onChange} value={value}>
+        <Form.Item
+          label="Type of day off"
+          initialValue={1}
+          name="typeRequest"
+          rules={[{ required: true, message: "Please select an option!" }]}
+        >
+          <Radio.Group>
             <Space direction="vertical">
               <Radio value={1}>Off </Radio>
               <Radio value={2}>WFH </Radio>
@@ -38,7 +48,7 @@ const DayOff = () => {
           <Form.Item label="From" className="full-form">
             <Input.Group compact>
               <Form.Item
-                name={["from", "date"]}
+                name="from"
                 noStyle
                 rules={[
                   {
@@ -54,26 +64,26 @@ const DayOff = () => {
                   placeholder="01-01-2023"
                   className="text-select"
                 />
-                <Form.Item
-                  name={["province", "province"]}
-                  noStyle
-                  rules={[
-                    {
-                      required: true,
-                      message: "Province is required",
-                    },
-                  ]}
+              </Form.Item>
+              <Form.Item
+                name={["province", "province"]}
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "Province is required",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select province"
+                  style={{ width: "200px" }}
+                  className="select-form"
                 >
-                  <Select
-                    placeholder="Select province"
-                    style={{ width: "200px" }}
-                    className="select-form"
-                  >
-                    <Option value="Zhejiang">Morning</Option>
-                    <Option value="Jiangsu">Afternoon</Option>
-                    <Option value="Jiangsu">All day</Option>
-                  </Select>
-                </Form.Item>
+                  <Option value="one">Morning</Option>
+                  <Option value="two">Afternoon</Option>
+                  <Option value="three">All day</Option>
+                </Select>
               </Form.Item>
             </Input.Group>
           </Form.Item>
@@ -85,7 +95,7 @@ const DayOff = () => {
           }}
         >
           <Form.Item
-            name="date"
+            name="to"
             rules={[
               {
                 required: true,
@@ -122,6 +132,7 @@ const DayOff = () => {
         </Form.Item>
         <Form.Item
           label="Reason"
+          name="reason"
           style={{
             marginBottom: 0,
           }}
@@ -146,7 +157,7 @@ const DayOff = () => {
           </Form.Item>
         </Form.Item>
         <Form.Item label=" " colon={false} className="full-btn">
-          <Button type="primary" htmlType="submit" className="btn-cancel">
+          <Button type="primary" className="btn-cancel">
             Cancel
           </Button>
           <Button type="primary" htmlType="submit" className="btn-submit">

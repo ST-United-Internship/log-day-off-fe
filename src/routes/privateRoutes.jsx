@@ -1,14 +1,8 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
-import Forbidden from "../pages/Forbidden/Forbidden";
-import FormUser from "../pages/FormUser";
 import Request from "../pages/Request";
-import RequestsDetail from "../pages/Requests-Detail";
-import Members from "../pages/Members";
-import Group from "../pages/Group";
 
-import Notification from "../pages/Notification";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -28,33 +22,6 @@ const privateRoutes = [
       {
         path: "dayoff",
         element: <DayOff />,
-      },
-
-      {
-        path: "requestsDetail",
-        element: <RequestsDetail />,
-      },
-
-      {
-        path: "members",
-        element: <Members />,
-      },
-
-      {
-        path: "group",
-        element: <Group />,
-      },
-      {
-        path: "403",
-        element: <Forbidden />,
-      },
-      {
-        path: "create-user",
-        element: <FormUser />,
-      },
-      {
-        path: "notification",
-        element: <Notification />,
       },
     ],
   },

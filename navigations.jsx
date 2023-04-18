@@ -49,7 +49,7 @@ export const navigations = [
     authorize: [ROLE.MANAGER],
   },
   {
-    label: "RequestsDetail",
+    label: "Requests Detail",
     key: "requestsDetail",
     icon: <TableOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],

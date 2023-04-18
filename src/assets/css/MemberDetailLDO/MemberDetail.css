@@ -1,0 +1,31 @@
+.wrap-btn {
+  text-align: end;
+}
+.title-text {
+  padding-left: 120px;
+}
+
+.wrap-btn .wrap-left {
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+@media (max-width: 540px) {
+  .title-text {
+    padding-left: 0px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .title-text {
+    padding-left: 0px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrap-btn {
+    text-align: unset;
+  }
+}

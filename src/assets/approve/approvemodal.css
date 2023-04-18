@@ -1,0 +1,12 @@
+.approve-nut-hai {
+  margin-left: 20px;
+}
+
+.form-approve {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-approve p {
+  text-align: center;
+}

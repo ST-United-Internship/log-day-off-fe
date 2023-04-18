@@ -157,4 +157,6 @@ const DayOff = () => {
     </div>
   );
 };
-export default withAuthorization([ROLE.MANAGER, ROLE.STAFF])(DayOff);
+export default withAuthorization([ROLE.MANAGER, ROLE.STAFF, ROLE.ADMIN])(
+  DayOff
+);

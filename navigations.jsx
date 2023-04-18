@@ -58,11 +58,7 @@ export const navigations = [
     authorize: [ROLE.MANAGER],
   },
   {
-
     label: "REQUESTS DETAIL",
-
-    label: "RequestsDetail",
-
     key: "requestsDetail",
     icon: <TableOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
@@ -73,12 +69,10 @@ export const navigations = [
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
   },
-
   {
     label: "CREATE USER",
     key: "create-user",
     icon: <UserAddOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
-
 ];

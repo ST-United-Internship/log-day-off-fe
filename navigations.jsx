@@ -117,4 +117,22 @@ export const navigations = [
       },
     ],
   },
+  {
+    label: "Members",
+    key: "members",
+    icon: <UserOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
+  {
+    label: "RequestsDetail",
+    key: "requestsDetail",
+    icon: <TableOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+  },
+  {
+    label: "Group",
+    key: "group",
+    icon: <GroupOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
 ];

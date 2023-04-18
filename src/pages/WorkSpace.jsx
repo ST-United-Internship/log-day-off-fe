@@ -45,8 +45,9 @@ const WorkSpace = () => {
         return (
           <>
             {users.map((user, index) => {
-              if (index === 0) return <span>{user.username}</span>;
-              return <span>{`, ${user.username}`}</span>;
+              if (index === 0)
+                return <span key={user.id}>{user.username}</span>;
+              return <span key={user.id}>{`, ${user.username}`}</span>;
             })}
           </>
         );

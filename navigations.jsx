@@ -33,6 +33,10 @@ export const navigations = [
         label: "Group",
         key: "groupdetail",
       },
+      {
+        label: "Notification",
+        key: "notification",
+      },
     ],
   },
   {
@@ -65,6 +69,7 @@ export const navigations = [
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
   },
+  {
     label: "CREATE USER",
     key: "create-user",
     icon: <UserAddOutlined />,

@@ -1,4 +1,13 @@
-import { DatabaseOutlined, PieChartOutlined, ReconciliationOutlined, UserOutlined, TableOutlined, GroupOutlined, UserAddOutlined } from "@ant-design/icons";
+import {
+  DatabaseOutlined,
+  PieChartOutlined,
+  ReconciliationOutlined,
+  UserOutlined,
+  TableOutlined,
+  GroupOutlined,
+  UserAddOutlined,
+  Loading3QuartersOutlined,
+} from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
 export const navigations = [

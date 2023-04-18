@@ -53,7 +53,7 @@ const DayOff = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Date is required",
+                    message: "Date is required.",
                   },
                 ]}
               >

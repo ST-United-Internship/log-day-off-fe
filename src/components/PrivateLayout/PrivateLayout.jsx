@@ -70,7 +70,11 @@ const PrivateLayout = () => {
 
   return (
     <Layout hasSider>
-      <LayoutSider collapsed={collapsed} navigation={acceptedRoute} />
+      <LayoutSider
+        className="layout-backgroud"
+        collapsed={collapsed}
+        navigation={acceptedRoute}
+      />
       <Layout className="site-layout" style={{ width: "calc(100vw - 200px)" }}>
         <LayoutTopbar collapsed={collapsed} setCollapsed={setCollapsed} />
         <Layout className="site-layout-content">

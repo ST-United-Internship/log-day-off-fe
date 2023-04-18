@@ -10,10 +10,6 @@
   transition: color 0.3s;
 }
 
-.trigger:hover {
-  color: #1890ff;
-}
-
 .site-layout {
   height: calc(100vh - 1.5rem);
   overflow-y: auto;

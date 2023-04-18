@@ -7,7 +7,9 @@ import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
+
 import GroupDetail from "../pages/GroupDetail";
+
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -39,6 +41,7 @@ const privateRoutes = [
         element: <Members />,
       },
 
+
       {
         path: "group",
         element: <Group />,
@@ -51,9 +54,10 @@ const privateRoutes = [
         path: "create-user",
         element: <FormUser />,
       },
+
       {
-        path: "groupdetail",
-        element: <GroupDetail />,
+        path: "group",
+        element: <Group />,
       },
     ],
   },

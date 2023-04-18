@@ -5,6 +5,7 @@ import {
   UserOutlined,
   TableOutlined,
   GroupOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -28,10 +29,14 @@ export const navigations = [
         label: "Address",
         key: "address",
       },
+      {
+        label: "Group",
+        key: "groupdetail",
+      },
     ],
   },
   {
-    label: "Workspace",
+    label: "WORKSPACE",
     key: "workspace",
     icon: <ReconciliationOutlined />,
     authorize: [ROLE.ADMIN],
@@ -59,5 +64,10 @@ export const navigations = [
     key: "group",
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
+  },
+    label: "CREATE USER",
+    key: "create-user",
+    icon: <UserAddOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
 ];

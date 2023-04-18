@@ -7,6 +7,7 @@ import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
 import Notification from "../pages/Notification";
+import Forbidden from "../pages/Forbidden/Forbidden";
 const privateRoutes = [
   {
     element: <PrivateLayout />,

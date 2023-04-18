@@ -8,6 +8,7 @@ import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
 import Notification from "../pages/Notification";
 import Forbidden from "../pages/Forbidden/Forbidden";
+import FormUser from "../../src/pages/FormUser/index";
 const privateRoutes = [
   {
     element: <PrivateLayout />,

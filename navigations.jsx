@@ -97,6 +97,7 @@ export const navigations = [
     authorize: [ROLE.ADMIN],
     children: [
       {
+<<<<<<< HEAD
         label: "WORKSPACE",
         key: "workspace",
         icon: <ReconciliationOutlined />,
@@ -107,6 +108,49 @@ export const navigations = [
             icon: <UnorderedListOutlined />,
           },
         ],
+=======
+        label: "List",
+        key: "workspaces",
+        icon: <UnorderedListOutlined />,
+      },
+    ],
+  },
+
+  {
+    label: "MEMBERS",
+    key: "members",
+    icon: <UserOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
+  {
+    label: "GROUP",
+    key: "group",
+    icon: <GroupOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
+  {
+    label: "CREATE USER",
+    key: "create-user",
+    icon: <UserAddOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+  },
+
+  {
+    label: "REQUEST",
+    key: "request",
+    icon: <Loading3QuartersOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+    children: [
+      {
+        label: "Request Account",
+        key: "request-account",
+        icon: <UserSwitchOutlined />,
+      },
+      {
+        label: "Request Detail",
+        key: "requests-detail",
+        icon: <TableOutlined />,
+>>>>>>> d9eed76 (feat: ldo-13 fix navi)
       },
     ],
   },

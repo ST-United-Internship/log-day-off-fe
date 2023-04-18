@@ -9,6 +9,7 @@ import GroupDetail from "../pages/GroupDetail";
 import Notification from "../pages/Notification";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
+import WorkSpace from "../pages/WorkSpace";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -60,6 +61,10 @@ const privateRoutes = [
       {
         path: "notification",
         element: <Notification />,
+      },
+      {
+        path: "workspaces",
+        element: <WorkSpace />,
       },
     ],
   },

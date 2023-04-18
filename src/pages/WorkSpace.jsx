@@ -1,19 +1,15 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Space, Table, Form, message, Modal } from "antd";
+import { Button, Space, Table, Form, message, Modal, Input } from "antd";
 import { useEffect, useState } from "react";
 import "../assets/styles/WorkSpace.css";
-import InputComponent from "../components/InputComponent/InputComponent";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
 import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
-import { useMutationHooks } from "../hooks/useMuationHook";
-import * as WorkSpaceService from "../services/WorkSpaceService";
+import { useCreateWorkSpace } from "../hooks/useCreateWorkSpace";
 
 const WorkSpace = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stateWorkSpace, setStateWorkSpace] = useState({
-    name: "",
-  });
+  const [form] = Form.useForm();
   const columns = [
     {
       title: "Name",
@@ -97,44 +93,35 @@ const WorkSpace = () => {
     },
   ];
 
-  const mutation = useMutationHooks((data) => {
-    const { name } = data;
-    const res = WorkSpaceService.createWorkSpace({ name });
-    return res;
-  });
-
-  const { isLoading, isSuccess, isError } = mutation;
+  const {
+    mutate: createWorkspace,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useCreateWorkSpace();
 
   useEffect(() => {
     if (isSuccess) {
       message.success("Create work space successfully!");
       handleCancel();
     } else if (isError) {
-      message.error();
+      message.error("Create work space unsuccessfully!");
     }
   }, [isSuccess]);
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setStateWorkSpace({ name: "" });
   };
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log("params", pagination, filters, sorter, extra);
   };
 
-  const onFinish = () => {
-    mutation.mutate(stateWorkSpace);
+  const onFinish = (values) => {
+    createWorkspace(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
-  };
-
-  const handleOnChange = (e) => {
-    setStateWorkSpace({
-      ...stateWorkSpace,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -156,19 +143,19 @@ const WorkSpace = () => {
         </div>
       </div>
       <Modal
-        title="Create work space"
+        title="Create Workspace"
         open={isModalOpen}
         onCancel={handleCancel}
-        okButtonProps={{ style: { display: "none" } }}
+        onOk={form.submit}
       >
         <LoadingComponent isLoading={isLoading}>
           <Form
             name="basic"
             labelCol={{
-              span: 3,
+              span: 4,
             }}
             wrapperCol={{
-              span: 22,
+              span: 20,
             }}
             style={{
               maxWidth: 600,
@@ -179,32 +166,20 @@ const WorkSpace = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            form={form}
           >
             <Form.Item
+              labelAlign="left"
               label="Name"
-              name="Name"
+              name="name"
               rules={[
                 {
                   required: true,
-                  message: "Please input name of work space!",
+                  message: "Please input name of workspace!",
                 },
               ]}
             >
-              <InputComponent
-                value={stateWorkSpace.name}
-                name="name"
-                onChange={handleOnChange}
-              />
-            </Form.Item>
-            <Form.Item
-              wrapperCol={{
-                offset: 3,
-                span: 21,
-              }}
-            >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
+              <Input placeholder="Workspace name" />
             </Form.Item>
           </Form>
         </LoadingComponent>

@@ -4,6 +4,7 @@ import DayOff from "../pages/DayOff";
 import Request from "../pages/Request";
 import RequestsDetail from "../pages/Requests-Detail";
 import Members from "../pages/Members";
+import Group from "../pages/Group";
 
 const privateRoutes = [
   {

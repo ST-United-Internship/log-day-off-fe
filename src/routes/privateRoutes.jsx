@@ -44,6 +44,10 @@ const privateRoutes = [
         path: "create-user",
         element: <FormUser />,
       },
+      {
+        path: "dayoff",
+        element: <FormUser />,
+      },
     ],
   },
 ];

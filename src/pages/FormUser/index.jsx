@@ -13,18 +13,17 @@ const FormUser = () => {
 
   const authUser = getStorageData(PROFILE);
 
-  const onFinish = async (values) => {
-    if (authUser.role.name === ROLE.MANAGER)
-      switch (authUser.role.name) {
-        case ROLE.MANAGER:
-          createStaff(values);
-          break;
-        case ROLE.ADMIN:
-          createManager(values);
-          break;
-        default:
-          break;
-      }
+  const onFinish = (values) => {
+    switch (authUser.role.name) {
+      case ROLE.MANAGER:
+        createStaff(values);
+        break;
+      case ROLE.ADMIN:
+        createManager(values);
+        break;
+      default:
+        break;
+    }
   };
   return (
     <Form
@@ -77,13 +76,13 @@ const FormUser = () => {
         label="Gender"
         name="gender"
         rules={[{ required: true, message: "Please select an option!" }]}
-        initialValue={0}
+        initialValue={"male"}
         labelAlign="left"
       >
         <Radio.Group>
-          <Radio value={0}>Male</Radio>
-          <Radio value={1}>Female</Radio>
-          <Radio value={2}>Other</Radio>
+          <Radio value={"male"}>Male</Radio>
+          <Radio value={"female"}>Female</Radio>
+          <Radio value={"other"}>Other</Radio>
         </Radio.Group>
       </Form.Item>
 
@@ -96,4 +95,4 @@ const FormUser = () => {
   );
 };
 
-export default withAuthorization([ROLE.MANAGER])(FormUser);
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(FormUser);

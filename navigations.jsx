@@ -44,6 +44,6 @@ export const navigations = [
     label: "CREATE USER",
     key: "create-user",
     icon: <UserAddOutlined />,
-    authorize: [ROLE.MANAGER],
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
 ];

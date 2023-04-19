@@ -14,6 +14,12 @@ const DayOff = () => {
       case ROLE.ADMIN:
         createRequest({ ...values, userRequestId: authUser.id });
         break;
+      case ROLE.MANAGER:
+        createRequest({ ...values, userRequestId: authUser.id });
+        break;
+      case ROLE.STAFF:
+        createRequest({ ...values, userRequestId: authUser.id });
+        break;
       default:
         break;
     }

@@ -10,6 +10,7 @@ import Notification from "../pages/Notification";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
+import RequestAccount from "../pages/RequestAccount";
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -18,14 +19,17 @@ const privateRoutes = [
         index: true,
         element: <Dashboard />,
       },
+
       {
         path: "dashboard",
         element: <Dashboard />,
       },
+
       {
         path: "request",
         element: <Request />,
       },
+
       {
         path: "dayoff",
         element: <DayOff />,
@@ -45,10 +49,12 @@ const privateRoutes = [
         path: "group",
         element: <Group />,
       },
+
       {
         path: "403",
         element: <Forbidden />,
       },
+
       {
         path: "create-user",
         element: <FormUser />,
@@ -58,13 +64,20 @@ const privateRoutes = [
         path: "groupdetail",
         element: <GroupDetail />,
       },
+
       {
         path: "notification",
         element: <Notification />,
       },
+
       {
         path: "workspaces",
         element: <WorkSpace />,
+      },
+      
+      {
+        path: "request-account",
+        element: <RequestAccount />,
       },
     ],
   },

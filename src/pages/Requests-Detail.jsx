@@ -66,9 +66,7 @@ const TableExample = () => {
   const [modal2Open, setModal2Open] = useState(false);
 
   const [loading1, setLoading1] = useState(false);
-  const [open1, setOpen1] = useState(() => {
-    return <Input.TextArea></Input.TextArea>;
-  });
+  const [open1, setOpen1] = useState(false);
   const showModal1 = () => {
     setOpen1(true);
   };

@@ -69,7 +69,7 @@ const PrivateLayout = () => {
   }, []);
 
   return (
-    <Layout hasSider>
+    <Layout className="backgroud-container" hasSider>
       <LayoutSider
         className="layout-backgroud"
         collapsed={collapsed}

@@ -21,13 +21,14 @@ export const navigations = [
     icon: <PieChartOutlined />,
     authorize: [ROLE.ADMIN],
   },
+
   {
     label: "MASTERDATA",
     key: "master",
     icon: <DatabaseOutlined />,
     children: [
       {
-        label: "USERS",
+        label: "Users",
         key: "users",
       },
       {
@@ -36,7 +37,7 @@ export const navigations = [
       },
       {
         label: "Group",
-        key: "groupdetail",
+        key: "group-detail",
         icon: <UsergroupAddOutlined />,
       },
       {
@@ -46,6 +47,7 @@ export const navigations = [
       },
     ],
   },
+
   {
     label: "WORKSPACE",
     key: "workspace",
@@ -59,29 +61,33 @@ export const navigations = [
       },
     ],
   },
+
   {
-    label: "Members",
+    label: "MEMBERS",
     key: "members",
     icon: <UserOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
-    label: "Group",
+    label: "GROUP",
     key: "group",
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
     label: "CREATE USER",
     key: "create-user",
     icon: <UserAddOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
+
   {
     label: "REQUEST",
     key: "request",
     icon: <Loading3QuartersOutlined />,
-    authorize: [ROLE.ADMIN],
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
     children: [
       {
         label: "Request Account",
@@ -90,9 +96,8 @@ export const navigations = [
       },
       {
         label: "Request Detail",
-        key: "requestsDetail",
+        key: "requests-detail",
         icon: <TableOutlined />,
-        authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
     ],
   },

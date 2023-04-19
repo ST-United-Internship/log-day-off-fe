@@ -11,6 +11,7 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
 import RequestAccount from "../pages/RequestAccount";
+
 const privateRoutes = [
   {
     element: <PrivateLayout />,
@@ -36,7 +37,7 @@ const privateRoutes = [
       },
 
       {
-        path: "requestsDetail",
+        path: "requests-detail",
         element: <RequestsDetail />,
       },
 
@@ -61,7 +62,7 @@ const privateRoutes = [
       },
 
       {
-        path: "groupdetail",
+        path: "group-detail",
         element: <GroupDetail />,
       },
 

@@ -10,6 +10,7 @@ import {
   UnorderedListOutlined,
   UsergroupAddOutlined,
   NotificationOutlined,
+  TableOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 

@@ -69,6 +69,7 @@ const DayOff = () => {
                   }}
                   placeholder="01-01-2023"
                   className="text-select"
+                  type="Date"
                 />
               </Form.Item>
               <Form.Item
@@ -112,7 +113,7 @@ const DayOff = () => {
               width: "200px",
             }}
           >
-            <Input placeholder="01-01-2023" />
+            <Input placeholder="01-01-2023" type="Date" />
           </Form.Item>
         </Form.Item>
         <Form.Item label="Quantity">

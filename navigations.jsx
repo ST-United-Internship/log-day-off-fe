@@ -3,7 +3,6 @@ import {
   PieChartOutlined,
   ReconciliationOutlined,
   UserOutlined,
-  TableOutlined,
   GroupOutlined,
   UserAddOutlined,
   Loading3QuartersOutlined,
@@ -11,6 +10,7 @@ import {
   UnorderedListOutlined,
   UsergroupAddOutlined,
   NotificationOutlined,
+  TableOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 

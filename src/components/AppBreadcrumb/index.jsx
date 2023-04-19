@@ -38,7 +38,6 @@ const AppBreadcrumb = () => {
 
   function itemRender(item, _, items) {
     const last = items.indexOf(item) === items.length - 1;
-    console.log(item.link);
     return last || !item.link ? (
       <span>{item.title}</span>
     ) : (

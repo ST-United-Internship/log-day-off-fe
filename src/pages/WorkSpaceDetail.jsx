@@ -4,18 +4,18 @@ import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
+import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 
 const columns = [
   {
     title: "Name",
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "username",
+    key: "username",
   },
   {
     title: "Email",
     dataIndex: "email",
     key: "email",
-    width: "12%",
   },
   {
     title: "Action",
@@ -35,24 +35,11 @@ const columns = [
     ),
   },
 ];
-const data = [
-  {
-    key: 1,
-    name: "John Brown sr.",
-    email: "locphuho@gmail.com",
-    address: "New York No. 1 Lake Park",
-  },
-
-  {
-    key: 2,
-    name: "Joe Black",
-    email: "locphuho@gmail.com",
-    address: "Sydney No. 1 Lake Park",
-  },
-];
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
+
+  const { data, isLoading } = useWorkSpaceDetail();
   return (
     <div className="workspace-container">
       <Form.Item name={["user", "name"]} label="Name">
@@ -65,8 +52,12 @@ const WorkSpaceDetail = () => {
         Status:{""}
         <Switch checked={checkStrictly} onChange={setCheckStrictly} />
       </Space>
-      <Table columns={columns} dataSource={data}></Table>
+      <Table
+        columns={columns}
+        dataSource={data?.users}
+        loading={isLoading}
+      ></Table>
     </div>
   );
 };
-export default withAuthorization([ROLE.ADMIN])(WorkSpaceDetail);
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(WorkSpaceDetail);

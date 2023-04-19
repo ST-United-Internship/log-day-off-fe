@@ -28,3 +28,7 @@
 .site-layout .site-layout-content .site-layout-background {
   margin: 0px;
 }
+
+.backgroud-container {
+  background: #ffff !important;
+}

@@ -1,6 +1,8 @@
 import { Table, Space, Button } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import "../assets/reuqest-account/requestaccount.css";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 const columns = [
   {
     title: "Request for Day",
@@ -74,4 +76,4 @@ const data = [
   },
 ];
 const RequestAccount = () => <Table columns={columns} dataSource={data} />;
-export default RequestAccount;
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(RequestAccount);

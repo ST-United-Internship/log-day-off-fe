@@ -7,8 +7,8 @@ import {
   GroupOutlined,
   UserAddOutlined,
   Loading3QuartersOutlined,
-  UnorderedListOutlined,
   UserSwitchOutlined,
+  UnorderedListOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 

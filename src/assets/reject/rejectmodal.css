@@ -1,0 +1,12 @@
+.reject-nut-hai {
+  margin-left: 20px;
+}
+
+.form-reject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-reject p {
+  text-align: center;
+}

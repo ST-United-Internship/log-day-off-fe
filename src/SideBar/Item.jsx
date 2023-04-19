@@ -21,4 +21,9 @@ export const navItems = [
     icon: <UploadOutlined />,
     label: "Days off",
   },
+  {
+    key: "4",
+    icon: <UploadOutlined />,
+    label: "Request Account",
+  },
 ];

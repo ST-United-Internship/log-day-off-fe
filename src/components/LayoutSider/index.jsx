@@ -1,61 +1,11 @@
 import { Layout } from "antd";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-import {
-  PieChartOutlined,
-  DatabaseOutlined,
-  UsergroupAddOutlined,
-  GroupOutlined,
-} from "@ant-design/icons";
+import "./LayoutSider.css";
 
 const { Sider } = Layout;
 
-const items = [
-  {
-    label: "DASHBOARD",
-    key: "dashboard",
-    icon: <PieChartOutlined />,
-  },
-  {
-    label: "MASTERDATA",
-    key: "master",
-    icon: <DatabaseOutlined />,
-    children: [
-      {
-        label: "USERS",
-        key: "users",
-      },
-      {
-        label: "Address",
-        key: "address",
-      },
-    ],
-  },
-  {
-    label: "Members",
-    key: "member",
-    icon: <UsergroupAddOutlined />,
-    children: [
-      {
-        label: "Member",
-        key: "member",
-      },
-    ],
-  },
-  {
-    label: "Groups",
-    key: "group",
-    icon: <GroupOutlined />,
-    children: [
-      {
-        label: "Group",
-        key: "group",
-      },
-    ],
-  },
-];
-
-const SiderMenu = () => {
+const SiderMenu = ({ navigation }) => {
   const navigate = useNavigate();
 
   return (
@@ -63,28 +13,33 @@ const SiderMenu = () => {
       theme="dark"
       mode="inline"
       onClick={({ key }) => navigate(key)}
-      items={items}
+      items={navigation}
     />
   );
 };
 
-const LayoutSider = ({ collapsed }) => {
+const LayoutSider = ({ collapsed, navigation, className }) => {
   return (
     <Sider
+      className={className}
       trigger={null}
       collapsible
       collapsed={collapsed}
       style={{ overflow: "auto", height: "100vh" }}
     >
-      <div
-        className="logo"
-        style={{
-          height: "32px",
-          margin: "16px",
-          background: "rgba(255, 255, 255, 0.3)",
-        }}
-      />
-      <SiderMenu />
+      <div className="logo-container">
+        <h2>Log Day Off</h2>
+        <img
+          className="logo"
+          style={{
+            height: " 45px",
+            borderRadius: "30px",
+          }}
+          src="https://res.cloudinary.com/da3bmd8ak/image/upload/v1681797035/logo..png"
+        />
+      </div>
+
+      <SiderMenu navigation={navigation} />
     </Sider>
   );
 };

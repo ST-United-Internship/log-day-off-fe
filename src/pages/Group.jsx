@@ -1,30 +1,40 @@
-import { PlusOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Space } from "antd";
-import "../assets/styles/member.css";
+import { Table } from "antd";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 
-const Manager = () => {
-  return (
-    <>
-      <div className="nav-container">
-        <div className="wrapper">
-          <a href="#">Branding</a>
-          <Space wrap>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              style={{ fontWeight: "600", marginRight: "0.5rem" }}
-            >
-              New Group
-            </Button>
-            <Button type="primary" style={{ fontWeight: "600" }}>
-              Log off
-            </Button>
-            <UserOutlined className="user-icon" />
-          </Space>
-        </div>
-      </div>
-    </>
-  );
-};
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+  },
+  {
+    title: "Member (s)",
+    dataIndex: "member",
+    defaultSortOrder: "descend",
+  },
+  {
+    title: "Master (s)",
+    dataIndex: "master",
+  },
+];
+const data = [
+  {
+    key: "1",
+    name: "HR",
+    member: "API o day",
+    master: "api o day",
+  },
+  {
+    key: "2",
+    name: "KAS",
+    member: "API o day ",
+    master: "api o day",
+  },
+];
 
-export default Manager;
+const Group = () => (
+  <>
+    <Table columns={columns} dataSource={data} />
+  </>
+);
+export default withAuthorization([ROLE.MANAGER])(Group);

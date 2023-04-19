@@ -1,3 +1,14 @@
 .form-user .ant-form-item {
   margin-bottom: 30px;
 }
+
+.button-submit {
+  background-color: #db7f8e;
+  color: #ffff;
+}
+
+.button-submit:hover {
+  background-color: #fae1dd;
+  color: black !important;
+  border-color: #fae1dd !important;
+}

@@ -1,16 +1,38 @@
 .iconre {
   margin-left: 20px;
+  background-color: #95de64;
+  color: black;
+}
+
+.iconre:hover {
+  background-color: green !important;
+  color: white !important;
 }
 
 .iconre1 {
   margin-left: 20px;
+  background-color: #ff4d4f;
+  color: black;
+}
+
+.iconre1:hover {
+  background-color: #d71d26 !important;
+  color: white !important;
 }
 
 .iconre2 {
   margin-left: 20px;
+  background-color: #b37feb;
+  color: black;
 }
+
+.iconre2:hover {
+  background-color: purple !important;
+  color: white !important;
+}
+
 .reqs {
-  border-left: 2px solid;
-  border-color: blue;
+  border-left: 3px solid;
+  border-color: #db7f8e;
   padding-left: 9px;
 }

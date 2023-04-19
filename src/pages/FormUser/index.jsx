@@ -89,7 +89,7 @@ const FormUser = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" size="large">
+        <Button className="button-submit" htmlType="submit" size="large">
           Submit
         </Button>
       </Form.Item>

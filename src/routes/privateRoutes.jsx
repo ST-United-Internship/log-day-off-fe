@@ -74,7 +74,7 @@ const privateRoutes = [
         path: "workspaces",
         element: <WorkSpace />,
       },
-      
+
       {
         path: "request-account",
         element: <RequestAccount />,

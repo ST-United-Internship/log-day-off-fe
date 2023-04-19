@@ -9,6 +9,8 @@ import {
   Loading3QuartersOutlined,
   UserSwitchOutlined,
   UnorderedListOutlined,
+  UsergroupAddOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -35,10 +37,12 @@ export const navigations = [
       {
         label: "Group",
         key: "groupdetail",
+        icon: <UsergroupAddOutlined />,
       },
       {
         label: "Notification",
         key: "notification",
+        icon: <NotificationOutlined />,
       },
     ],
   },

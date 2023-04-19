@@ -11,6 +11,7 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
 import RequestAccount from "../pages/RequestAccount";
+import WorkSpaceDetail from "../pages/WorkSpaceDetail";
 
 const privateRoutes = [
   {
@@ -79,6 +80,11 @@ const privateRoutes = [
       {
         path: "request-account",
         element: <RequestAccount />,
+      },
+
+      {
+        path: "workspace-detail/:id",
+        element: <WorkSpaceDetail />,
       },
     ],
   },

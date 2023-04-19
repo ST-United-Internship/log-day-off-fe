@@ -7,10 +7,13 @@ import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
 import { useCreateWorkSpace } from "../hooks/useCreateWorkSpace";
 import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
+import { useNavigate } from "react-router-dom";
 
 const WorkSpace = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+
+  const navigate = useNavigate();
 
   const {
     mutate: createWorkspace,
@@ -68,8 +71,13 @@ const WorkSpace = () => {
     setIsModalOpen(false);
   };
 
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log("params", pagination, filters, sorter, extra);
+  const onRow = (record) => {
+    return {
+      onClick: (e) => {
+        e.stopPropagation();
+        navigate("/workspace-detail/" + record.id);
+      },
+    };
   };
 
   const onFinish = (values) => {
@@ -139,7 +147,7 @@ const WorkSpace = () => {
           </Form>
         </LoadingComponent>
       </Modal>
-      <Table columns={columns} dataSource={listWorkspace} onChange={onChange} />
+      <Table columns={columns} dataSource={listWorkspace} onRow={onRow} />
     </LoadingComponent>
   );
 };

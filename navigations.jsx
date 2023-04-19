@@ -3,7 +3,6 @@ import {
   PieChartOutlined,
   ReconciliationOutlined,
   UserOutlined,
-  TableOutlined,
   GroupOutlined,
   UserAddOutlined,
   Loading3QuartersOutlined,

@@ -28,14 +28,6 @@ export const navigations = [
     icon: <DatabaseOutlined />,
     children: [
       {
-        label: "Users",
-        key: "users",
-      },
-      {
-        label: "Address",
-        key: "address",
-      },
-      {
         label: "Group",
         key: "group-detail",
         icon: <UsergroupAddOutlined />,

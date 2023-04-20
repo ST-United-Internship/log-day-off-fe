@@ -19,4 +19,5 @@ export const API_URL = {
   GETALL_USERS: "users",
   REQUESTS: "requests",
   APPROVE_REQUEST: "requests/approve",
+  GROUPS: "groups",
 };

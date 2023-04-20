@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Table } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
+import { useGetAllUsers } from "../hooks/useGetAllUsers";
 
 const data = [
   {
@@ -41,7 +43,9 @@ const columns = [
 ];
 
 const Members = () => {
+  const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+  console.log(allUser);
   return <Table dataSource={data} columns={columns} pagination={false} />;
 };
 
-export default withAuthorization([ROLE.MANAGER])(Members);
+export default withAuthorization([ROLE.MANAGER, ROLE.ADMIN])(Members);

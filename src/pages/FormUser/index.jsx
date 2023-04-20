@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Button, Form, Input, Radio, Grid } from "antd";
 import { ROLE } from "../../constants/roles";
 import { getStorageData } from "../../helpers/storage";
@@ -6,14 +7,26 @@ import { useCreateManager } from "../../hooks/useCreateManager";
 import { useCreateStaff } from "../../hooks/useCreateStaff";
 import { PROFILE } from "../../constants/auth";
 import "./formuser.css";
+import { useEffect } from "react";
 
 const { useBreakpoint } = Grid;
 
 const FormUser = () => {
-  const { mutate: createStaff } = useCreateStaff();
-  const { mutate: createManager } = useCreateManager();
+  const {
+    mutate: createStaff,
+    isLoading: loadingStaff,
+    isError: errorStaff,
+    isSuccess: successStaff,
+  } = useCreateStaff();
+  const {
+    mutate: createManager,
+    isLoading: loadingMana,
+    isError: errorMana,
+    isSuccess: successMana,
+  } = useCreateManager();
   const { md } = useBreakpoint();
   const authUser = getStorageData(PROFILE);
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     switch (authUser.role.name) {
@@ -28,6 +41,15 @@ const FormUser = () => {
     }
   };
 
+  useEffect(() => {
+    if (!errorStaff || !errorMana) {
+      form.resetFields();
+    }
+    if (successStaff || successMana) {
+      form.resetFields();
+    }
+  }, [errorStaff, errorStaff, successStaff, successMana]);
+
   const formLayout = md
     ? { labelCol: { span: 4 }, wrapperCol: { span: 20 }, layout: "horizontal" }
     : {
@@ -37,7 +59,7 @@ const FormUser = () => {
       };
 
   return (
-    <Form className="form-user" onFinish={onFinish} {...formLayout}>
+    <Form className="form-user" onFinish={onFinish} {...formLayout} form={form}>
       <Form.Item
         label="Username"
         name="username"
@@ -89,7 +111,12 @@ const FormUser = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button className="button-submit" htmlType="submit" size="large">
+        <Button
+          loading={loadingStaff || loadingMana}
+          className="button-submit"
+          htmlType="submit"
+          size="large"
+        >
           Submit
         </Button>
       </Form.Item>

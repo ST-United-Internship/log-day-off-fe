@@ -57,4 +57,4 @@ const GroupDetail = () => {
   );
 };
 
-export default withAuthorization([ROLE.MANAGER])(GroupDetail);
+export default withAuthorization([ROLE.MANAGER, ROLE.ADMIN])(GroupDetail);

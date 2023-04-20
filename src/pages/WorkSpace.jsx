@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Form, message, Modal, Input } from "antd";
 import { useEffect, useState } from "react";
@@ -22,8 +23,11 @@ const WorkSpace = () => {
     isSuccess,
   } = useCreateWorkSpace();
 
-  const { data: listWorkspace, isLoading: loadListWorkspace } =
-    useGetListWorkspace();
+  const {
+    data: listWorkspace,
+    isLoading: loadListWorkspace,
+    refetch,
+  } = useGetListWorkspace();
 
   const dataTable =
     listWorkspace?.length > 0 &&
@@ -63,6 +67,7 @@ const WorkSpace = () => {
   useEffect(() => {
     if (isSuccess) {
       message.success("Create workspace successfully!");
+      refetch();
       handleCancel();
     } else if (isError) {
       message.error("Create workspace unsuccessfully!");

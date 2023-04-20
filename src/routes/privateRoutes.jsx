@@ -55,7 +55,7 @@ const privateRoutes = [
       },
 
       {
-        path: "groupdetail",
+        path: "group-detail",
         element: <GroupDetail />,
       },
       {

@@ -5,24 +5,22 @@ import { ROLE } from "../constants/roles";
 import { useCreateRequest } from "../hooks/useCreateRequest";
 import { PROFILE } from "../constants/auth";
 import { getStorageData } from "../helpers/storage";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
 const DayOff = () => {
   const { mutate: createRequest } = useCreateRequest();
   const authUser = getStorageData(PROFILE);
   const onFinish = (values) => {
-    switch (authUser.role.name) {
-      case ROLE.ADMIN:
-        createRequest({ ...values, userRequestId: authUser.id });
-        break;
-      case ROLE.MANAGER:
-        createRequest({ ...values, userRequestId: authUser.id });
-        break;
-      case ROLE.STAFF:
-        createRequest({ ...values, userRequestId: authUser.id });
-        break;
-      default:
-        break;
-    }
+    const fromMilli = new Date(values.from).getTime();
+    const toMilli = new Date(values.to).getTime();
+    if (fromMilli < toMilli)
+      createRequest({ ...values, userRequestId: authUser.id });
+    else
+      Notification(
+        NOTIFICATION.ERROR,
+        "Date 'to' should be larger than date 'from'"
+      );
   };
   return (
     <div className="main-container">

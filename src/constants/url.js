@@ -15,4 +15,6 @@ export const API_URL = {
   WORKSPACE_DETAIL: "admin/workspace",
   CREATE_WORKSPACE_DETAIL: "admin/workspace",
   UNASSIGN_USERS: "unassign-user",
+  ADDASSIGN_USERS: "unassign-user",
+  GETALL_USERS: "users",
 };

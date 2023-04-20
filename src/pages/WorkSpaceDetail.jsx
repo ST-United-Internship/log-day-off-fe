@@ -1,27 +1,27 @@
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Space,
-  Switch,
-  Table,
-  message,
-} from "antd";
-import { useEffect, useState } from "react";
+import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
+import { useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
-import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
-import { useCreateWorkSpaceDetail } from "../hooks/useCreateWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
+import { useGetAllUsers } from "../hooks/useGetAllUsers";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
+
+  //get all user
+  const { data, isLoading: loadWorkspace } = useWorkSpaceDetail();
+  const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+
+  const usersModal =
+    allUser && allUser.filter((user) => user.role.name === ROLE.STAFF);
+
+  //Un Assign User from workspace
+  const { mutate: unAssignUser } = useUnAssignUser();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -29,35 +29,10 @@ const WorkSpaceDetail = () => {
     setIsModalOpen(false);
   };
 
-  const {
-    mutate: createWorkSpaceDetail,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useCreateWorkSpaceDetail();
-  const { mutate: unAssignUser } = useUnAssignUser();
-
   const onUnAssignUser = (id) => {
     unAssignUser(id);
   };
 
-  const onFinish = (values) => {
-    createWorkSpaceDetail(values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const { data, isLoading: loadWorkspace } = useWorkSpaceDetail();
-
-  useEffect(() => {
-    if (isSuccess) {
-      message.success("Create workspace successfully!");
-      handleCancel();
-    } else if (isError) {
-      message.error("Create workspace unsuccessfully!");
-    }
-  }, [isSuccess]);
   const columns = [
     {
       title: "Name",
@@ -70,27 +45,57 @@ const WorkSpaceDetail = () => {
       key: "email",
     },
     {
+      title: "ROLE",
+      dataIndex: "role",
+      key: "role",
+      render: (role) => {
+        return <span>{role.name}</span>;
+      },
+    },
+    {
       title: "Actions",
       key: "action",
       render: (_, record) => {
         console.log(record);
         return (
-          <Form>
-            <Space size="middle">
-              <Button className="btn-space">
-                <EditOutlined />
-                Reset Password
-              </Button>
-              <Button
-                className="btn-space"
-                name="username"
-                onClick={() => onUnAssignUser(record.id)}
-              >
-                <DeleteOutlined name="username" />
-                Remove
-              </Button>
-            </Space>
-          </Form>
+          <Space size="middle">
+            <Button className="btn-space">
+              <EditOutlined />
+              Reset Password
+            </Button>
+            <Button
+              className="btn-space"
+              name="username"
+              onClick={() => onUnAssignUser(record.id)}
+            >
+              <DeleteOutlined name="username" />
+              Remove
+            </Button>
+          </Space>
+        );
+      },
+    },
+  ];
+
+  const rows = [
+    {
+      title: "Name",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Actions",
+      key: "action",
+      render: (_, record) => {
+        return (
+          <Button
+            className="btn-space"
+            name="username"
+            onClick={() => onUnAssignUser(record.id)}
+          >
+            <DeleteOutlined name="username" />
+            ADD
+          </Button>
         );
       },
     },
@@ -102,78 +107,19 @@ const WorkSpaceDetail = () => {
       </Form.Item>
       <div className="wrap-btn">
         <Button className="btn-workspace" onClick={showModal}>
-          + New manager
+          + New User
         </Button>
         <Modal
-          title="Create Workspace"
+          title="Add user"
           open={isModalOpen}
           onCancel={handleCancel}
-          onOk={form.submit}
+          okButtonProps={{ style: { display: "none" } }}
         >
-          <LoadingComponent isLoading={isLoading}>
-            <Form
-              name="basic"
-              labelCol={{
-                span: 4,
-              }}
-              wrapperCol={{
-                span: 20,
-              }}
-              style={{
-                maxWidth: 600,
-              }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="on"
-              form={form}
-            >
-              <Form.Item
-                labelAlign="left"
-                label="Username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input name of workspace!",
-                  },
-                ]}
-              >
-                <Space>
-                  <Form.Item name="username" noStyle>
-                    <Input
-                      style={{
-                        width: "200px",
-                      }}
-                      placeholder="0.5, 1, 2,..."
-                    />
-                  </Form.Item>
-                </Space>
-              </Form.Item>
-              <Form.Item labelAlign="left" label="Email">
-                <Space>
-                  <Form.Item
-                    name="email"
-                    noStyle
-                    rules={[
-                      {
-                        required: true,
-                        message: "Number is required",
-                      },
-                    ]}
-                  >
-                    <Input
-                      style={{
-                        width: "200px",
-                      }}
-                      placeholder="0.5, 1, 2,..."
-                    />
-                  </Form.Item>
-                </Space>
-              </Form.Item>
-            </Form>
-          </LoadingComponent>
+          <Table
+            columns={rows}
+            dataSource={usersModal}
+            loading={loadAllUser}
+          ></Table>
         </Modal>
       </div>
       <Space align="center" className="head-wrap">

@@ -14,3 +14,11 @@ export const unAssignUser = (id, userId) =>
       userId,
     }
   );
+
+export const addAssignUser = (id, userId) =>
+  axios.post(
+    API_URL.WORKSPACE_DETAIL + "/" + id + "/" + API_URL.ADDASSIGN_USERS,
+    {
+      userId,
+    }
+  );

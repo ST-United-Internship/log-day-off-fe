@@ -188,4 +188,4 @@ const WorkSpaceDetail = () => {
     </div>
   );
 };
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(WorkSpaceDetail);
+export default withAuthorization([ROLE.ADMIN])(WorkSpaceDetail);

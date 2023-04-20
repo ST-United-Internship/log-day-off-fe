@@ -70,12 +70,14 @@ export const navigations = [
     icon: <UserOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
     label: "GROUP",
     key: "group",
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
     label: "CREATE USER",
     key: "create-user",

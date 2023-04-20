@@ -26,7 +26,7 @@ const WorkSpace = () => {
     useGetListWorkspace();
 
   const dataTable =
-    listWorkspace?.length &&
+    listWorkspace?.length > 0 &&
     Object.keys(listWorkspace[0]).reduce((prev, curr) => {
       prev[curr] = curr;
       return prev;
@@ -47,11 +47,13 @@ const WorkSpace = () => {
       render: (users) => {
         return (
           <>
-            {users.map((user, index) => {
-              if (index === 0)
-                return <span key={user.id}>{user.username}</span>;
-              return <span key={user.id}>{`, ${user.username}`}</span>;
-            })}
+            {ROLE.MANAGER
+              ? users.map((user, index) => {
+                  if (index === 0)
+                    return <span key={user.id}>{user.username}</span>;
+                  return <span key={user.id}>{`, ${user.username}`}</span>;
+                })
+              : ""}
           </>
         );
       },

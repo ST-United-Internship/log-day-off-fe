@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEY } from "../constants/query-key";
-import { getWorkSpaceDetail } from "../services/getWorkSpaceDetail";
+import { getWorkSpaceDetail } from "../services/workSpaceDetailApi";
 import { useParams } from "react-router-dom";
 
 export const useWorkSpaceDetail = () => {

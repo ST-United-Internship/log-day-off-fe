@@ -13,4 +13,6 @@ export const API_URL = {
   CREATE_WORKSPACE: "admin/workspace",
   LIST_WORKSPACE: "admin/workspace",
   WORKSPACE_DETAIL: "admin/workspace",
+  CREATE_WORKSPACE_DETAIL: "admin/workspace",
+  UNASSIGN_USERS: "unassign-user",
 };

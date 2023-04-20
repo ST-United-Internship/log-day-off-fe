@@ -12,6 +12,7 @@ import FormUser from "../../src/pages/FormUser/index";
 import WorkSpace from "../pages/WorkSpace";
 import RequestAccount from "../pages/RequestAccount";
 import WorkSpaceDetail from "../pages/WorkSpaceDetail";
+import ExportDayoff from "../pages/ExportGoogleSheet/ExportDayoff";
 
 const privateRoutes = [
   {
@@ -85,6 +86,10 @@ const privateRoutes = [
       {
         path: "workspace-detail/:id",
         element: <WorkSpaceDetail />,
+      },
+      {
+        path: "export-dayoff",
+        element: <ExportDayoff />,
       },
     ],
   },

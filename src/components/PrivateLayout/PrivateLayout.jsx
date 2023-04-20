@@ -1,9 +1,7 @@
 /* eslint-disable indent */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Layout } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
-
-import "./PrivateLayout.css";
 import LayoutSider from "../LayoutSider";
 import LayoutTopbar from "../LayoutTopbar";
 import AppBreadcrumb from "../AppBreadcrumb";
@@ -11,6 +9,7 @@ import { getStorageData, removeStorageData } from "../../helpers/storage";
 import { ACCESS_TOKEN, PROFILE } from "../../constants/auth";
 import { navigations } from "../../../navigations";
 import axios from "axios";
+import "./PrivateLayout.css";
 
 const { Content } = Layout;
 
@@ -21,14 +20,19 @@ const PrivateLayout = () => {
   const isAuth = getStorageData(ACCESS_TOKEN);
   const authUser = getStorageData(PROFILE);
 
-  useEffect(() => {
+  useMemo(() => {
     if (!isAuth || !authUser) {
       delete axios.defaults.headers.common["Authorization"];
+    } else if (!axios.defaults.headers.common["Authorization"]) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + isAuth;
+    }
+  }, [isAuth, authUser]);
+
+  useEffect(() => {
+    if (!isAuth || !authUser) {
       removeStorageData(ACCESS_TOKEN);
       removeStorageData(PROFILE);
       navigate("/signin");
-    } else if (!axios.defaults.headers.common["Authorization"]) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + isAuth;
     }
   }, [isAuth, authUser, navigate]);
 

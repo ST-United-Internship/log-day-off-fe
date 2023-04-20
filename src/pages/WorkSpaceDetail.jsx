@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
 import { useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
@@ -17,7 +17,7 @@ const WorkSpaceDetail = () => {
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
 
   const usersModal =
-    allUser && allUser.filter((user) => user.role.name === ROLE.STAFF);
+    allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
   //Un Assign User from workspace
   const { mutate: unAssignUser } = useUnAssignUser();

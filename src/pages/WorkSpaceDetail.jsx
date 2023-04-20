@@ -7,6 +7,7 @@ import { ROLE } from "../constants/roles";
 import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
 import { useGetAllUsers } from "../hooks/useGetAllUsers";
+import { useAddAssignUser } from "../hooks/useAddAssignUser";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
@@ -15,6 +16,12 @@ const WorkSpaceDetail = () => {
   //get all user
   const { data, isLoading: loadWorkspace } = useWorkSpaceDetail();
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+
+  const { mutate: assignUser } = useAddAssignUser();
+
+  const onAssignUser = (id) => {
+    assignUser(id);
+  };
 
   const usersModal =
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
@@ -91,7 +98,7 @@ const WorkSpaceDetail = () => {
           <Button
             className="btn-space"
             name="username"
-            onClick={() => onUnAssignUser(record.id)}
+            onClick={() => onAssignUser(record.id)}
           >
             <PlusOutlined name="username" />
             ADD

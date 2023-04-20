@@ -97,6 +97,10 @@ export const navigations = [
         key: "requests-detail",
         icon: <TableOutlined />,
       },
+      {
+        label: "CreateRequest",
+        key: "dayoff",
+      },
     ],
   },
 ];

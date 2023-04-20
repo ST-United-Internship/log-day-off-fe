@@ -93,7 +93,8 @@ const WorkSpaceDetail = () => {
             name="username"
             onClick={() => onUnAssignUser(record.id)}
           >
-            <DeleteOutlined name="username" />
+
+            <PlusOutlined name="username" />
             ADD
           </Button>
         );

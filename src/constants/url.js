@@ -17,4 +17,6 @@ export const API_URL = {
   UNASSIGN_USERS: "unassign-user",
   ADDASSIGN_USERS: "unassign-user",
   GETALL_USERS: "users",
+  REQUESTS: "requests",
+  APPROVE_REQUEST: "requests/approve",
 };

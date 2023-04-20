@@ -85,7 +85,7 @@ export const navigations = [
     label: "REQUEST",
     key: "request",
     icon: <Loading3QuartersOutlined />,
-    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+    authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
     children: [
       {
         label: "Request Account",

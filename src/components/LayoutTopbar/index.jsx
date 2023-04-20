@@ -1,11 +1,6 @@
 import React from "react";
-import { Layout, Button, Dropdown, Space } from "antd";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  DashboardOutlined,
-  ReconciliationOutlined,
-} from "@ant-design/icons";
+import { Layout, Dropdown, Space } from "antd";
+import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./LayoutTopbar.css";
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -18,22 +13,13 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
       key: "1",
       label: (
         <a target="_blank" rel="noopener noreferrer">
-          <DashboardOutlined />
-          &nbsp; DashBoard
+          <UserOutlined />
+          &nbsp; Profile
         </a>
       ),
     },
     {
       key: "2",
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          <ReconciliationOutlined />
-          &nbsp; WorkSpaces
-        </a>
-      ),
-    },
-    {
-      key: "3",
       label: (
         <a target="_blank" rel="noopener noreferrer">
           <LogoutOutlined />
@@ -51,9 +37,10 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
       <Space direction="vertical">
         <Space wrap>
           <Dropdown menu={{ items }} placement="topRight">
-            <Button style={{ marginRight: "50px" }}>
-              <UserOutlined />
-            </Button>
+            <img
+              className="img-drop"
+              src="https://th.bing.com/th/id/OIP.nczpMSa69aDJWYGi0tKqggHaHa?w=205&h=205&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+            ></img>
           </Dropdown>
         </Space>
       </Space>

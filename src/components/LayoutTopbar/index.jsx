@@ -4,10 +4,17 @@ import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./LayoutTopbar.css";
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
 const LayoutTopbar = ({ collapsed, setCollapsed }) => {
+  const navigate = useNavigate();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    navigate("/signin");
+  };
   const items = [
     {
       key: "1",
@@ -21,9 +28,9 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
     {
       key: "2",
       label: (
-        <a target="_blank" rel="noopener noreferrer">
+        <a target="_blank" rel="noopener noreferrer" onClick={handleLogout}>
           <LogoutOutlined />
-          &nbsp; LogOut
+          &nbsp; Logout
         </a>
       ),
     },

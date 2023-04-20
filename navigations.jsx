@@ -11,6 +11,7 @@ import {
   UsergroupAddOutlined,
   NotificationOutlined,
   TableOutlined,
+  FileExcelOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -100,6 +101,17 @@ export const navigations = [
       {
         label: "CreateRequest",
         key: "dayoff",
+      },
+    ],
+  },
+  {
+    label: "EXPORT",
+    key: "export",
+    icon: <FileExcelOutlined />,
+    children: [
+      {
+        label: "Day Off",
+        key: "export-dayoff",
       },
     ],
   },

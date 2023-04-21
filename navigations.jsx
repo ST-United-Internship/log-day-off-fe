@@ -137,10 +137,4 @@ export const navigations = [
     icon: <TableOutlined />,
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
   },
-  {
-    label: "Group",
-    key: "group",
-    icon: <GroupOutlined />,
-    authorize: [ROLE.MANAGER],
-  },
 ];

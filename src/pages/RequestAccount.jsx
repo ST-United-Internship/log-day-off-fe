@@ -13,6 +13,7 @@ import { useGetRequests } from "../hooks/useGetRequests";
 import { useApproveRequest } from "../hooks/useApproveRequest";
 import { getStorageData } from "../helpers/storage";
 import { PROFILE } from "../constants/auth";
+import { useMemo } from "react";
 
 const RequestAccount = () => {
   const { data, isLoading } = useGetRequests();
@@ -27,84 +28,89 @@ const RequestAccount = () => {
     });
   };
 
-  const columns = [
-    {
-      title: "Request for Day",
-      dataIndex: "day",
-      key: "day",
-      render: (_, record) => {
-        const from = new Date(record.from).toLocaleDateString("us-UK", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        const to = new Date(record.to).toLocaleDateString("us-UK", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        return (
-          <label>
-            <span>{from} - </span>
-            <span>{to}</span>
-          </label>
-        );
+  const columns = useMemo(() => {
+    let column = [
+      {
+        title: "Request for Day",
+        dataIndex: "day",
+        key: "day",
+        render: (_, record) => {
+          const from = new Date(record.from).toLocaleDateString("us-UK", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          const to = new Date(record.to).toLocaleDateString("us-UK", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          return (
+            <label>
+              <span>{from} - </span>
+              <span>{to}</span>
+            </label>
+          );
+        },
       },
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
-    },
-    {
-      title: "Requester",
-      dataIndex: "user",
-      key: "user",
-      render: (user) => {
-        return <span key={user.id}>{user.username}</span>;
+      {
+        title: "Quantity",
+        dataIndex: "quantity",
+        key: "quantity",
       },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-    },
-    {
-      title: "Request Day",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (time) => {
-        return <span>{timeAgo(time)}</span>;
+      {
+        title: "Requester",
+        dataIndex: "user",
+        key: "user",
+        render: (user) => {
+          return <span key={user.id}>{user.username}</span>;
+        },
       },
-    },
-  ];
-
-  if (getStorageData(PROFILE).role === ROLE.MASTER)
-    columns.push({
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="small" className="button-action" wrap>
-          <Button
-            className="checkout"
-            shape="circle"
-            onClick={() =>
-              handleConfirm(record.id, record.user.slackId, "accept")
-            }
-          >
-            <CheckOutlined />
-          </Button>
-          <Button className="closeout" shape="circle">
-            <CloseOutlined />
-          </Button>
-          <Button className="editout" shape="circle">
-            <EditOutlined />
-          </Button>
-        </Space>
-      ),
-    });
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+      },
+      {
+        title: "Request Day",
+        dataIndex: "createdAt",
+        key: "createdAt",
+        render: (time) => {
+          return <span>{timeAgo(time)}</span>;
+        },
+      },
+    ];
+    if (getStorageData(PROFILE).role.name === ROLE.MASTER)
+      column = [
+        ...column,
+        {
+          title: "Action",
+          key: "action",
+          render: (_, record) => (
+            <Space size="small" className="button-action" wrap>
+              <Button
+                className="checkout"
+                shape="circle"
+                onClick={() =>
+                  handleConfirm(record.id, record.user.slackId, "accept")
+                }
+              >
+                <CheckOutlined />
+              </Button>
+              <Button className="closeout" shape="circle">
+                <CloseOutlined />
+              </Button>
+              <Button className="editout" shape="circle">
+                <EditOutlined />
+              </Button>
+            </Space>
+          ),
+        },
+      ];
+    return column;
+  }, []);
 
   return <Table columns={columns} dataSource={data} loading={isLoading} />;
 };

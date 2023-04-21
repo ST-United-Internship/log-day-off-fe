@@ -3,7 +3,7 @@ import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
 import InformationDayOff from "../pages/InformationDayOff";
 import Request from "../pages/Request";
-import RequestsDetail from "../pages/Requests-Detail";
+import RequestsDetail from "../pages/RequestDetail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
@@ -40,7 +40,7 @@ const privateRoutes = [
       },
 
       {
-        path: "requests-detail/:id",
+        path: "request-detail/:id",
         element: <RequestsDetail />,
       },
 

@@ -7,11 +7,8 @@ import {
   UserSwitchOutlined,
   UnorderedListOutlined,
   UsergroupAddOutlined,
-  TableOutlined,
   FileExcelOutlined,
-  FormOutlined,
   AliwangwangOutlined,
-  NotificationOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -28,12 +25,6 @@ export const navigations = [
       },
 
       {
-        label: "Request Account",
-        key: "request-account",
-        icon: <UserSwitchOutlined />,
-      },
-
-      {
         label: "CREATE USER",
         key: "create-user",
         icon: <UserAddOutlined />,
@@ -47,15 +38,15 @@ export const navigations = [
         authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
         children: [
           {
-            label: "Request Detail",
-            key: "requests-detail",
-            icon: <TableOutlined />,
-          },
-
-          {
             label: "InformationDayOff",
             key: "information-day-off",
             icon: <AliwangwangOutlined />,
+          },
+
+          {
+            label: "Request Account",
+            key: "request-account",
+            icon: <UserSwitchOutlined />,
           },
 
           {

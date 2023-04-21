@@ -20,4 +20,5 @@ export const API_URL = {
   REQUESTS: "requests",
   APPROVE_REQUEST: "requests/approve",
   EXPORT_DAY_OFF: "requests/dayoffs/export-dayoffs",
+  CREATE_GROUP: "groups",
 };

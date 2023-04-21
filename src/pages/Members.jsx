@@ -44,4 +44,4 @@ const Members = () => {
   return <Table dataSource={data} columns={columns} pagination={false} />;
 };
 
-export default withAuthorization([ROLE.MANAGER, ROLE.ADMIN])(Members);
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(Members);

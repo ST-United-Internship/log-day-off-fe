@@ -1,17 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
 import { Notification } from "../components/Notifications/notification";
 import { NOTIFICATION } from "../constants/notification";
-import { createStaff } from "../services/formStaffApi";
+import { updateRequestDetail } from "../services/requestApi";
 
-export const useCreateStaff = () => {
+export const useUpdateRequest = () => {
   return useMutation(
-    async (values) => {
-      const { data } = await createStaff(values);
+    async ({ id, values }) => {
+      const { data } = await updateRequestDetail(id, values);
       return data;
     },
     {
-      onSuccess: () => {
-        Notification(NOTIFICATION.SUCCESS, "Create successfully");
+      onSuccess: (data) => {
+        Notification(NOTIFICATION.SUCCESS, data.message);
       },
       onError: (err) => {
         Notification(NOTIFICATION.ERROR, err.response.data.message);

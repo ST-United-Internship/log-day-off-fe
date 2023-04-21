@@ -7,9 +7,7 @@ import {
   UserSwitchOutlined,
   UnorderedListOutlined,
   UsergroupAddOutlined,
-  TableOutlined,
   FileExcelOutlined,
-  FormOutlined,
   AliwangwangOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
@@ -25,22 +23,14 @@ export const navigations = [
         icon: <PieChartOutlined />,
         authorize: [ROLE.ADMIN],
       },
-      {
-        label: "CreateRequest",
-        key: "dayoff",
-        icon: <FormOutlined />,
-      },
-      {
-        label: "Request Account",
-        key: "request-account",
-        icon: <UserSwitchOutlined />,
-      },
+
       {
         label: "CREATE USER",
         key: "create-user",
         icon: <UserAddOutlined />,
         authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
+
       {
         label: "REQUEST",
         key: "request",
@@ -48,18 +38,24 @@ export const navigations = [
         authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
         children: [
           {
-            label: "Request Detail",
-            key: "requests-detail",
-            icon: <TableOutlined />,
-          },
-
-          {
             label: "InformationDayOff",
             key: "information-day-off",
             icon: <AliwangwangOutlined />,
           },
+
+          {
+            label: "Request Account",
+            key: "request-account",
+            icon: <UserSwitchOutlined />,
+          },
+
+          {
+            label: "CreateRequest",
+            key: "dayoff",
+          },
         ],
       },
+
       {
         label: "EXPORT",
         key: "export",
@@ -70,12 +66,6 @@ export const navigations = [
             key: "export-dayoff",
           },
         ],
-      },
-      {
-        label: "REQUESTS DETAIL",
-        key: "requestsDetail",
-        icon: <TableOutlined />,
-        authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
     ],
   },
@@ -91,6 +81,7 @@ export const navigations = [
         icon: <UserOutlined />,
         authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
+
       {
         label: "Group",
         key: "group-detail",
@@ -103,18 +94,17 @@ export const navigations = [
   {
     label: "ADMIN",
     key: "admin",
+    authorize: [ROLE.ADMIN],
     children: [
       {
         label: "WORKSPACE",
         key: "workspace",
         icon: <ReconciliationOutlined />,
-        authorize: [ROLE.ADMIN],
         children: [
           {
             label: "List",
             key: "workspaces",
             icon: <UnorderedListOutlined />,
-            authorize: [ROLE.ADMIN],
           },
         ],
       },

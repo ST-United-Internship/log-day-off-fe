@@ -4,8 +4,9 @@ import "../assets/groupdetail/groupdetail.css";
 import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
 import { PlusOutlined } from "@ant-design/icons";
-// import { useAssignMemberGroup } from "../hooks/useAssignMemberGroup";
+import { useAssignMemberGroup } from "../hooks/useAssignMemberGroup";
 import { useGetAllUsers } from "../hooks/useGetAllUsers";
+import "../assets/css/GroupDetail/GroupDetail.css";
 const { TextArea } = Input;
 
 const GroupDetail = () => {
@@ -13,6 +14,10 @@ const GroupDetail = () => {
   const [setFormData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+
+  const onAssignMember = (id) => {
+    addAssignMember(id);
+  };
 
   const onFinish = (values) => {
     setFormData(values);
@@ -40,11 +45,8 @@ const GroupDetail = () => {
     setFormData(null);
     form.resetFields();
   };
-  // const { mutate: addAssignMember } = useAssignMemberGroup();
+  const { mutate: addAssignMember } = useAssignMemberGroup();
 
-  // const onAssignMember = (id) => {
-  //   addAssignMember(id);
-  // };
   const rows = [
     {
       title: "Name",
@@ -62,12 +64,12 @@ const GroupDetail = () => {
     {
       title: "Actions",
       key: "action",
-      render: () => {
+      render: (_, record) => {
         return (
           <Button
             className="btn-space"
             name="username"
-            // onClick={() => onAssignUser(record.id)}
+            onClick={() => onAssignMember(record.id)}
           >
             <PlusOutlined name="username" />
             ADD
@@ -86,8 +88,8 @@ const GroupDetail = () => {
     >
       <div>
         <h3>Basic Information</h3>
-        <div className="wrap-btn">
-          <Button className="btn-workspace" onClick={showModal}>
+        <div className="wrap-btn-group">
+          <Button className="btn-group" onClick={showModal}>
             + New User
           </Button>
           <Modal

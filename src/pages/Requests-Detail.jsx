@@ -1,6 +1,6 @@
 import { Descriptions, Form, Radio, Select, Spin } from "antd";
 import { Col, Row } from "antd";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   EditOutlined,
   CheckOutlined,
@@ -25,7 +25,7 @@ const RequestDetail = () => {
   const [openModal2, setOpenModal2] = useState(false);
   const [form] = Form.useForm();
   const profile = getStorageData(PROFILE);
-  const { data, isLoading } = useGetRequest();
+  const { data, isLoading, refetch } = useGetRequest();
   const { mutate: approveRequest, isLoading: loading } = useApproveRequest();
   const { mutate: updateRequest, isLoading: loadUpdateRequest } =
     useUpdateRequest();
@@ -61,7 +61,7 @@ const RequestDetail = () => {
       data &&
       data.dayoffs.reduce((prev, curr, index, arr) => {
         const previous = arr[index - 1];
-        const clone = JSON.parse(JSON.stringify(prev));
+        const arrClone = JSON.parse(JSON.stringify(prev));
         const currClone = JSON.parse(JSON.stringify(curr));
         if (
           previous &&
@@ -70,10 +70,14 @@ const RequestDetail = () => {
         ) {
           currClone.detail = [previous.detail, curr.detail];
         }
-        return [...clone, currClone];
+        return [...arrClone, currClone];
       }, []),
     [data]
   );
+
+  useEffect(() => {
+    refetch();
+  }, [loading, loadUpdateRequest]);
 
   if (isLoading) return <Spin />;
 

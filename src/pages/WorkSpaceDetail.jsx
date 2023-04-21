@@ -16,20 +16,23 @@ const WorkSpaceDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //get all user
-  const { data, isLoading: loadWorkspace } = useWorkSpaceDetail();
+  const { data, isLoading: loadWorkspace, refetch } = useWorkSpaceDetail();
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
 
-  const { mutate: assignUser } = useAddAssignUser();
-
-  const onAssignUser = (id) => {
-    assignUser(id);
-  };
+  const {
+    mutate: assignUser,
+    isLoading: loadingAssignUser,
+    isSuccess: successAssign,
+  } = useAddAssignUser();
+  const {
+    mutate: unAssignUser,
+    isLoading: loadingUnAssign,
+    isSuccess: successUnAssign,
+  } = useUnAssignUser();
 
   const usersModal =
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
-  //Un Assign User from workspace
-  const { mutate: unAssignUser, isSuccess, isError } = useUnAssignUser();
   useEffect(() => {
     if (isSuccess) {
       Notification(NOTIFICATION.SUCCESS, "Delete user successfully!");
@@ -46,9 +49,17 @@ const WorkSpaceDetail = () => {
     setIsModalOpen(false);
   };
 
+  const onAssignUser = (id) => {
+    assignUser(id);
+  };
+
   const onUnAssignUser = (id) => {
     unAssignUser(id);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [successAssign, successUnAssign]);
 
   const columns = [
     {
@@ -146,8 +157,8 @@ const WorkSpaceDetail = () => {
       <Table
         columns={columns}
         dataSource={data?.users}
-        loading={loadWorkspace}
-      ></Table>
+        loading={loadWorkspace || loadingUnAssign || loadingAssignUser}
+      />
     </div>
   );
 };

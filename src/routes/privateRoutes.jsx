@@ -40,7 +40,7 @@ const privateRoutes = [
       },
 
       {
-        path: "requests-detail",
+        path: "requests-detail/:id",
         element: <RequestsDetail />,
       },
 

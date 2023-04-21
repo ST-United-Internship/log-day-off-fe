@@ -129,4 +129,4 @@ const GroupDetail = () => {
   );
 };
 
-export default withAuthorization([ROLE.MANAGER])(GroupDetail);
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(GroupDetail);

@@ -11,6 +11,7 @@ import {
   FileExcelOutlined,
   FormOutlined,
   AliwangwangOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -25,22 +26,20 @@ export const navigations = [
         icon: <PieChartOutlined />,
         authorize: [ROLE.ADMIN],
       },
-      {
-        label: "CreateRequest",
-        key: "dayoff",
-        icon: <FormOutlined />,
-      },
+
       {
         label: "Request Account",
         key: "request-account",
         icon: <UserSwitchOutlined />,
       },
+
       {
         label: "CREATE USER",
         key: "create-user",
         icon: <UserAddOutlined />,
         authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
+
       {
         label: "REQUEST",
         key: "request",
@@ -58,8 +57,14 @@ export const navigations = [
             key: "information-day-off",
             icon: <AliwangwangOutlined />,
           },
+
+          {
+            label: "CreateRequest",
+            key: "dayoff",
+          },
         ],
       },
+
       {
         label: "EXPORT",
         key: "export",
@@ -70,12 +75,6 @@ export const navigations = [
             key: "export-dayoff",
           },
         ],
-      },
-      {
-        label: "REQUESTS DETAIL",
-        key: "requestsDetail",
-        icon: <TableOutlined />,
-        authorize: [ROLE.ADMIN, ROLE.MANAGER],
       },
     ],
   },
@@ -91,6 +90,7 @@ export const navigations = [
         icon: <UserOutlined />,
         authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
+
       {
         label: "Group",
         key: "group-detail",

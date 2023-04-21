@@ -1,58 +1,81 @@
 import { Table, Button } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import "../assets/Information-day-off/informationdayoff.css";
-const { Column } = Table;
-const data = [
-  {
-    key: "1",
-    requestforday: "2022.10.14",
-    quantity: "0.5",
-    requester: "Khoa Nguyen",
-    status: "Approved",
-    requestday: "An hourse ago",
-  },
-  {
-    key: "2",
-    requestforday: "2022.07.12 - 2022.07.17",
-    quantity: "2",
-    requester: "Quang Nguyen",
-    status: "Rejected",
-    requestday: "Two days ago",
-  },
-  {
-    key: "3",
-    requestforday: "2022.09.18",
-    quantity: "1.5",
-    requester: "Thanh Nguyen",
-    status: "Reverted",
-    requestday: "Yesterday",
-  },
-];
-const InformationDayOff = () => (
-  <>
-    <div className="button-dayoff">
-      <Button className="checkout-df">
-        <CheckOutlined /> Approved day off
-      </Button>
-      <Button className="closeout-df">
-        <CloseOutlined /> Rejected day off
-      </Button>
-      <Button className="editout-df">
-        <EditOutlined /> Reverted day off
-      </Button>
-    </div>
+import { useGetRequests } from "../hooks/useGetRequests";
+import { getTimeElapsedString } from "../helpers/timeAgo";
 
-    <Table dataSource={data}>
-      <Column
-        title="Request for Day"
-        dataIndex="requestforday"
-        key="frequestforday"
-      />
-      <Column title="Quantity" dataIndex="quantity" key="quantity" />
-      <Column title="Requester" dataIndex="requester" key="requester" />
-      <Column title="Status" dataIndex="status" key="status" />
-      <Column title="Request Day" dataIndex="requestday" key="requestday" />
-    </Table>
-  </>
-);
+const InformationDayOff = () => {
+  const { data, isLoading } = useGetRequests();
+  const columns = [
+    {
+      title: "Request for Day",
+      dataIndex: "day",
+      key: "day",
+      render: (_, record) => {
+        const from = new Date(record.from).toLocaleDateString("us-UK", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        const to = new Date(record.to).toLocaleDateString("us-UK", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return (
+          <label>
+            <span>{from} - </span>
+            <span>{to}</span>
+          </label>
+        );
+      },
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+    },
+    {
+      title: "Requester",
+      dataIndex: "user",
+      key: "user",
+      render: (user) => {
+        return <span key={user.id}>{user.username}</span>;
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: "Request Day",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (time) => {
+        console.log(new Date(time));
+        return <span>{getTimeElapsedString(new Date(time))}</span>;
+      },
+    },
+  ];
+  return (
+    <>
+      <div className="button-dayoff">
+        <Button className="checkout-df">
+          <CheckOutlined /> Approved day off
+        </Button>
+        <Button className="closeout-df">
+          <CloseOutlined /> Rejected day off
+        </Button>
+        <Button className="editout-df">
+          <EditOutlined /> Reverted day off
+        </Button>
+        <Table columns={columns} dataSource={data} loading={isLoading} />
+      </div>
+    </>
+  );
+};
+
 export default InformationDayOff;

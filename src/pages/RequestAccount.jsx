@@ -8,12 +8,12 @@ import {
 import "../assets/reuqest-account/requestaccount.css";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
-import timeAgo from "../helpers/timeAgo";
 import { useGetRequests } from "../hooks/useGetRequests";
 import { useApproveRequest } from "../hooks/useApproveRequest";
 import { getStorageData } from "../helpers/storage";
 import { PROFILE } from "../constants/auth";
 import { useMemo } from "react";
+import { getTimeElapsedString } from "../helpers/timeAgo";
 
 const RequestAccount = () => {
   const { data, isLoading } = useGetRequests();
@@ -78,7 +78,8 @@ const RequestAccount = () => {
         dataIndex: "createdAt",
         key: "createdAt",
         render: (time) => {
-          return <span>{timeAgo(time)}</span>;
+          console.log(new Date(time));
+          return <span>{getTimeElapsedString(new Date(time))}</span>;
         },
       },
     ];

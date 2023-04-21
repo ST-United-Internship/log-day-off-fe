@@ -1,12 +1,4 @@
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Select,
-  Space,
-  // Table
-} from "antd";
+import { Button, Form, Input, Modal, Select, Space, Table } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
@@ -16,6 +8,7 @@ import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
 import { useCreateGroup } from "../hooks/useCreateGroup";
 import { NOTIFICATION } from "../constants/notification";
 import { Notification } from "../components/Notifications/notification";
+import { useGetListGroup } from "../hooks/useGetListGroup";
 
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,45 +21,31 @@ const Group = () => {
     isSuccess,
   } = useCreateGroup();
 
-  const { data: listWorkSpace, isLoading: loadListGroup } =
-    useGetListWorkspace();
+  const { data: listWorkSpace } = useGetListWorkspace();
 
-  // const dataTable =
-  //   listGroup?.length > 0 &&
-  //   Object.keys(listGroup[0]).reduce((prev, curr) => {
-  //     prev[curr] = curr;
-  //     return prev;
-  //   }, {});
+  const { data: listGroup, isLoading: loadListGroup } = useGetListGroup();
+  const dataTable =
+    listGroup?.length > 0 &&
+    Object.keys(listGroup[0]).reduce((prev, curr) => {
+      prev[curr] = curr;
+      return prev;
+    }, {});
 
-  // const columns = [
-  //   {
-  //     title: "Name",
-  //     dataIndex: dataTable?.name,
-  //   },
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: dataTable?.name,
+    },
 
-  //   {
-  //     title: "Member (s)",
-  //     dataIndex: dataTable?.staff,
-  //   },
-  //   {
-  //     title: "Managers",
-  //     dataIndex: dataTable?.users,
-  //     render: (users) => {
-  //       return (
-  //         <>
-  //           {ROLE.MANAGER
-  //             ? users.map((user, index) => {
-  //                 if (index === 0)
-  //                   return <span key={user.id}>{user.username}</span>;
-  //                 return <span key={user.id}>{`, ${user.username}`}</span>;
-  //               })
-  //             : ""}
-  //         </>
-  //       );
-  //     },
-  //   },
-  // ];
-
+    {
+      title: "Member (s)",
+      dataIndex: dataTable?.staff,
+    },
+    {
+      title: "Master (s)",
+      dataIndex: dataTable?.manager,
+    },
+  ];
   useEffect(() => {
     if (isSuccess) {
       Notification(NOTIFICATION.SUCCESS, "Create Group successfully!");
@@ -172,11 +151,9 @@ const Group = () => {
             </Form>
           </LoadingComponent>
         </Modal>
-        {/* <Table columns={columns} 
-        // dataSource={listGroup} 
-        /> */}
+        <Table columns={columns} dataSource={listGroup} />
       </LoadingComponent>
     </>
   );
 };
-export default withAuthorization([ROLE.MANAGER])(Group);
+export default withAuthorization([ROLE.MANAGER, ROLE.ADMIN])(Group);

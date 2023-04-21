@@ -21,6 +21,10 @@ export const API_URL = {
   APPROVE_REQUEST: "requests/approve",
   EXPORT_DAY_OFF: "requests/dayoffs/export-dayoffs",
   CREATE_GROUP: "groups",
+<<<<<<< HEAD
   GROUP: "groups",
   ASSIGN_MEMBER: "assign-to-group",
+=======
+  LIST_GROUP: "groups",
+>>>>>>> feat: data list group
 };

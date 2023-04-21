@@ -1,4 +1,13 @@
-import { Descriptions, Form, Radio, Select, Spin } from "antd";
+import {
+  Descriptions,
+  Form,
+  Radio,
+  // Select,
+  Spin,
+  Button,
+  Modal,
+  Input,
+} from "antd";
 import { Col, Row } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -7,7 +16,6 @@ import {
   CloseOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
-import { Button, Modal, Input } from "antd";
 import "../assets/css/requests.css";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
@@ -17,7 +25,7 @@ import { getStorageData } from "../helpers/storage";
 import { PROFILE } from "../constants/auth";
 import { useUpdateRequest } from "../hooks/useUpdateRequest";
 
-const { Option } = Select;
+// const { Option } = Select;
 
 const RequestDetail = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -79,7 +87,17 @@ const RequestDetail = () => {
     refetch();
   }, [loading, loadUpdateRequest]);
 
-  if (isLoading) return <Spin />;
+  if (isLoading)
+    return (
+      <Spin
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+    );
 
   return (
     <Row gutter={30}>
@@ -123,7 +141,7 @@ const RequestDetail = () => {
           onOk={handleOk}
           onCancel={() => setOpenModal(false)}
           okText="Approve"
-          okButtonProps={{ loading }}
+          confirmLoading={loading}
         />
 
         <Button
@@ -139,7 +157,7 @@ const RequestDetail = () => {
           onOk={handleOk1}
           okText="Reject"
           onCancel={() => setOpenModal1(false)}
-          okButtonProps={{ loading }}
+          confirmLoading={loading}
         />
 
         <Button
@@ -194,7 +212,7 @@ const RequestDetail = () => {
             >
               <Input className="text-select" type="Date" />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Province"
               name="province"
               rules={[
@@ -209,7 +227,7 @@ const RequestDetail = () => {
                 <Option value="two">Afternoon</Option>
                 <Option value="three">All day</Option>
               </Select>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="To"
               name="to"

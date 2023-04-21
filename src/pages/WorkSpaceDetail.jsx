@@ -66,12 +66,12 @@ const WorkSpaceDetail = () => {
         console.log(record);
         return (
           <Space size="middle">
-            <Button className="btn-space">
+            <Button className="btn-space-reset">
               <EditOutlined />
               Reset Password
             </Button>
             <Button
-              className="btn-space"
+              className="btn-space-remove"
               name="username"
               onClick={() => onUnAssignUser(record.id)}
             >

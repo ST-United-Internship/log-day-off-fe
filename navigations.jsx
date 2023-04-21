@@ -101,6 +101,7 @@ export const navigations = [
       {
         label: "CreateRequest",
         key: "dayoff",
+        icon: <FormOutlined />,
       },
     ],
   },

@@ -94,18 +94,17 @@ export const navigations = [
   {
     label: "ADMIN",
     key: "admin",
+    authorize: [ROLE.ADMIN],
     children: [
       {
         label: "WORKSPACE",
         key: "workspace",
         icon: <ReconciliationOutlined />,
-        authorize: [ROLE.ADMIN],
         children: [
           {
             label: "List",
             key: "workspaces",
             icon: <UnorderedListOutlined />,
-            authorize: [ROLE.ADMIN],
           },
         ],
       },

@@ -33,15 +33,6 @@ const WorkSpaceDetail = () => {
   const usersModal =
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
-  useEffect(() => {
-    if (isSuccess) {
-      Notification(NOTIFICATION.SUCCESS, "Delete user successfully!");
-      handleCancel();
-    } else if (isError) {
-      Notification(NOTIFICATION.ERROR, "Delete user error!");
-    }
-  }, [isSuccess]);
-
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -58,7 +49,14 @@ const WorkSpaceDetail = () => {
   };
 
   useEffect(() => {
-    refetch();
+    if (successAssign || successUnAssign) {
+      const message =
+        (successAssign && "Assign user successfully!") ||
+        (successUnAssign && "Delete user successfully!");
+      Notification(NOTIFICATION.SUCCESS, message);
+      refetch();
+      handleCancel();
+    }
   }, [successAssign, successUnAssign]);
 
   const columns = [

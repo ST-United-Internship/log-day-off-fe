@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
@@ -8,6 +8,8 @@ import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
 import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
@@ -27,7 +29,15 @@ const WorkSpaceDetail = () => {
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
   //Un Assign User from workspace
-  const { mutate: unAssignUser } = useUnAssignUser();
+  const { mutate: unAssignUser, isSuccess, isError } = useUnAssignUser();
+  useEffect(() => {
+    if (isSuccess) {
+      Notification(NOTIFICATION.SUCCESS, "Delete user successfully!");
+      handleCancel();
+    } else if (isError) {
+      Notification(NOTIFICATION.ERROR, "Delete user error!");
+    }
+  }, [isSuccess]);
 
   const showModal = () => {
     setIsModalOpen(true);

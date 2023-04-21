@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Space, Table, Form, message, Modal, Input } from "antd";
+import { Button, Space, Table, Form, Modal, Input } from "antd";
 import { useEffect, useState } from "react";
 import "../assets/styles/WorkSpace.css";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
@@ -8,6 +8,8 @@ import withAuthorization from "../HOCs/withAuthorization";
 import { useCreateWorkSpace } from "../hooks/useCreateWorkSpace";
 import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
 import { useNavigate } from "react-router-dom";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
 const WorkSpace = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +28,7 @@ const WorkSpace = () => {
     useGetListWorkspace();
 
   const dataTable =
-    listWorkspace?.length > 0 &&
+    listWorkspace?.length &&
     Object.keys(listWorkspace[0]).reduce((prev, curr) => {
       prev[curr] = curr;
       return prev;
@@ -62,15 +64,16 @@ const WorkSpace = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      message.success("Create workspace successfully!");
+      Notification(NOTIFICATION.SUCCESS, "Create workspace successfully!");
       handleCancel();
     } else if (isError) {
-      message.error("Create workspace unsuccessfully!");
+      Notification(NOTIFICATION.ERROR, "Create workspace unsuccessfully!");
     }
   }, [isSuccess]);
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
 
   const onRow = (record) => {
@@ -93,17 +96,15 @@ const WorkSpace = () => {
     <LoadingComponent isLoading={loadListWorkspace}>
       <div className="nav-container">
         <div className="wrapper">
-          <a href="#">Branding</a>
           <Space wrap>
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              style={{ fontWeight: "600" }}
+              style={{ fontWeight: "600", textAlign: "right" }}
               onClick={() => setIsModalOpen(true)}
             >
               New Workspace
             </Button>
-            {/* <UserOutlined className="user-icon" /> */}
           </Space>
         </div>
       </div>

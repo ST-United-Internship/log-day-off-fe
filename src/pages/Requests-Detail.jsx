@@ -254,7 +254,7 @@ const RequestDetail = () => {
                 <div className="reqs">{item.action}</div>
                 <div>{item.detail[0].name + " update request"}</div>
                 <Row align="middle" justify="center">
-                  <Col span={24} sm={10}>
+                  <Col span={24} md={10}>
                     <Descriptions layout="horizontal" column={1}>
                       <Descriptions.Item label="From">
                         {item.detail[0].From}
@@ -270,10 +270,10 @@ const RequestDetail = () => {
                       </Descriptions.Item>
                     </Descriptions>
                   </Col>
-                  <Col span={0} sm={4}>
+                  <Col span={0} md={4}>
                     <ArrowRightOutlined />
                   </Col>
-                  <Col span={24} sm={10}>
+                  <Col span={24} md={10}>
                     <Descriptions layout="horizontal" column={1}>
                       <Descriptions.Item label="From">
                         {item.detail[1].From}

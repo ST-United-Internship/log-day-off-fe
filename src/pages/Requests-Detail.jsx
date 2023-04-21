@@ -252,7 +252,7 @@ const RequestDetail = () => {
             return (
               <>
                 <div className="reqs">{item.action}</div>
-                <div>{item.detail[0].name + " update request"}</div>
+                <div>{item.detail[0].name + " updated request"}</div>
                 <Row align="middle" justify="center">
                   <Col span={24} md={10}>
                     <Descriptions layout="horizontal" column={1}>

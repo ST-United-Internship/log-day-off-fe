@@ -13,6 +13,7 @@ import {
   TableOutlined,
   FileExcelOutlined,
   FormOutlined,
+  AliwangwangOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -105,6 +106,11 @@ export const navigations = [
         label: "CreateRequest",
         key: "dayoff",
         icon: <FormOutlined />,
+      },
+      {
+        label: "InformationDayOff",
+        key: "information-day-off",
+        icon: <AliwangwangOutlined />,
       },
     ],
   },

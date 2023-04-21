@@ -11,6 +11,7 @@ export const API_URL = {
   CREATE_MANAGER: "admin/manager",
   CREATE_REQUEST: "requests",
   CREATE_WORKSPACE: "admin/workspace",
+  CREATE_MEMBER: "staffs",
   LIST_WORKSPACE: "admin/workspace",
   WORKSPACE_DETAIL: "admin/workspace",
   CREATE_WORKSPACE_DETAIL: "admin/workspace",

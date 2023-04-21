@@ -70,12 +70,14 @@ export const navigations = [
     icon: <UserOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
     label: "GROUP",
     key: "group",
     icon: <GroupOutlined />,
     authorize: [ROLE.MANAGER],
   },
+
   {
     label: "CREATE USER",
     key: "create-user",
@@ -116,5 +118,23 @@ export const navigations = [
         key: "export-dayoff",
       },
     ],
+  },
+  {
+    label: "Members",
+    key: "members",
+    icon: <UserOutlined />,
+    authorize: [ROLE.MANAGER],
+  },
+  {
+    label: "REQUESTS DETAIL",
+    key: "requestsDetail",
+    icon: <TableOutlined />,
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
+  },
+  {
+    label: "Group",
+    key: "group",
+    icon: <GroupOutlined />,
+    authorize: [ROLE.MANAGER],
   },
 ];

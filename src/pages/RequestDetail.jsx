@@ -345,4 +345,6 @@ const RequestDetail = () => {
   );
 };
 
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER])(RequestDetail);
+export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER, ROLE.STAFF])(
+  RequestDetail
+);

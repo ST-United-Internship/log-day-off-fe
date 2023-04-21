@@ -134,6 +134,9 @@ const RequestAccount = () => {
   );
 };
 
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER])(
-  RequestAccount
-);
+export default withAuthorization([
+  ROLE.ADMIN,
+  ROLE.MANAGER,
+  ROLE.MASTER,
+  ROLE.STAFF,
+])(RequestAccount);

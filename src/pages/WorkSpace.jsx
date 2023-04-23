@@ -27,6 +27,8 @@ const WorkSpace = () => {
   const { data: listWorkspace, isLoading: loadListWorkspace } =
     useGetListWorkspace();
 
+  const useQueryListWorkspace = useGetListWorkspace();
+
   const dataTable =
     listWorkspace?.length &&
     Object.keys(listWorkspace[0]).reduce((prev, curr) => {
@@ -86,8 +88,13 @@ const WorkSpace = () => {
   };
 
   const onFinish = (values) => {
-    createWorkspace(values);
+    createWorkspace(values, {
+      onSettled: () => {
+        useQueryListWorkspace.refetch();
+      },
+    });
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

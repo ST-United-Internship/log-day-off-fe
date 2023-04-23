@@ -1,15 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
-import { QUERY_KEY } from "../constants/query-key";
 import { addAssignMember } from "../services/groupDetailApi";
-import { useParams } from "react-router-dom";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
-export const useAssignMemberGroup = () => {
-  const { id } = useParams();
+export const useAssignMemberGroup = (id) => {
   return useMutation(
     async (values) => {
-      const { data } = await addAssignMember(id, values);
+      const { data } = await addAssignMember(values, Number(id));
       return data;
     },
-    { mutationKey: [QUERY_KEY.GROUP_DETAIL] }
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        Notification(NOTIFICATION.SUCCESS, data.message);
+      },
+      onError: (error) => {
+        Notification(NOTIFICATION.ERROR, error.response.data.message);
+      },
+    }
   );
 };

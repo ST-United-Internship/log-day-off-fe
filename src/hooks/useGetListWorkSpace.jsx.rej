@@ -1,0 +1,9 @@
+diff a/src/hooks/useGetListWorkSpace.jsx b/src/hooks/useGetListWorkSpace.jsx	(rejected hunks)
+@@ -9,7 +9,5 @@ export const useGetListWorkspace = () => {
+       const { data } = await getListWorkspace();
+       return data;
+     },
+-    staleTime: 10000, // cache for 10 seconds
+-    refetchInterval: 3000, // refetch every 5 seconds
+   });
+ };

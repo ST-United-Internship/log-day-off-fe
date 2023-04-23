@@ -5,11 +5,16 @@ import "./LayoutTopbar.css";
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { getStorageData } from "../../helpers/storage";
+import { PROFILE } from "../../constants/auth";
 
 const { Header } = Layout;
 
 const LayoutTopbar = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
+
+  const profile = getStorageData(PROFILE);
+
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -41,16 +46,24 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
         className: "trigger-bar",
         onClick: () => setCollapsed(!collapsed),
       })}
-      <Space direction="vertical">
-        <Space wrap>
-          <Dropdown menu={{ items }} placement="topRight">
+      <Dropdown menu={{ items }}>
+        <Space>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+              paddingRight: "20px",
+            }}
+          >
             <img
               className="img-drop"
               src="https://th.bing.com/th/id/OIP.nczpMSa69aDJWYGi0tKqggHaHa?w=205&h=205&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-            ></img>
-          </Dropdown>
+            />
+            {profile?.username}
+          </div>
         </Space>
-      </Space>
+      </Dropdown>
     </Header>
   );
 };

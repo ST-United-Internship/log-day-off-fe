@@ -7,9 +7,7 @@ export const useGetListGroup = () => {
     queryKey: [QUERY_KEY.LIST_GROUP],
     queryFn: async () => {
       const { data } = await getListGroup();
-      return data;
+      return data.groups;
     },
-    staleTime: 10000, // cache for 10 seconds
-    refetchInterval: 3000, // refetch every 5 seconds
   });
 };

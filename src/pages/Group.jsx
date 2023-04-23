@@ -1,4 +1,5 @@
-import { Button, Form, Input, Modal, Select, Space, Table } from "antd";
+import { Link } from "react-router-dom";
+import { Button, Form, Input, Modal, Select, Space, Table, Tag } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
@@ -6,52 +7,78 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
 import { useCreateGroup } from "../hooks/useCreateGroup";
-import { NOTIFICATION } from "../constants/notification";
-import { Notification } from "../components/Notifications/notification";
 import { useGetListGroup } from "../hooks/useGetListGroup";
 
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
-  const {
-    mutate: createGroup,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useCreateGroup();
+  const { mutate: createGroup, isLoading, isSuccess } = useCreateGroup();
 
   const { data: listWorkSpace } = useGetListWorkspace();
 
-  const { data: listGroup, isLoading: loadListGroup } = useGetListGroup();
-  const dataTable =
-    listGroup?.length > 0 &&
-    Object.keys(listGroup[0]).reduce((prev, curr) => {
-      prev[curr] = curr;
-      return prev;
-    }, {});
+  const {
+    data: listGroup,
+    isLoading: loadListGroup,
+    refetch,
+  } = useGetListGroup();
+
+  const mapping = listGroup?.map((item) => ({
+    ...item,
+    workspace: item.workspace.name,
+  }));
 
   const columns = [
     {
       title: "Name",
-      dataIndex: dataTable?.name,
+      dataIndex: "name",
+      render: (text, record) => {
+        return (
+          <Link to={`/group/${record.id}`}>
+            <span>{text}</span>
+          </Link>
+        );
+      },
     },
-
     {
       title: "Member (s)",
-      dataIndex: dataTable?.staff,
+      dataIndex: "users",
+      render: (_, { users }) => {
+        return users.map((item) => (
+          <Tag color="#2db7f5" key={item.id}>
+            {item.username}
+          </Tag>
+        ));
+      },
     },
     {
       title: "Master (s)",
-      dataIndex: dataTable?.manager,
+      dataIndex: "master",
+      render: (_, { master }) => {
+        return master.map((item) => (
+          <Tag color="#2db7f5" key={item.id}>
+            {item.username}
+          </Tag>
+        ));
+      },
+    },
+    {
+      title: "Workspace (s)",
+      dataIndex: "workspace",
+      render: (_, { workspace, id }) => {
+        return (
+          <Link to={`/workspace-detail/${id}`}>
+            <Tag color="#108ee9">{workspace}</Tag>
+          </Link>
+        );
+      },
     },
   ];
+
   useEffect(() => {
     if (isSuccess) {
-      Notification(NOTIFICATION.SUCCESS, "Create Group successfully!");
+      refetch();
       handleCancel();
-    } else if (isError) {
-      Notification(NOTIFICATION.ERROR, "Create Group unsuccessfully!");
     }
   }, [isSuccess]);
 
@@ -151,7 +178,7 @@ const Group = () => {
             </Form>
           </LoadingComponent>
         </Modal>
-        <Table columns={columns} dataSource={listGroup} />
+        <Table columns={columns} dataSource={mapping} />
       </LoadingComponent>
     </>
   );

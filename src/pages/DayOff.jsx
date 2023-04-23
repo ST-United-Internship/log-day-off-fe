@@ -71,17 +71,17 @@ const DayOff = () => {
                 />
               </Form.Item>
               <Form.Item
-                name={["province", "province"]}
+                name={["section", "section"]}
                 noStyle
                 rules={[
                   {
                     required: true,
-                    message: "Province is required",
+                    message: "Section is required",
                   },
                 ]}
               >
                 <Select
-                  placeholder="Select province"
+                  placeholder="Select section"
                   style={{ width: "200px" }}
                   className="select-form"
                 >

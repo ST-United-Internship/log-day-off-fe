@@ -11,6 +11,7 @@ export const API_URL = {
   CREATE_MANAGER: "admin/manager",
   CREATE_REQUEST: "requests",
   CREATE_WORKSPACE: "admin/workspace",
+  CREATE_MEMBER: "staffs",
   LIST_WORKSPACE: "admin/workspace",
   WORKSPACE_DETAIL: "admin/workspace",
   CREATE_WORKSPACE_DETAIL: "admin/workspace",
@@ -20,4 +21,7 @@ export const API_URL = {
   REQUESTS: "requests",
   APPROVE_REQUEST: "requests/approve",
   EXPORT_DAY_OFF: "requests/dayoffs/export-dayoffs",
+  CREATE_GROUP: "groups",
+  GROUP: "groups",
+  ASSIGN_MEMBER: "assign-to-group",
 };

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
@@ -8,26 +8,30 @@ import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
 import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //get all user
-  const { data, isLoading: loadWorkspace } = useWorkSpaceDetail();
+  const { data, isLoading: loadWorkspace, refetch } = useWorkSpaceDetail();
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
 
-  const { mutate: assignUser } = useAddAssignUser();
-
-  const onAssignUser = (id) => {
-    assignUser(id);
-  };
+  const {
+    mutate: assignUser,
+    isLoading: loadingAssignUser,
+    isSuccess: successAssign,
+  } = useAddAssignUser();
+  const {
+    mutate: unAssignUser,
+    isLoading: loadingUnAssign,
+    isSuccess: successUnAssign,
+  } = useUnAssignUser();
 
   const usersModal =
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
-
-  //Un Assign User from workspace
-  const { mutate: unAssignUser } = useUnAssignUser();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,9 +40,24 @@ const WorkSpaceDetail = () => {
     setIsModalOpen(false);
   };
 
+  const onAssignUser = (id) => {
+    assignUser(id);
+  };
+
   const onUnAssignUser = (id) => {
     unAssignUser(id);
   };
+
+  useEffect(() => {
+    if (successAssign || successUnAssign) {
+      const message =
+        (successAssign && "Assign user successfully!") ||
+        (successUnAssign && "Delete user successfully!");
+      Notification(NOTIFICATION.SUCCESS, message);
+      refetch();
+      handleCancel();
+    }
+  }, [successAssign, successUnAssign]);
 
   const columns = [
     {
@@ -66,12 +85,12 @@ const WorkSpaceDetail = () => {
         console.log(record);
         return (
           <Space size="middle">
-            <Button className="btn-space">
+            <Button className="btn-space-reset">
               <EditOutlined />
               Reset Password
             </Button>
             <Button
-              className="btn-space"
+              className="btn-space-remove"
               name="username"
               onClick={() => onUnAssignUser(record.id)}
             >
@@ -136,8 +155,8 @@ const WorkSpaceDetail = () => {
       <Table
         columns={columns}
         dataSource={data?.users}
-        loading={loadWorkspace}
-      ></Table>
+        loading={loadWorkspace || loadingUnAssign || loadingAssignUser}
+      />
     </div>
   );
 };

@@ -6,14 +6,35 @@ import { useCreateManager } from "../../hooks/useCreateManager";
 import { useCreateStaff } from "../../hooks/useCreateStaff";
 import { PROFILE } from "../../constants/auth";
 import "./formuser.css";
+import { useEffect } from "react";
 
 const { useBreakpoint } = Grid;
 
 const FormUser = () => {
-  const { mutate: createStaff } = useCreateStaff();
-  const { mutate: createManager } = useCreateManager();
+  const {
+    mutate: createStaff,
+    isLoading: loadingStaff,
+    isError: errorStaff,
+    isSuccess: successStaff,
+  } = useCreateStaff();
+  const {
+    mutate: createManager,
+    isLoading: loadingMana,
+    isError: errorMana,
+    isSuccess: successMana,
+  } = useCreateManager();
   const { md } = useBreakpoint();
   const authUser = getStorageData(PROFILE);
+
+  const [form] = Form.useForm();
+  useEffect(() => {
+    if (!errorStaff || !errorMana) {
+      form.resetFields();
+    }
+    if (successStaff || successMana) {
+      form.resetFields();
+    }
+  }, [errorStaff, errorStaff, successStaff, successMana]);
 
   const onFinish = (values) => {
     switch (authUser.role.name) {
@@ -37,7 +58,7 @@ const FormUser = () => {
       };
 
   return (
-    <Form className="form-user" onFinish={onFinish} {...formLayout}>
+    <Form className="form-user" onFinish={onFinish} form={form} {...formLayout}>
       <Form.Item
         label="Username"
         name="username"
@@ -89,7 +110,12 @@ const FormUser = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button className="button-submit" htmlType="submit" size="large">
+        <Button
+          className="button-submit"
+          htmlType="submit"
+          size="large"
+          loading={loadingStaff || loadingMana}
+        >
           Submit
         </Button>
       </Form.Item>

@@ -1,8 +1,9 @@
 import PrivateLayout from "../components/PrivateLayout/PrivateLayout";
 import Dashboard from "../pages/Dashboard";
 import DayOff from "../pages/DayOff";
+import InformationDayOff from "../pages/InformationDayOff";
 import Request from "../pages/Request";
-import RequestsDetail from "../pages/Requests-Detail";
+import RequestsDetail from "../pages/RequestDetail";
 import Members from "../pages/Members";
 import Group from "../pages/Group";
 import GroupDetail from "../pages/GroupDetail";
@@ -39,7 +40,7 @@ const privateRoutes = [
       },
 
       {
-        path: "requests-detail",
+        path: "request-detail/:id",
         element: <RequestsDetail />,
       },
 
@@ -90,6 +91,10 @@ const privateRoutes = [
       {
         path: "export-dayoff",
         element: <ExportDayoff />,
+      },
+      {
+        path: "information-day-off",
+        element: <InformationDayOff />,
       },
     ],
   },

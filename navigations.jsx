@@ -1,117 +1,112 @@
 import {
-  DatabaseOutlined,
   PieChartOutlined,
   ReconciliationOutlined,
   UserOutlined,
-  GroupOutlined,
   UserAddOutlined,
   Loading3QuartersOutlined,
   UserSwitchOutlined,
   UnorderedListOutlined,
   UsergroupAddOutlined,
-  NotificationOutlined,
-  TableOutlined,
   FileExcelOutlined,
+  AliwangwangOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
 export const navigations = [
   {
-    label: "DASHBOARD",
-    key: "dashboard",
-    icon: <PieChartOutlined />,
-    authorize: [ROLE.ADMIN],
+    label: "ACCOUNT",
+    key: "account",
+    children: [
+      {
+        label: "DASHBOARD",
+        key: "dashboard",
+        icon: <PieChartOutlined />,
+        authorize: [ROLE.ADMIN],
+      },
+
+      {
+        label: "CREATE USER",
+        key: "create-user",
+        icon: <UserAddOutlined />,
+        authorize: [ROLE.ADMIN, ROLE.MANAGER],
+      },
+
+      {
+        label: "REQUEST",
+        key: "request",
+        icon: <Loading3QuartersOutlined />,
+        authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
+        children: [
+          {
+            label: "InformationDayOff",
+            key: "information-day-off",
+            icon: <AliwangwangOutlined />,
+          },
+
+          {
+            label: "Request Account",
+            key: "request-account",
+            icon: <UserSwitchOutlined />,
+          },
+
+          {
+            label: "CreateRequest",
+            key: "dayoff",
+          },
+        ],
+      },
+
+      {
+        label: "EXPORT",
+        key: "export",
+        icon: <FileExcelOutlined />,
+        children: [
+          {
+            label: "Day Off",
+            key: "export-dayoff",
+          },
+        ],
+      },
+    ],
   },
 
   {
-    label: "MASTERDATA",
-    key: "master",
-    icon: <DatabaseOutlined />,
+    label: "MANAGER",
+    key: "manager",
+    authorize: [ROLE.ADMIN, ROLE.MANAGER],
     children: [
       {
-        label: "Users",
-        key: "users",
+        label: "Members",
+        key: "members",
+        icon: <UserOutlined />,
+        authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
-      {
-        label: "Address",
-        key: "address",
-      },
+
       {
         label: "Group",
         key: "group-detail",
         icon: <UsergroupAddOutlined />,
-      },
-      {
-        label: "Notification",
-        key: "notification",
-        icon: <NotificationOutlined />,
+        authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
     ],
   },
 
   {
-    label: "WORKSPACE",
-    key: "workspace",
-    icon: <ReconciliationOutlined />,
+    label: "ADMIN",
+    key: "admin",
     authorize: [ROLE.ADMIN],
     children: [
       {
-        label: "List",
-        key: "workspaces",
-        icon: <UnorderedListOutlined />,
-      },
-    ],
-  },
-
-  {
-    label: "MEMBERS",
-    key: "members",
-    icon: <UserOutlined />,
-    authorize: [ROLE.MANAGER],
-  },
-  {
-    label: "GROUP",
-    key: "group",
-    icon: <GroupOutlined />,
-    authorize: [ROLE.MANAGER],
-  },
-  {
-    label: "CREATE USER",
-    key: "create-user",
-    icon: <UserAddOutlined />,
-    authorize: [ROLE.ADMIN, ROLE.MANAGER],
-  },
-
-  {
-    label: "REQUEST",
-    key: "request",
-    icon: <Loading3QuartersOutlined />,
-    authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
-    children: [
-      {
-        label: "Request Account",
-        key: "request-account",
-        icon: <UserSwitchOutlined />,
-      },
-      {
-        label: "Request Detail",
-        key: "requests-detail",
-        icon: <TableOutlined />,
-      },
-      {
-        label: "CreateRequest",
-        key: "dayoff",
-      },
-    ],
-  },
-  {
-    label: "EXPORT",
-    key: "export",
-    icon: <FileExcelOutlined />,
-    children: [
-      {
-        label: "Day Off",
-        key: "export-dayoff",
+        label: "WORKSPACE",
+        key: "workspace",
+        icon: <ReconciliationOutlined />,
+        children: [
+          {
+            label: "List",
+            key: "workspaces",
+            icon: <UnorderedListOutlined />,
+          },
+        ],
       },
     ],
   },

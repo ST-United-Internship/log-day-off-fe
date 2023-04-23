@@ -22,16 +22,10 @@ const WorkSpace = () => {
     isLoading,
     isError,
     isSuccess,
-    error,
   } = useCreateWorkSpace();
 
-  const {
-    data: listWorkspace,
-    isLoading: loadListWorkspace,
-    refetch,
-  } = useGetListWorkspace();
-
-  const useQueryListWorkspace = useGetListWorkspace();
+  const { data: listWorkspace, isLoading: loadListWorkspace } =
+    useGetListWorkspace();
 
   const useQueryListWorkspace = useGetListWorkspace();
 

@@ -22,10 +22,14 @@ const WorkSpace = () => {
     isLoading,
     isError,
     isSuccess,
+    error,
   } = useCreateWorkSpace();
 
-  const { data: listWorkspace, isLoading: loadListWorkspace } =
-    useGetListWorkspace();
+  const {
+    data: listWorkspace,
+    isLoading: loadListWorkspace,
+    refetch,
+  } = useGetListWorkspace();
 
   const useQueryListWorkspace = useGetListWorkspace();
 
@@ -67,9 +71,10 @@ const WorkSpace = () => {
   useEffect(() => {
     if (isSuccess) {
       Notification(NOTIFICATION.SUCCESS, "Create workspace successfully!");
+      refetch();
       handleCancel();
     } else if (isError) {
-      Notification(NOTIFICATION.ERROR, "Create workspace unsuccessfully!");
+      Notification(NOTIFICATION.ERROR, error);
     }
   }, [isSuccess]);
 

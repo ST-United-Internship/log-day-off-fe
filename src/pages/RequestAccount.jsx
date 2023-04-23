@@ -14,8 +14,10 @@ import { getStorageData } from "../helpers/storage";
 import { PROFILE } from "../constants/auth";
 import { useMemo } from "react";
 import { getTimeElapsedString } from "../helpers/timeAgo";
+import { useNavigate } from "react-router-dom";
 
 const RequestAccount = () => {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetRequests();
   const { mutate: approveRequest } = useApproveRequest();
   const handleConfirm = (requestId, slackId, statusApprove) => {
@@ -26,6 +28,15 @@ const RequestAccount = () => {
         approveRequest({ requestId, slackId, statusApprove });
       },
     });
+  };
+
+  const onRow = (record) => {
+    return {
+      onClick: (e) => {
+        e.stopPropagation();
+        navigate("/request-detail/" + record.id);
+      },
+    };
   };
 
   const columns = useMemo(() => {
@@ -113,9 +124,19 @@ const RequestAccount = () => {
     return column;
   }, []);
 
-  return <Table columns={columns} dataSource={data} loading={isLoading} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={isLoading}
+      onRow={onRow}
+    />
+  );
 };
 
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER])(
-  RequestAccount
-);
+export default withAuthorization([
+  ROLE.ADMIN,
+  ROLE.MANAGER,
+  ROLE.MASTER,
+  ROLE.STAFF,
+])(RequestAccount);

@@ -4,7 +4,7 @@ import "../assets/login/login.css";
 import { useLogin } from "../hooks/useAuth";
 
 const GmailLoginForm = () => {
-  const { mutate: login } = useLogin();
+  const { mutate: login, isLoading } = useLogin();
 
   const onFinish = (values) => {
     login(values);
@@ -57,7 +57,7 @@ const GmailLoginForm = () => {
             </Form.Item>
 
             <Form.Item className="sub-btn">
-              <Button htmlType="submit" size="large">
+              <Button htmlType="submit" size="large" loading={isLoading}>
                 GET START
               </Button>
             </Form.Item>

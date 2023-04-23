@@ -33,6 +33,8 @@ const WorkSpace = () => {
 
   const useQueryListWorkspace = useGetListWorkspace();
 
+  const useQueryListWorkspace = useGetListWorkspace();
+
   const dataTable =
     listWorkspace?.length &&
     Object.keys(listWorkspace[0]).reduce((prev, curr) => {
@@ -71,10 +73,9 @@ const WorkSpace = () => {
   useEffect(() => {
     if (isSuccess) {
       Notification(NOTIFICATION.SUCCESS, "Create workspace successfully!");
-      refetch();
       handleCancel();
     } else if (isError) {
-      Notification(NOTIFICATION.ERROR, error);
+      Notification(NOTIFICATION.ERROR, "Create workspace unsuccessfully!");
     }
   }, [isSuccess]);
 

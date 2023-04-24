@@ -3,9 +3,12 @@ import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import "../assets/Information-day-off/informationdayoff.css";
 import { useGetRequests } from "../hooks/useGetRequests";
 import { getTimeElapsedString } from "../helpers/timeAgo";
+import withAuthorization from "../HOCs/withAuthorization";
+import { ROLE } from "../constants/roles";
 
 const InformationDayOff = () => {
   const { data, isLoading } = useGetRequests();
+  console.log(data);
   const columns = [
     {
       title: "Request for Day",
@@ -78,4 +81,9 @@ const InformationDayOff = () => {
   );
 };
 
-export default InformationDayOff;
+export default withAuthorization([
+  ROLE.ADMIN,
+  ROLE.MANAGER,
+  ROLE.MASTER,
+  ROLE.STAFF,
+])(InformationDayOff);

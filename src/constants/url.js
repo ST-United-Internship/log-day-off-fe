@@ -21,7 +21,10 @@ export const API_URL = {
   REQUESTS: "requests",
   APPROVE_REQUEST: "requests/approve",
   EXPORT_DAY_OFF: "requests/dayoffs/export-dayoffs",
-  CREATE_GROUP: "groups",
+  CREATE_GROUP: "workspaces",
   GROUP: "groups",
   ASSIGN_MEMBER: "assign-to-group",
+  UN_ASSIGN_MEMBER: "unassign-to-group",
+  LIST_GROUP: "workspaces/list-all-groups",
+  WORKSPACE_GROUP: "workspaces/groups",
 };

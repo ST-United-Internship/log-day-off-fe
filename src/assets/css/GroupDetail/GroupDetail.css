@@ -1,4 +1,12 @@
-.group-form .wrap-btn-group .btn-group {
-  float: right;
-  margin-bottom: 30px;
+.group-form .wrap-btn-group {
+  display: flex;
+  justify-content: end;
+}
+
+.group-form .footer-btn-groups {
+  display: flex;
+  justify-content: flex-end;
+}
+.group-form .footer-btn-groups > button {
+  margin-right: 10px;
 }

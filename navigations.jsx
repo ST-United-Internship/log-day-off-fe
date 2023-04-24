@@ -6,7 +6,6 @@ import {
   Loading3QuartersOutlined,
   UserSwitchOutlined,
   UnorderedListOutlined,
-  UsergroupAddOutlined,
   FileExcelOutlined,
   AliwangwangOutlined,
 } from "@ant-design/icons";
@@ -76,16 +75,9 @@ export const navigations = [
     authorize: [ROLE.ADMIN, ROLE.MANAGER],
     children: [
       {
-        label: "Members",
-        key: "members",
+        label: "Groups",
+        key: "group",
         icon: <UserOutlined />,
-        authorize: [ROLE.MANAGER, ROLE.ADMIN],
-      },
-
-      {
-        label: "Group",
-        key: "group-detail",
-        icon: <UsergroupAddOutlined />,
         authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
     ],

@@ -34,7 +34,7 @@ export const navigations = [
         label: "REQUEST",
         key: "request",
         icon: <Loading3QuartersOutlined />,
-        authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER],
+        authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER, ROLE.STAFF],
         children: [
           {
             label: "InformationDayOff",

@@ -208,6 +208,15 @@ const RequestDetail = () => {
                   required: true,
                   message: "Date is required.",
                 },
+                {
+                  validator: (_, value) => {
+                    const date = new Date(value);
+                    if (date < new Date()) {
+                      return Promise.reject("Date must be in the future");
+                    }
+                    return Promise.resolve();
+                  },
+                },
               ]}
             >
               <Input className="text-select" type="Date" />
@@ -247,6 +256,14 @@ const RequestDetail = () => {
                 {
                   required: true,
                   message: "Number is required",
+                },
+                {
+                  validator: (_, value) => {
+                    if (isNaN(value)) {
+                      return Promise.reject("Please enter a valid number");
+                    }
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >

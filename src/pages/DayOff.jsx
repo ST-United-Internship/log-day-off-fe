@@ -57,7 +57,16 @@ const DayOff = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Date is required.",
+                    message: "Please select a date",
+                  },
+                  {
+                    validator: (_, value) => {
+                      const date = new Date(value);
+                      if (date < new Date()) {
+                        return Promise.reject("Date must be in the future");
+                      }
+                      return Promise.resolve();
+                    },
                   },
                 ]}
               >
@@ -104,6 +113,16 @@ const DayOff = () => {
             rules={[
               {
                 required: true,
+                message: "Please select a date",
+              },
+              {
+                validator: (_, value) => {
+                  const date = new Date(value);
+                  if (date < new Date()) {
+                    return Promise.reject("Date must be in the future");
+                  }
+                  return Promise.resolve();
+                },
               },
             ]}
             style={{
@@ -122,11 +141,20 @@ const DayOff = () => {
               rules={[
                 {
                   required: true,
-                  message: "Number is required",
+                  message: "Please enter a number",
+                },
+                {
+                  validator: (_, value) => {
+                    if (isNaN(value)) {
+                      return Promise.reject("Please enter a valid number");
+                    }
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >
               <Input
+                type="number"
                 style={{
                   width: "200px",
                 }}

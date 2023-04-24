@@ -27,4 +27,5 @@ export const API_URL = {
   UN_ASSIGN_MEMBER: "unassign-to-group",
   LIST_GROUP: "workspaces/list-all-groups",
   WORKSPACE_GROUP: "workspaces/groups",
+  LIST_STAFFS: "staffs",
 };

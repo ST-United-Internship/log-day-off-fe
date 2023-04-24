@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 import { useGetGroupDetail } from "../hooks/useGroupDetail";
 import { useUnAssignMemberGroup } from "../hooks/userUnassignGroup";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
+import { useGetListStaff } from "../hooks/useGetListStaff";
+import { useAssignMasterRole } from "../hooks/useAssignMasterRole";
 const { TextArea } = Input;
 
 const GroupDetail = () => {
@@ -18,11 +20,18 @@ const GroupDetail = () => {
   const [setFormData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isModalAssignStaffToMaster, setIsModalStaffOpen] = useState(false);
+
   const { id } = useParams();
 
   const { data: groupDetail, isLoading, refetch } = useGetGroupDetail(id);
 
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+  const {
+    data: allStaffs,
+    isLoading: loadAllStaffs,
+    refetch: refetchListStaffs,
+  } = useGetListStaff(id);
 
   const {
     mutate: addAssignMember,
@@ -36,13 +45,27 @@ const GroupDetail = () => {
     isLoading: isLoadingUnAssign,
   } = useUnAssignMemberGroup(id);
 
+  const {
+    mutate: assignMaster,
+    isSuccess: isSuccessAssignMaster,
+    isLoading: isLoadingAssignMaster,
+  } = useAssignMasterRole();
+
   const onAssignMember = (id) => {
     addAssignMember(id);
+  };
+
+  const onAssignMaster = (staffId) => {
+    assignMaster(staffId);
   };
 
   useEffect(() => {
     if (isSuccessAdd || isSuccessUnAssign) {
       refetch();
+    }
+
+    if (isSuccessAssignMaster) {
+      refetchListStaffs();
     }
   });
 
@@ -57,6 +80,12 @@ const GroupDetail = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const showStaffModal = () => {
+    setIsModalStaffOpen(true);
+  };
+
+  const handleCloseStaffModal = () => setIsModalStaffOpen(false);
 
   const usersModal =
     allUser &&
@@ -105,10 +134,38 @@ const GroupDetail = () => {
     },
   ];
 
+  const staffRows = [
+    {
+      title: "Name",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Actions",
+      key: "action",
+      render: (_, record) => {
+        return (
+          <Button
+            className="btn-space"
+            onClick={() => onAssignMaster(record.id)}
+          >
+            <PlusOutlined />
+            ADD
+          </Button>
+        );
+      },
+    },
+  ];
+
   return (
     <div>
       <LoadingComponent
-        isLoading={isLoading || isLoadingAdd || isLoadingUnAssign}
+        isLoading={
+          isLoading ||
+          isLoadingAdd ||
+          isLoadingUnAssign ||
+          isLoadingAssignMaster
+        }
       >
         <Form
           form={form}
@@ -132,6 +189,22 @@ const GroupDetail = () => {
                   columns={rows}
                   dataSource={usersModal}
                   loading={loadAllUser}
+                ></Table>
+              </Modal>
+
+              <Button style={{ marginLeft: "5px" }} onClick={showStaffModal}>
+                + New Master
+              </Button>
+              <Modal
+                title="Assign staff to master"
+                open={isModalAssignStaffToMaster}
+                onCancel={handleCloseStaffModal}
+                okButtonProps={{ style: { display: "none" } }}
+              >
+                <Table
+                  columns={staffRows}
+                  dataSource={allStaffs}
+                  loading={loadAllStaffs}
                 ></Table>
               </Modal>
             </div>

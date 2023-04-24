@@ -201,6 +201,9 @@ const DayOff = () => {
     </div>
   );
 };
-export default withAuthorization([ROLE.MANAGER, ROLE.STAFF, ROLE.ADMIN])(
-  DayOff
-);
+export default withAuthorization([
+  ROLE.MANAGER,
+  ROLE.STAFF,
+  ROLE.ADMIN,
+  ROLE.MASTER,
+])(DayOff);

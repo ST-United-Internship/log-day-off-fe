@@ -5,7 +5,6 @@ import {
   UserAddOutlined,
   Loading3QuartersOutlined,
   UserSwitchOutlined,
-  UnorderedListOutlined,
   FileExcelOutlined,
   AliwangwangOutlined,
   FormOutlined,
@@ -38,13 +37,13 @@ export const navigations = [
         authorize: [ROLE.ADMIN, ROLE.MANAGER, ROLE.MASTER, ROLE.STAFF],
         children: [
           {
-            label: "InformationDayOff",
+            label: "List Day Off",
             key: "information-day-off",
             icon: <AliwangwangOutlined />,
           },
 
           {
-            label: "Request Account",
+            label: "List Request",
             key: "request-account",
             icon: <UserSwitchOutlined />,
           },
@@ -91,16 +90,9 @@ export const navigations = [
     authorize: [ROLE.ADMIN],
     children: [
       {
-        label: "WORKSPACE",
-        key: "workspace",
+        label: "WORKSPACES",
+        key: "workspaces",
         icon: <ReconciliationOutlined />,
-        children: [
-          {
-            label: "List",
-            key: "workspaces",
-            icon: <UnorderedListOutlined />,
-          },
-        ],
       },
     ],
   },

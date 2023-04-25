@@ -38,6 +38,10 @@ const FormUser = () => {
   }, [errorStaff, errorStaff, successStaff, successMana]);
 
   const onFinish = (values) => {
+    let { username, email } = form.getFieldsValue(["username", "email"]);
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+    values = { ...values, username, email };
     switch (authUser.role.name) {
       case ROLE.MANAGER:
         createStaff(values);

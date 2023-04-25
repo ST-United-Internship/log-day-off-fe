@@ -50,7 +50,7 @@ export const navigations = [
           },
 
           {
-            label: "CreateRequest",
+            label: "Create Request",
             key: "dayoff",
             icon: <FormOutlined />,
           },

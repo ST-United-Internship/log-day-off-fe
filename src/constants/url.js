@@ -28,4 +28,5 @@ export const API_URL = {
   LIST_GROUP: "workspaces/list-all-groups",
   WORKSPACE_GROUP: "workspaces/groups",
   LIST_STAFFS: "staffs",
+  ADMIN_RESET_PASSWORD: "admin/change-user-password",
 };

@@ -43,8 +43,8 @@ const DayOff = () => {
         >
           <Radio.Group>
             <Space direction="vertical">
-              <Radio value={1}>Off </Radio>
-              <Radio value={2}>WFH </Radio>
+              <Radio value="DayOff">DayOff </Radio>
+              <Radio value="WFH">WFH </Radio>
             </Space>
           </Radio.Group>
         </Form.Item>

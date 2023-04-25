@@ -1,4 +1,4 @@
-import { Button, Form, Input, Radio, Grid } from "antd";
+import { Button, Form, Input, Radio, Grid, Select } from "antd";
 import { ROLE } from "../../constants/roles";
 import { getStorageData } from "../../helpers/storage";
 import withAuthorization from "../../HOCs/withAuthorization";
@@ -8,6 +8,7 @@ import { PROFILE } from "../../constants/auth";
 import "./formuser.css";
 import { useEffect } from "react";
 
+const { Option } = Select;
 const { useBreakpoint } = Grid;
 
 const FormUser = () => {
@@ -49,6 +50,14 @@ const FormUser = () => {
     }
   };
 
+  const selectRoles =
+    (authUser.role.name === ROLE.ADMIN && [
+      ROLE.MANAGER,
+      ROLE.MASTER,
+      ROLE.STAFF,
+    ]) ||
+    (authUser.role.name === ROLE.MANAGER && [ROLE.MASTER, ROLE.STAFF]);
+
   const formLayout = md
     ? { labelCol: { span: 4 }, wrapperCol: { span: 20 }, layout: "horizontal" }
     : {
@@ -58,12 +67,17 @@ const FormUser = () => {
       };
 
   return (
-    <Form className="form-user" onFinish={onFinish} form={form} {...formLayout}>
+    <Form
+      className="form-user"
+      onFinish={onFinish}
+      form={form}
+      labelAlign="left"
+      {...formLayout}
+    >
       <Form.Item
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
-        labelAlign="left"
       >
         <Input placeholder="Username" size="large" />
       </Form.Item>
@@ -72,7 +86,6 @@ const FormUser = () => {
         label="Password"
         name="password"
         rules={[{ required: true, message: "Please input your password!" }]}
-        labelAlign="left"
       >
         <Input.Password placeholder="Password" size="large" />
       </Form.Item>
@@ -81,7 +94,6 @@ const FormUser = () => {
         label="Email"
         name="email"
         rules={[{ required: true, message: "Please input your email!" }]}
-        labelAlign="left"
       >
         <Input type="email" placeholder="Email" size="large" />
       </Form.Item>
@@ -90,7 +102,6 @@ const FormUser = () => {
         label="Slack ID"
         name="slackId"
         rules={[{ required: true, message: "Please input your slack id!" }]}
-        labelAlign="left"
       >
         <Input placeholder="Your Slack Id" size="large" />
       </Form.Item>
@@ -100,13 +111,27 @@ const FormUser = () => {
         name="gender"
         rules={[{ required: true, message: "Please select an option!" }]}
         initialValue={"male"}
-        labelAlign="left"
       >
         <Radio.Group>
           <Radio value={"male"}>Male</Radio>
           <Radio value={"female"}>Female</Radio>
           <Radio value={"other"}>Other</Radio>
         </Radio.Group>
+      </Form.Item>
+
+      <Form.Item
+        name="roleName"
+        label="Role"
+        rules={[{ required: true, message: "Please select an role!" }]}
+        initialValue={selectRoles[0]}
+      >
+        <Select>
+          {selectRoles.map((role) => (
+            <Option key={role} value={role}>
+              {role[0].toUpperCase() + role.slice(1)}
+            </Option>
+          ))}
+        </Select>
       </Form.Item>
 
       <Form.Item>

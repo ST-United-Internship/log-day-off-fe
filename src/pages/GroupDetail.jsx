@@ -73,6 +73,7 @@ const GroupDetail = () => {
 
     if (isSuccessAssignMaster) {
       refetchListStaffs();
+      refetch();
     }
   });
 

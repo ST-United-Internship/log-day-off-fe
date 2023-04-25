@@ -13,6 +13,8 @@ import { useUnAssignMemberGroup } from "../hooks/userUnassignGroup";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
 import { useGetListStaff } from "../hooks/useGetListStaff";
 import { useAssignMasterRole } from "../hooks/useAssignMasterRole";
+import NotFoundDetail from "./NotFound/NotFoundDetail";
+
 const { TextArea } = Input;
 
 const GroupDetail = () => {
@@ -24,7 +26,12 @@ const GroupDetail = () => {
 
   const { id } = useParams();
 
-  const { data: groupDetail, isLoading, refetch } = useGetGroupDetail(id);
+  const {
+    data: groupDetail,
+    isLoading,
+    refetch,
+    isError: isErrorGroupDetail,
+  } = useGetGroupDetail(id);
 
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
   const {
@@ -156,6 +163,10 @@ const GroupDetail = () => {
       },
     },
   ];
+
+  if (isErrorGroupDetail) {
+    return <NotFoundDetail />;
+  }
 
   return (
     <div>

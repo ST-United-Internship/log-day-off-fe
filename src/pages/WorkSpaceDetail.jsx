@@ -10,13 +10,19 @@ import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
 import { Notification } from "../components/Notifications/notification";
 import { NOTIFICATION } from "../constants/notification";
+import NotFoundDetail from "./NotFound/NotFoundDetail";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //get all user
-  const { data, isLoading: loadWorkspace, refetch } = useWorkSpaceDetail();
+  const {
+    data,
+    isLoading: loadWorkspace,
+    refetch,
+    error: errorWorkspaceDetail,
+  } = useWorkSpaceDetail();
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
 
   const {
@@ -126,6 +132,11 @@ const WorkSpaceDetail = () => {
       },
     },
   ];
+
+  if (errorWorkspaceDetail) {
+    return <NotFoundDetail />;
+  }
+
   return (
     <div className="workspace-container">
       <Form.Item name={["user", "name"]} label="Name">

@@ -8,6 +8,8 @@ import {
   Modal,
   Input,
 } from "antd";
+import NotFoundDetail from "../pages/NotFound/NotFoundDetail";
+
 import { Col, Row } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -33,7 +35,7 @@ const RequestDetail = () => {
   const [openModal2, setOpenModal2] = useState(false);
   const [form] = Form.useForm();
   const profile = getStorageData(PROFILE);
-  const { data, isLoading, refetch } = useGetRequest();
+  const { data, isLoading, refetch, isError } = useGetRequest();
   const { mutate: approveRequest, isLoading: loading } = useApproveRequest();
   const { mutate: updateRequest, isLoading: loadUpdateRequest } =
     useUpdateRequest();
@@ -86,6 +88,10 @@ const RequestDetail = () => {
   useEffect(() => {
     refetch();
   }, [loading, loadUpdateRequest]);
+
+  if (isError) {
+    return <NotFoundDetail />;
+  }
 
   if (isLoading)
     return (

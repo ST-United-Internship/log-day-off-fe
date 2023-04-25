@@ -89,7 +89,29 @@ const FormUser = () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[
+          { required: true, message: "Please input your password!" },
+          {
+            validator: (rule, value) => {
+              if (!/[A-Z]/.test(value)) {
+                return Promise.reject(
+                  "Password must contain at least one uppercase letter"
+                );
+              }
+              if (!/[a-z]/.test(value)) {
+                return Promise.reject(
+                  "Password must contain at least one lowercase letter"
+                );
+              }
+              if (!/\d/.test(value)) {
+                return Promise.reject(
+                  "Password must contain at least one number"
+                );
+              }
+              return Promise.resolve();
+            },
+          },
+        ]}
       >
         <Input.Password placeholder="Password" size="large" />
       </Form.Item>
@@ -97,7 +119,16 @@ const FormUser = () => {
       <Form.Item
         label="Email"
         name="email"
-        rules={[{ required: true, message: "Please input your email!" }]}
+        rules={[
+          {
+            type: "email",
+            message: "Please enter a valid email address",
+          },
+          {
+            required: true,
+            message: "Please input email!",
+          },
+        ]}
       >
         <Input type="email" placeholder="Email" size="large" />
       </Form.Item>
@@ -105,7 +136,20 @@ const FormUser = () => {
       <Form.Item
         label="Slack ID"
         name="slackId"
-        rules={[{ required: true, message: "Please input your slack id!" }]}
+        rules={[
+          { required: true, message: "Please input your slack id!" },
+          {
+            validator: (_, value) => {
+              const regex = /^[a-z0-9._-]{11}$/i;
+              if (value && !regex.test(value)) {
+                return Promise.reject(
+                  "Please enter a valid Slack ID with 11 characters"
+                );
+              }
+              return Promise.resolve();
+            },
+          },
+        ]}
       >
         <Input placeholder="Your Slack Id" size="large" />
       </Form.Item>

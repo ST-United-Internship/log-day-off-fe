@@ -26,6 +26,8 @@ import { useApproveRequest } from "../hooks/useApproveRequest";
 import { getStorageData } from "../helpers/storage";
 import { PROFILE } from "../constants/auth";
 import { useUpdateRequest } from "../hooks/useUpdateRequest";
+import { formatDate } from "../helpers/formatDate";
+import { STATUS_APPROVAL } from "../constants/statusApproval";
 
 // const { Option } = Select;
 
@@ -44,7 +46,7 @@ const RequestDetail = () => {
     approveRequest({
       requestId: data.id,
       slackId: profile.slackId,
-      statusApprove: "accept",
+      statusApprove: STATUS_APPROVAL.ACCEPT,
     });
   };
 
@@ -52,7 +54,7 @@ const RequestDetail = () => {
     approveRequest({
       requestId: data.id,
       slackId: profile.slackId,
-      statusApprove: "reject",
+      statusApprove: STATUS_APPROVAL.REJECT,
     });
   };
 
@@ -62,9 +64,6 @@ const RequestDetail = () => {
       values: { ...values, userRequestId: profile.id },
     });
   };
-
-  const formatDate = (date) =>
-    new Date(date).toISOString().slice(0, 10).split(":")[0];
 
   const dayoffs = useMemo(
     () =>
@@ -202,7 +201,7 @@ const RequestDetail = () => {
               rules={[{ required: true, message: "Please select an option!" }]}
             >
               <Radio.Group>
-                <Radio value="Off">Off </Radio>
+                <Radio value="DayOff">DayOff </Radio>
                 <Radio value="WFH">WFH </Radio>
               </Radio.Group>
             </Form.Item>
@@ -371,6 +370,9 @@ const RequestDetail = () => {
   );
 };
 
-export default withAuthorization([ROLE.ADMIN, ROLE.MANAGER, ROLE.STAFF])(
-  RequestDetail
-);
+export default withAuthorization([
+  ROLE.ADMIN,
+  ROLE.MANAGER,
+  ROLE.MASTER,
+  ROLE.STAFF,
+])(RequestDetail);

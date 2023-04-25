@@ -5,10 +5,11 @@ import { useGetRequests } from "../hooks/useGetRequests";
 import { getTimeElapsedString } from "../helpers/timeAgo";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
+import { STATUS_APPROVAL } from "../constants/statusApproval";
 
 const InformationDayOff = () => {
   const { data, isLoading } = useGetRequests();
-  console.log(data);
+
   const columns = [
     {
       title: "Request for Day",
@@ -50,8 +51,23 @@ const InformationDayOff = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
+      dataIndex: "requestApproves",
       key: "status",
+      render: (approves) => {
+        const accepts = approves.filter(
+          (item) => item.status === STATUS_APPROVAL.ACCEPT
+        );
+        const rejects = approves.filter(
+          (item) => item.status === STATUS_APPROVAL.REJECT
+        );
+        return (
+          <label>
+            <span>{accepts.length} Accept</span>
+            {" / "}
+            <span>{rejects.length} Reject</span>
+          </label>
+        );
+      },
     },
     {
       title: "Request Day",

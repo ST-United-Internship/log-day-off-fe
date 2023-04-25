@@ -217,7 +217,7 @@ const RequestDetail = () => {
                 {
                   validator: (_, value) => {
                     const date = new Date(value);
-                    if (date < new Date()) {
+                    if (date <= new Date()) {
                       return Promise.reject("Date must be in the future");
                     }
                     return Promise.resolve();
@@ -267,6 +267,9 @@ const RequestDetail = () => {
                   validator: (_, value) => {
                     if (isNaN(value)) {
                       return Promise.reject("Please enter a valid number");
+                    }
+                    if (value < 0) {
+                      return Promise.reject("Please enter a positive number");
                     }
                     return Promise.resolve();
                   },

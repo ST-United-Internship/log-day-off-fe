@@ -14,12 +14,12 @@ const DayOff = () => {
   const onFinish = (values) => {
     const fromMilli = new Date(values.from).getTime();
     const toMilli = new Date(values.to).getTime();
-    if (fromMilli < toMilli)
+    if (fromMilli <= toMilli)
       createRequest({ ...values, userRequestId: authUser.id });
     else
       Notification(
         NOTIFICATION.ERROR,
-        "Date 'to' should be larger than date 'from'"
+        "Date 'to' should be larger or equal than date 'from'"
       );
   };
   return (
@@ -147,6 +147,9 @@ const DayOff = () => {
                   validator: (_, value) => {
                     if (isNaN(value)) {
                       return Promise.reject("Please enter a valid number");
+                    }
+                    if (value < 0) {
+                      return Promise.reject("Please enter a positive number");
                     }
                     return Promise.resolve();
                   },

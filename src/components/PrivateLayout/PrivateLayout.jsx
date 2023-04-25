@@ -21,20 +21,19 @@ const PrivateLayout = () => {
   const authUser = getStorageData(PROFILE);
 
   useMemo(() => {
-    if (!isAuth || !authUser) {
-      delete axios.defaults.headers.common["Authorization"];
-    } else if (!axios.defaults.headers.common["Authorization"]) {
+    if (isAuth && !axios.defaults.headers.common["Authorization"]) {
       axios.defaults.headers.common["Authorization"] = "Bearer " + isAuth;
     }
-  }, [isAuth, authUser]);
+  }, [isAuth]);
 
   useEffect(() => {
     if (!isAuth || !authUser) {
       removeStorageData(ACCESS_TOKEN);
       removeStorageData(PROFILE);
+      delete axios.defaults.headers.common["Authorization"];
       navigate("/signin");
     }
-  }, [isAuth, authUser, navigate]);
+  }, [isAuth, authUser]);
 
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(

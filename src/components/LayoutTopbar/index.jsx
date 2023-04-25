@@ -7,6 +7,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getStorageData } from "../../helpers/storage";
 import { PROFILE } from "../../constants/auth";
+import axios from "axios";
 
 const { Header } = Layout;
 
@@ -18,6 +19,7 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.clear();
+    delete axios.defaults.headers.common["Authorization"];
     navigate("/signin");
   };
   const items = [

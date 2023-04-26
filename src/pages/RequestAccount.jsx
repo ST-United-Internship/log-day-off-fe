@@ -22,7 +22,6 @@ import { STATUS_APPROVAL } from "../constants/statusApproval";
 const RequestAccount = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [modalData, setModalData] = useState();
   const [openModal, setOpenModal] = useState(false);
   const { data, isLoading, refetch } = useGetRequests();
   const { mutate: approveRequest, isLoading: loadApproveRequest } =
@@ -45,12 +44,16 @@ const RequestAccount = () => {
 
   const handleOpenEdit = (e, record) => {
     e.stopPropagation();
-    setModalData(record);
+    form.setFieldsValue({
+      ...record,
+      from: formatDate(record.from),
+      to: formatDate(record.to),
+    });
     setOpenModal(true);
   };
 
   const handleCancelEdit = () => {
-    setModalData(null);
+    form.setFieldsValue(null);
     setOpenModal(false);
   };
 
@@ -65,13 +68,13 @@ const RequestAccount = () => {
 
   const onFinish = (values) => {
     updateRequest({
-      id: modalData.id,
-      values: { ...values, userRequestId: modalData.user.id },
+      id: form.getFieldValue("id"),
+      values: { ...values, userRequestId: form.getFieldValue("user").id },
     });
   };
 
   useEffect(() => {
-    if (!loadApproveRequest || !loadUpdateRequest) refetch();
+    refetch();
   }, [loadUpdateRequest, loadApproveRequest]);
 
   const columns = useMemo(() => {
@@ -122,13 +125,13 @@ const RequestAccount = () => {
           const isChanged =
             record.dayoffs.length &&
             record.dayoffs[record.dayoffs.length - 1].action === "Request";
-          const rejects = approves.findIndex(
+          const rejects = approves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
           );
           const accepts = approves.filter(
             (item) => item.status === STATUS_APPROVAL.ACCEPT
           );
-          if (rejects !== -1) return <label>Rejected</label>;
+          if (rejects) return <label>Rejected</label>;
           else if (accepts.length)
             return <label>Approved ({accepts.length})</label>;
           else if (isChanged) return <label>Request Changed</label>;
@@ -147,19 +150,19 @@ const RequestAccount = () => {
         title: "Action",
         key: "action",
         render: (_, record) => {
-          const acceptedBy = record.requestApproves.findIndex(
+          const acceptedBy = record.requestApproves.some(
             (item) => item.user.id && item.status === STATUS_APPROVAL.ACCEPT
           );
-          const isRejected = record.requestApproves.findIndex(
+          const isRejected = record.requestApproves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
           );
 
-          if (isRejected !== -1) return <label>No action required</label>;
+          if (isRejected) return <label>No action required</label>;
           return (
             <Space className="button-action" wrap>
               {authUser.role.name === ROLE.MASTER ? (
                 <>
-                  {acceptedBy !== -1 ? null : (
+                  {acceptedBy ? null : (
                     <Button
                       className="checkout"
                       shape="circle"
@@ -225,15 +228,6 @@ const RequestAccount = () => {
         confirmLoading={loadUpdateRequest}
       >
         <Form
-          initialValues={
-            modalData
-              ? {
-                  ...modalData,
-                  from: formatDate(modalData.from),
-                  to: formatDate(modalData.to),
-                }
-              : null
-          }
           form={form}
           onFinish={onFinish}
           name="complex-form"

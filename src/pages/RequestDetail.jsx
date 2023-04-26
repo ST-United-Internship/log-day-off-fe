@@ -11,7 +11,7 @@ import {
 import NotFoundDetail from "../pages/NotFound/NotFoundDetail";
 
 import { Col, Row } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import {
   EditOutlined,
   CheckOutlined,
@@ -61,7 +61,7 @@ const RequestDetail = () => {
   const onFinish = (values) => {
     updateRequest({
       id: data.id,
-      values: { ...values, userRequestId: profile.id },
+      values: { ...values, userRequestId: data.user.id },
     });
   };
 
@@ -297,7 +297,7 @@ const RequestDetail = () => {
         {dayoffs.map((item) => {
           if (item.detail instanceof Array) {
             return (
-              <>
+              <Fragment key={item.id}>
                 <div className="reqs">{item.action}</div>
                 <div>{item.detail[0].name + " updated request"}</div>
                 <Row align="middle" justify="center">
@@ -338,13 +338,13 @@ const RequestDetail = () => {
                   </Col>
                 </Row>
                 <br />
-              </>
+              </Fragment>
             );
           }
           return (
-            <>
+            <Fragment key={item.id}>
               <div className="reqs">{item.action}</div>
-              <div>{item.detail.name + " " + item.detail.value}</div>
+              <div>{item.detail.value}</div>
               {item.action === "Request" ? (
                 <Descriptions layout="horizontal" column={1}>
                   <Descriptions.Item label="From">
@@ -362,7 +362,7 @@ const RequestDetail = () => {
                 </Descriptions>
               ) : null}
               <br />
-            </>
+            </Fragment>
           );
         })}
       </Col>

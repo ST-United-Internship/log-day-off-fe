@@ -6,6 +6,7 @@ import { getTimeElapsedString } from "../helpers/timeAgo";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import { STATUS_APPROVAL } from "../constants/statusApproval";
+import { formatDate } from "../helpers/formatDate";
 
 const InformationDayOff = () => {
   const { data, isLoading } = useGetRequests();
@@ -16,14 +17,12 @@ const InformationDayOff = () => {
       dataIndex: "day",
       key: "day",
       render: (_, record) => {
-        const from = new Date(record.from).toLocaleDateString("us-UK", {
-          weekday: "long",
+        const from = formatDate(record.from, "us-UK", {
           year: "numeric",
           month: "long",
           day: "numeric",
         });
-        const to = new Date(record.to).toLocaleDateString("us-UK", {
-          weekday: "long",
+        const to = formatDate(record.to, "us-UK", {
           year: "numeric",
           month: "long",
           day: "numeric",

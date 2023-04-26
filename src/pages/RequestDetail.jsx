@@ -110,16 +110,14 @@ const RequestDetail = () => {
         <h1>Basic Infomation</h1>
         <Descriptions layout="horizontal" column={1}>
           <Descriptions.Item label="From">
-            {new Date(data.from).toLocaleDateString("us-UK", {
-              weekday: "long",
+            {formatDate(data.from, "us-UK", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </Descriptions.Item>
           <Descriptions.Item label="To">
-            {new Date(data.to).toLocaleDateString("us-UK", {
-              weekday: "long",
+            {formatDate(data.to, "us-UK", {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -216,9 +214,13 @@ const RequestDetail = () => {
                 {
                   validator: (_, value) => {
                     const date = new Date(value);
+                    const to = new Date(form.getFieldValue("to"));
                     if (date < new Date()) {
                       return Promise.reject("Date must be in the future");
-                    }
+                    } else if (date > to)
+                      return Promise.reject(
+                        "Date 'from' must be smaller than 'to'"
+                      );
                     return Promise.resolve();
                   },
                 },
@@ -249,6 +251,19 @@ const RequestDetail = () => {
                 {
                   required: true,
                   message: "Date is required.",
+                },
+                {
+                  validator: (_, value) => {
+                    const date = new Date(value);
+                    const from = new Date(form.getFieldValue("from"));
+                    if (date < new Date()) {
+                      return Promise.reject("Date must be in the future");
+                    } else if (date < from)
+                      return Promise.reject(
+                        "Date 'to' must be larger than 'from'"
+                      );
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >

@@ -30,6 +30,8 @@ const RequestAccount = () => {
   const { mutate: updateRequest, isLoading: loadUpdateRequest } =
     useUpdateRequest();
 
+  const authUser = getStorageData(PROFILE);
+
   const handleConfirm = (e, requestId, slackId, statusApprove) => {
     e.stopPropagation();
     Modal.confirm({
@@ -73,7 +75,7 @@ const RequestAccount = () => {
   }, [loadUpdateRequest, loadApproveRequest]);
 
   const columns = useMemo(() => {
-    let column = [
+    return [
       {
         title: "Request for Day",
         dataIndex: "day",
@@ -116,20 +118,21 @@ const RequestAccount = () => {
         title: "Status",
         dataIndex: "requestApproves",
         key: "status",
-        render: (approves) => {
+        render: (approves, record) => {
+          const isChanged =
+            record.dayoffs.length &&
+            record.dayoffs[record.dayoffs.length - 1].action === "Request";
+          const rejects = approves.findIndex(
+            (item) => item.status === STATUS_APPROVAL.REJECT
+          );
           const accepts = approves.filter(
             (item) => item.status === STATUS_APPROVAL.ACCEPT
           );
-          const rejects = approves.filter(
-            (item) => item.status === STATUS_APPROVAL.REJECT
-          );
-          return (
-            <label>
-              <span>{accepts.length} Accept</span>
-              {" / "}
-              <span>{rejects.length} Reject</span>
-            </label>
-          );
+          if (rejects !== -1) return <label>Rejected</label>;
+          else if (accepts.length)
+            return <label>Approved ({accepts.length})</label>;
+          else if (isChanged) return <label>Request Changed</label>;
+          return <label>Requested</label>;
         },
       },
       {
@@ -140,46 +143,57 @@ const RequestAccount = () => {
           return <span>{getTimeElapsedString(new Date(time))}</span>;
         },
       },
-    ];
-    if (getStorageData(PROFILE).role.name === ROLE.MASTER)
-      column = [
-        ...column,
-        {
-          title: "Action",
-          key: "action",
-          render: (_, record) => {
-            return (
-              <Space size="small" className="button-action" wrap>
-                <Button
-                  className="checkout"
-                  shape="circle"
-                  onClick={(e) =>
-                    handleConfirm(
-                      e,
-                      record.id,
-                      record.user.slackId,
-                      STATUS_APPROVAL.ACCEPT
-                    )
-                  }
-                >
-                  <CheckOutlined />
-                </Button>
+      {
+        title: "Action",
+        key: "action",
+        render: (_, record) => {
+          const acceptedBy = record.requestApproves.findIndex(
+            (item) => item.user.id && item.status === STATUS_APPROVAL.ACCEPT
+          );
+          const isRejected = record.requestApproves.findIndex(
+            (item) => item.status === STATUS_APPROVAL.REJECT
+          );
 
-                <Button
-                  className="closeout"
-                  shape="circle"
-                  onClick={(e) =>
-                    handleConfirm(
-                      e,
-                      record.id,
-                      record.user.slackId,
-                      STATUS_APPROVAL.REJECT
-                    )
-                  }
-                >
-                  <CloseOutlined />
-                </Button>
+          if (isRejected !== -1) return <label>No action required</label>;
+          return (
+            <Space className="button-action" wrap>
+              {authUser.role.name === ROLE.MASTER ? (
+                <>
+                  {acceptedBy !== -1 ? null : (
+                    <Button
+                      className="checkout"
+                      shape="circle"
+                      onClick={(e) =>
+                        handleConfirm(
+                          e,
+                          record.id,
+                          record.user.slackId,
+                          STATUS_APPROVAL.ACCEPT
+                        )
+                      }
+                    >
+                      <CheckOutlined />
+                    </Button>
+                  )}
 
+                  <Button
+                    className="closeout"
+                    shape="circle"
+                    onClick={(e) =>
+                      handleConfirm(
+                        e,
+                        record.id,
+                        record.user.slackId,
+                        STATUS_APPROVAL.REJECT
+                      )
+                    }
+                  >
+                    <CloseOutlined />
+                  </Button>
+                </>
+              ) : null}
+
+              {authUser.id === record.user.id ? (
                 <Button
                   className="editout"
                   shape="circle"
@@ -187,12 +201,12 @@ const RequestAccount = () => {
                 >
                   <EditOutlined />
                 </Button>
-              </Space>
-            );
-          },
+              ) : null}
+            </Space>
+          );
         },
-      ];
-    return column;
+      },
+    ];
   }, []);
 
   return (

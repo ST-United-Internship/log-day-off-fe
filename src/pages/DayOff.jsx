@@ -37,7 +37,7 @@ const DayOff = () => {
       >
         <Form.Item
           label="Type of day off"
-          initialValue={1}
+          initialValue="DayOff"
           name="typeRequest"
           rules={[{ required: true, message: "Please select an option!" }]}
         >

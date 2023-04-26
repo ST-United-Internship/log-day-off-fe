@@ -19,5 +19,5 @@ export const addAssignUser = (id, userId) =>
       userId,
     }
   );
-export const adminResetPassword = (id) =>
-  axios.put(API_URL.ADMIN_RESET_PASSWORD, id);
+export const adminResetPassword = (data) =>
+  axios.put(API_URL.ADMIN_RESET_PASSWORD, data);

@@ -14,6 +14,7 @@ import WorkSpace from "../pages/WorkSpace";
 import RequestAccount from "../pages/RequestAccount";
 import WorkSpaceDetail from "../pages/WorkSpaceDetail";
 import ExportDayoff from "../pages/ExportGoogleSheet/ExportDayoff";
+import Profile from "../pages/Profile/Profile";
 
 const privateRoutes = [
   {
@@ -27,6 +28,10 @@ const privateRoutes = [
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
 
       {

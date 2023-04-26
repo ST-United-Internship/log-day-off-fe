@@ -121,7 +121,7 @@ const RequestAccount = () => {
         key: "status",
         render: (approves, record) => {
           const isChanged =
-            record.dayoffs.length &&
+            record.dayoffs.length > 1 &&
             record.dayoffs[record.dayoffs.length - 1].action === "Request";
           const rejects = approves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
@@ -149,33 +149,37 @@ const RequestAccount = () => {
         key: "action",
         render: (_, record) => {
           const acceptedBy = record.requestApproves.some(
-            (item) => item.user.id && item.status === STATUS_APPROVAL.ACCEPT
+            (item) =>
+              item.user.id === authUser.id &&
+              item.status === STATUS_APPROVAL.ACCEPT
           );
           const isRejected = record.requestApproves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
           );
 
-          if (isRejected) return <label>No action required</label>;
+          const showMasterActions =
+            authUser.role.name === ROLE.MASTER && !acceptedBy;
+          const showEditAction = authUser.id === record.user.id;
+          if (isRejected || (!showMasterActions && !showEditAction))
+            return <label>No action required</label>;
           return (
             <Space className="button-action" wrap>
-              {authUser.role.name === ROLE.MASTER ? (
+              {showMasterActions ? (
                 <>
-                  {acceptedBy ? null : (
-                    <Button
-                      className="checkout"
-                      shape="circle"
-                      onClick={(e) =>
-                        handleConfirm(
-                          e,
-                          record.id,
-                          authUser.slackId,
-                          STATUS_APPROVAL.ACCEPT
-                        )
-                      }
-                    >
-                      <CheckOutlined />
-                    </Button>
-                  )}
+                  <Button
+                    className="checkout"
+                    shape="circle"
+                    onClick={(e) =>
+                      handleConfirm(
+                        e,
+                        record.id,
+                        authUser.slackId,
+                        STATUS_APPROVAL.ACCEPT
+                      )
+                    }
+                  >
+                    <CheckOutlined />
+                  </Button>
 
                   <Button
                     className="closeout"
@@ -194,7 +198,7 @@ const RequestAccount = () => {
                 </>
               ) : null}
 
-              {authUser.id === record.user.id ? (
+              {showEditAction ? (
                 <Button
                   className="editout"
                   shape="circle"

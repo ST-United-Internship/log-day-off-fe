@@ -84,6 +84,17 @@ const RequestDetail = () => {
     [data]
   );
 
+  const acceptedBy = data?.requestApproves.some(
+    (item) =>
+      item.user.id === profile.id && item.status === STATUS_APPROVAL.ACCEPT
+  );
+  const isRejected = data?.requestApproves.some(
+    (item) => item.status === STATUS_APPROVAL.REJECT
+  );
+
+  const showMasterActions = profile.role.name === ROLE.MASTER && !acceptedBy;
+  const showEditAction = profile.id === data?.user.id;
+
   useEffect(() => {
     refetch();
   }, [loading, loadUpdateRequest]);
@@ -107,7 +118,7 @@ const RequestDetail = () => {
   return (
     <Row gutter={30}>
       <Col span={12}>
-        <h1>Basic Infomation</h1>
+        <h2>Basic Infomation</h2>
         <Descriptions layout="horizontal" column={1}>
           <Descriptions.Item label="From">
             {formatDate(data.from, "us-UK", {
@@ -132,103 +143,117 @@ const RequestDetail = () => {
           </Descriptions.Item>
         </Descriptions>
         <h1>Actions</h1>
-        <Button
-          className="iconre"
-          type="primary"
-          icon={<CheckOutlined />}
-          onClick={() => setOpenModal(true)}
-        />
-        <Modal
-          open={openModal}
-          title="Are you sure ????  "
-          onOk={handleOk}
-          onCancel={() => setOpenModal(false)}
-          okText="Approve"
-          confirmLoading={loading}
-        />
+        {isRejected || (!showMasterActions && !showEditAction) ? (
+          <label>No action required</label>
+        ) : (
+          <>
+            {showMasterActions ? (
+              <>
+                <Button
+                  className="iconre"
+                  type="primary"
+                  icon={<CheckOutlined />}
+                  onClick={() => setOpenModal(true)}
+                />
+                <Modal
+                  open={openModal}
+                  title="Are you sure ????  "
+                  onOk={handleOk}
+                  onCancel={() => setOpenModal(false)}
+                  okText="Approve"
+                  confirmLoading={loading}
+                />
 
-        <Button
-          className="iconre1"
-          type="primary"
-          icon={<CloseOutlined />}
-          onClick={() => setOpenModal1(true)}
-        />
-        <Modal
-          title="Are you sure ???"
-          centered
-          open={openModal1}
-          onOk={handleOk1}
-          okText="Reject"
-          onCancel={() => setOpenModal1(false)}
-          confirmLoading={loading}
-        />
+                <Button
+                  className="iconre1"
+                  type="primary"
+                  icon={<CloseOutlined />}
+                  onClick={() => setOpenModal1(true)}
+                />
+                <Modal
+                  title="Are you sure ???"
+                  centered
+                  open={openModal1}
+                  onOk={handleOk1}
+                  okText="Reject"
+                  onCancel={() => setOpenModal1(false)}
+                  confirmLoading={loading}
+                />
+              </>
+            ) : null}
 
-        <Button
-          className="iconre2"
-          type="primary"
-          icon={<EditOutlined />}
-          onClick={() => setOpenModal2(true)}
-        />
-        <Modal
-          open={openModal2}
-          title="Update Request"
-          onOk={form.submit}
-          onCancel={() => setOpenModal2(false)}
-          confirmLoading={loadUpdateRequest}
-        >
-          <Form
-            initialValues={{
-              ...data,
-              from: formatDate(data.from),
-              to: formatDate(data.to),
-            }}
-            form={form}
-            onFinish={onFinish}
-            name="complex-form"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            className="full-form"
-          >
-            <Form.Item
-              label="Type of day off"
-              name="typeRequest"
-              rules={[{ required: true, message: "Please select an option!" }]}
-            >
-              <Radio.Group>
-                <Radio value="DayOff">DayOff </Radio>
-                <Radio value="WFH">WFH </Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              label="From"
-              name="from"
-              rules={[
-                {
-                  required: true,
-                  message: "Date is required.",
-                },
-                {
-                  validator: (_, value) => {
-                    const date = new Date(value);
-                    const to = new Date(form.getFieldValue("to"));
-                    if (date < new Date()) {
-                      return Promise.reject("Date must be in the future");
-                    } else if (date > to)
-                      return Promise.reject(
-                        "Date 'from' must be smaller than 'to'"
-                      );
-                    return Promise.resolve();
-                  },
-                },
-              ]}
-            >
-              <Input className="text-select" type="Date" />
-            </Form.Item>
-            {/* <Form.Item
+            {showEditAction ? (
+              <>
+                <Button
+                  className="iconre2"
+                  type="primary"
+                  icon={<EditOutlined />}
+                  onClick={() => setOpenModal2(true)}
+                />
+                <Modal
+                  open={openModal2}
+                  title="Update Request"
+                  onOk={form.submit}
+                  onCancel={() => setOpenModal2(false)}
+                  confirmLoading={loadUpdateRequest}
+                >
+                  <Form
+                    initialValues={{
+                      ...data,
+                      from: formatDate(data.from),
+                      to: formatDate(data.to),
+                    }}
+                    form={form}
+                    onFinish={onFinish}
+                    name="complex-form"
+                    labelCol={{
+                      span: 8,
+                    }}
+                    wrapperCol={{
+                      span: 16,
+                    }}
+                    className="full-form"
+                  >
+                    <Form.Item
+                      label="Type of day off"
+                      name="typeRequest"
+                      rules={[
+                        { required: true, message: "Please select an option!" },
+                      ]}
+                    >
+                      <Radio.Group>
+                        <Radio value="DayOff">DayOff </Radio>
+                        <Radio value="WFH">WFH </Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                    <Form.Item
+                      label="From"
+                      name="from"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Date is required.",
+                        },
+                        {
+                          validator: (_, value) => {
+                            const date = new Date(value);
+                            const to = new Date(form.getFieldValue("to"));
+                            if (date < new Date()) {
+                              return Promise.reject(
+                                "Date must be in the future"
+                              );
+                            } else if (date > to)
+                              return Promise.reject(
+                                "Date 'from' must be smaller than 'to'"
+                              );
+                            return Promise.resolve();
+                          },
+                        },
+                      ]}
+                    >
+                      <Input className="text-select" type="Date" />
+                    </Form.Item>
+                    {/* <Form.Item
               label="Province"
               name="province"
               rules={[
@@ -244,76 +269,88 @@ const RequestDetail = () => {
                 <Option value="three">All day</Option>
               </Select>
             </Form.Item> */}
-            <Form.Item
-              label="To"
-              name="to"
-              rules={[
-                {
-                  required: true,
-                  message: "Date is required.",
-                },
-                {
-                  validator: (_, value) => {
-                    const date = new Date(value);
-                    const from = new Date(form.getFieldValue("from"));
-                    if (date < new Date()) {
-                      return Promise.reject("Date must be in the future");
-                    } else if (date < from)
-                      return Promise.reject(
-                        "Date 'to' must be larger than 'from'"
-                      );
-                    return Promise.resolve();
-                  },
-                },
-              ]}
-            >
-              <Input placeholder="01-01-2023" type="Date" />
-            </Form.Item>
-            <Form.Item
-              label="Quantity"
-              name="quantity"
-              rules={[
-                {
-                  required: true,
-                  message: "Number is required",
-                },
-                {
-                  validator: (_, value) => {
-                    if (isNaN(value)) {
-                      return Promise.reject("Please enter a valid number");
-                    }
-                    if (value < 0) {
-                      return Promise.reject("Please enter a positive number");
-                    }
-                    return Promise.resolve();
-                  },
-                },
-              ]}
-            >
-              <Input placeholder="0.5, 1, 2,..." />
-            </Form.Item>
-            <Form.Item
-              label="Reason"
-              name="reason"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input.TextArea showCount maxLength={100} />
-            </Form.Item>
-          </Form>
-        </Modal>
+                    <Form.Item
+                      label="To"
+                      name="to"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Date is required.",
+                        },
+                        {
+                          validator: (_, value) => {
+                            const date = new Date(value);
+                            const from = new Date(form.getFieldValue("from"));
+                            if (date < new Date()) {
+                              return Promise.reject(
+                                "Date must be in the future"
+                              );
+                            } else if (date < from)
+                              return Promise.reject(
+                                "Date 'to' must be larger than 'from'"
+                              );
+                            return Promise.resolve();
+                          },
+                        },
+                      ]}
+                    >
+                      <Input placeholder="01-01-2023" type="Date" />
+                    </Form.Item>
+                    <Form.Item
+                      label="Quantity"
+                      name="quantity"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Number is required",
+                        },
+                        {
+                          validator: (_, value) => {
+                            if (isNaN(value)) {
+                              return Promise.reject(
+                                "Please enter a valid number"
+                              );
+                            }
+                            if (value < 0) {
+                              return Promise.reject(
+                                "Please enter a positive number"
+                              );
+                            }
+                            return Promise.resolve();
+                          },
+                        },
+                      ]}
+                    >
+                      <Input placeholder="0.5, 1, 2,..." />
+                    </Form.Item>
+                    <Form.Item
+                      label="Reason"
+                      name="reason"
+                      rules={[
+                        {
+                          required: true,
+                        },
+                      ]}
+                    >
+                      <Input.TextArea showCount maxLength={100} />
+                    </Form.Item>
+                  </Form>
+                </Modal>
+              </>
+            ) : null}
+          </>
+        )}
       </Col>
 
       <Col span={12}>
-        <h1>Histories</h1>
+        <h2>Histories</h2>
         {dayoffs.map((item) => {
           if (item.detail instanceof Array) {
             return (
               <Fragment key={item.id}>
-                <div className="reqs">{item.action}</div>
+                <h4 className="reqs">
+                  {item.action[0].toUpperCase() + item.action.slice(1)}
+                </h4>
                 <div>{item.detail[0].name + " updated request"}</div>
                 <Row align="middle" justify="center">
                   <Col span={24} md={10}>
@@ -358,7 +395,9 @@ const RequestDetail = () => {
           }
           return (
             <Fragment key={item.id}>
-              <div className="reqs">{item.action}</div>
+              <h4 className="reqs">
+                {item.action[0].toUpperCase() + item.action.slice(1)}
+              </h4>
               <div>{item.detail.value}</div>
               {item.action === "Request" ? (
                 <Descriptions layout="horizontal" column={1}>

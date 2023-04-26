@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Input, Modal, Select, Space, Table, Tag } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
@@ -12,6 +12,7 @@ import { useGetListGroup } from "../hooks/useGetListGroup";
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const { mutate: createGroup, isLoading, isSuccess } = useCreateGroup();
 
@@ -28,21 +29,25 @@ const Group = () => {
     workspace: item.workspace.name,
   }));
 
+  const onRow = (record) => {
+    return {
+      onClick: (e) => {
+        e.stopPropagation();
+        navigate(`/group/${record.id}`);
+      },
+    };
+  };
+
   const columns = [
     {
       title: "Name",
       dataIndex: "name",
-      render: (text, record) => {
-        return (
-          <Link to={`/group/${record.id}`}>
-            <span>{text}</span>
-          </Link>
-        );
-      },
+      key: "name",
     },
     {
       title: "Member (s)",
       dataIndex: "users",
+      key: "users",
       render: (_, { users }) => {
         return users.map((item) => (
           <Tag color="#2db7f5" key={item.id}>
@@ -54,6 +59,7 @@ const Group = () => {
     {
       title: "Master (s)",
       dataIndex: "master",
+      key: "master",
       render: (_, { master }) => {
         return master.map((item) => (
           <Tag color="#2db7f5" key={item.id}>
@@ -65,9 +71,15 @@ const Group = () => {
     {
       title: "Workspace (s)",
       dataIndex: "workspace",
+      key: "workspace",
       render: (_, { workspace, id }) => {
         return (
-          <Link to={`/workspace-detail/${id}`}>
+          <Link
+            to={`/workspace-detail/${id}`}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <Tag color="#108ee9">{workspace}</Tag>
           </Link>
         );
@@ -178,7 +190,7 @@ const Group = () => {
             </Form>
           </LoadingComponent>
         </Modal>
-        <Table columns={columns} dataSource={mapping} />
+        <Table columns={columns} dataSource={mapping} onRow={onRow} />
       </LoadingComponent>
     </>
   );

@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { QUERY_KEY } from "../constants/query-key";
 import { unAssignUser } from "../services/workSpaceDetailApi";
 import { useParams } from "react-router-dom";
 import { Notification } from "../components/Notifications/notification";
@@ -13,10 +12,12 @@ export const useUnAssignUser = () => {
       return data;
     },
     {
+      onSuccess: (data) => {
+        Notification(NOTIFICATION.SUCCESS, data.message);
+      },
       onError: (err) => {
         Notification(NOTIFICATION.ERROR, err.response.data.message);
       },
-      mutationKey: [QUERY_KEY.WORKSPACE_DETAIL],
     }
   );
 };

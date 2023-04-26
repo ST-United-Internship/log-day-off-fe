@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
@@ -8,8 +8,6 @@ import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
 import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
-import { Notification } from "../components/Notifications/notification";
-import { NOTIFICATION } from "../constants/notification";
 import NotFoundDetail from "./NotFound/NotFoundDetail";
 import { useResetPassword } from "../hooks/useResetPassword";
 
@@ -17,27 +15,36 @@ const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenReset, setIsModalOpenReset] = useState(false);
-
+  const [form] = Form.useForm();
   //get all user
   const {
     data,
     isLoading: loadWorkspace,
-    refetch,
     error: errorWorkspaceDetail,
   } = useWorkSpaceDetail();
   const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+  // assign user
+  const { mutate: assignUser, isLoading: loadingAssignUser } =
+    useAddAssignUser();
 
-  const {
-    mutate: assignUser,
-    isLoading: loadingAssignUser,
-    isSuccess: successAssign,
-  } = useAddAssignUser();
-  const {
-    mutate: unAssignUser,
-    isLoading: loadingUnAssign,
-    isSuccess: successUnAssign,
-  } = useUnAssignUser();
-  const { mutate: resetPassword } = useResetPassword();
+  const onAssignUser = (id) => {
+    assignUser(id);
+  };
+  //unassign user
+  const { mutate: unAssignUser, isLoading: loadingUnAssign } =
+    useUnAssignUser();
+
+  const onUnAssignUser = (id) => {
+    unAssignUser(id);
+  };
+  //reset password
+  const { mutate: resetPassword, isLoading: loadResetPassword } =
+    useResetPassword();
+
+  const onResetPassword = (userId, values) => {
+    resetPassword({ userId, ...values });
+  };
+  // role admin can edit
   const usersModal =
     allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
@@ -53,27 +60,6 @@ const WorkSpaceDetail = () => {
   const handleCancelPassword = () => {
     setIsModalOpenReset(false);
   };
-
-  const onAssignUser = (id) => {
-    assignUser(id);
-  };
-
-  const onUnAssignUser = (id) => {
-    unAssignUser(id);
-  };
-  const onResetPassword = (id) => {
-    resetPassword(id);
-  };
-  useEffect(() => {
-    if (successAssign || successUnAssign) {
-      const message =
-        (successAssign && "Assign user successfully!") ||
-        (successUnAssign && "Delete user successfully!");
-      Notification(NOTIFICATION.SUCCESS, message);
-      refetch();
-      handleCancel();
-    }
-  }, [successAssign, successUnAssign]);
 
   const columns = [
     {
@@ -110,9 +96,11 @@ const WorkSpaceDetail = () => {
                 title="Reset Password"
                 open={isModalOpenReset}
                 onCancel={handleCancelPassword}
-                okButtonProps={{ style: { display: "none" } }}
+                onOk={form.submit}
+                confirmLoading={loadResetPassword}
               >
                 <Form
+                  form={form}
                   name="complex-form"
                   labelCol={{
                     span: 8,
@@ -121,72 +109,34 @@ const WorkSpaceDetail = () => {
                     span: 16,
                   }}
                   className="full-form"
-                  onFinish={onResetPassword}
+                  onFinish={(values) => onResetPassword(record.id, values)}
                 >
-                  <Form.Item
-                    name="userId"
-                    style={{
-                      marginBottom: 0,
-                    }}
-                  ></Form.Item>
-                  <Form.Item
-                    label="New password"
-                    style={{
-                      marginBottom: 0,
-                    }}
-                  >
+                  <Form.Item label="New password">
                     <Form.Item
                       name="newPassword"
-                      key="newPassword"
                       rules={[
                         {
                           required: true,
-                          message: "Please select a password",
+                          message: "Please enter the password",
                         },
                       ]}
-                      style={{
-                        display: "inline-block",
-                        width: "200px",
-                      }}
                     >
                       <Input placeholder="123" type="Input" />
                     </Form.Item>
                   </Form.Item>
                   <Form.Item label="New passwork confirm">
-                    <Space>
-                      <Form.Item
-                        name="newPasswordConfirm"
-                        noStyle
-                        rules={[
-                          {
-                            required: true,
-                            message: "Please enter password",
-                          },
-                        ]}
-                      >
-                        <Input
-                          type="Input"
-                          style={{
-                            width: "200px",
-                          }}
-                        />
-                      </Form.Item>
-                    </Space>
-                  </Form.Item>
-                  <Form.Item label=" " colon={false} className="full-btn">
-                    <Button type="primary" className="btn-cancel">
-                      Cancel
-                    </Button>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="btn-submit"
-                      onClick={() => {
-                        onResetPassword(record.id);
-                      }}
+                    <Form.Item
+                      name="newPasswordConfirm"
+                      noStyle
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter the password",
+                        },
+                      ]}
                     >
-                      Submit
-                    </Button>
+                      <Input placeholder="123" type="Input" />
+                    </Form.Item>
                   </Form.Item>
                 </Form>
               </Modal>

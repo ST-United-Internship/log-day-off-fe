@@ -5,23 +5,13 @@ import { ROLE } from "../constants/roles";
 import { useCreateRequest } from "../hooks/useCreateRequest";
 import { PROFILE } from "../constants/auth";
 import { getStorageData } from "../helpers/storage";
-import { Notification } from "../components/Notifications/notification";
-import { NOTIFICATION } from "../constants/notification";
 
 const DayOff = () => {
   const [form] = Form.useForm();
   const { mutate: createRequest } = useCreateRequest();
   const authUser = getStorageData(PROFILE);
   const onFinish = (values) => {
-    const fromMilli = new Date(values.from).getTime();
-    const toMilli = new Date(values.to).getTime();
-    if (fromMilli <= toMilli)
-      createRequest({ ...values, userRequestId: authUser.id });
-    else
-      Notification(
-        NOTIFICATION.ERROR,
-        "Date 'to' should be larger or equal than date 'from'"
-      );
+    createRequest({ ...values, userRequestId: authUser.id });
   };
   return (
     <div className="main-container">

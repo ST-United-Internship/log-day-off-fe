@@ -9,6 +9,7 @@ import {
   AliwangwangOutlined,
   FormOutlined,
   ProfileFilled,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
 
@@ -85,6 +86,12 @@ export const navigations = [
         label: "Groups",
         key: "group",
         icon: <UserOutlined />,
+        authorize: [ROLE.MANAGER, ROLE.ADMIN],
+      },
+      {
+        label: "Members",
+        key: "members",
+        icon: <TeamOutlined />,
         authorize: [ROLE.MANAGER, ROLE.ADMIN],
       },
     ],

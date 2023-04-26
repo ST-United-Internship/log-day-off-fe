@@ -1,12 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import { createMember } from "../services/listMember";
+import { Notification } from "../components/Notifications/notification";
+import { NOTIFICATION } from "../constants/notification";
 
 export const useCreateMember = () => {
   return useMutation(
     async (values) => {
       const { data } = await createMember(values);
       return data;
+    },
+
+    {
+      onError: (err) => {
+        console.log("asdsa:", err.response);
+        Notification(NOTIFICATION.ERROR, err.response.data.message);
+      },
     }
-    // { mutationKey: [QUERY_KEY.LIST_WORKSPACE] }
   );
 };

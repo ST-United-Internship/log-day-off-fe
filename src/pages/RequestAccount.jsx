@@ -122,13 +122,13 @@ const RequestAccount = () => {
           const isChanged =
             record.dayoffs.length &&
             record.dayoffs[record.dayoffs.length - 1].action === "Request";
-          const rejects = approves.findIndex(
+          const rejects = approves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
           );
           const accepts = approves.filter(
             (item) => item.status === STATUS_APPROVAL.ACCEPT
           );
-          if (rejects !== -1) return <label>Rejected</label>;
+          if (rejects) return <label>Rejected</label>;
           else if (accepts.length)
             return <label>Approved ({accepts.length})</label>;
           else if (isChanged) return <label>Request Changed</label>;
@@ -147,19 +147,19 @@ const RequestAccount = () => {
         title: "Action",
         key: "action",
         render: (_, record) => {
-          const acceptedBy = record.requestApproves.findIndex(
+          const acceptedBy = record.requestApproves.some(
             (item) => item.user.id && item.status === STATUS_APPROVAL.ACCEPT
           );
-          const isRejected = record.requestApproves.findIndex(
+          const isRejected = record.requestApproves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
           );
 
-          if (isRejected !== -1) return <label>No action required</label>;
+          if (isRejected) return <label>No action required</label>;
           return (
             <Space className="button-action" wrap>
               {authUser.role.name === ROLE.MASTER ? (
                 <>
-                  {acceptedBy !== -1 ? null : (
+                  {acceptedBy ? null : (
                     <Button
                       className="checkout"
                       shape="circle"

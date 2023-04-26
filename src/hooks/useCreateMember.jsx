@@ -12,7 +12,6 @@ export const useCreateMember = () => {
 
     {
       onError: (err) => {
-        console.log("asdsa:", err.response);
         Notification(NOTIFICATION.ERROR, err.response.data.message);
       },
     }

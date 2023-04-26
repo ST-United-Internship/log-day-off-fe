@@ -9,6 +9,7 @@ import { Notification } from "../components/Notifications/notification";
 import { NOTIFICATION } from "../constants/notification";
 
 const DayOff = () => {
+  const [form] = Form.useForm();
   const { mutate: createRequest } = useCreateRequest();
   const authUser = getStorageData(PROFILE);
   const onFinish = (values) => {
@@ -25,6 +26,7 @@ const DayOff = () => {
   return (
     <div className="main-container">
       <Form
+        form={form}
         onFinish={onFinish}
         name="complex-form"
         labelCol={{
@@ -62,9 +64,13 @@ const DayOff = () => {
                   {
                     validator: (_, value) => {
                       const date = new Date(value);
+                      const to = new Date(form.getFieldValue("to"));
                       if (date < new Date()) {
                         return Promise.reject("Date must be in the future");
-                      }
+                      } else if (date > to)
+                        return Promise.reject(
+                          "Date 'from' must be smaller than 'to'"
+                        );
                       return Promise.resolve();
                     },
                   },
@@ -118,9 +124,13 @@ const DayOff = () => {
               {
                 validator: (_, value) => {
                   const date = new Date(value);
+                  const from = new Date(form.getFieldValue("from"));
                   if (date < new Date()) {
                     return Promise.reject("Date must be in the future");
-                  }
+                  } else if (date < from)
+                    return Promise.reject(
+                      "Date 'to' must be larger than 'from'"
+                    );
                   return Promise.resolve();
                 },
               },

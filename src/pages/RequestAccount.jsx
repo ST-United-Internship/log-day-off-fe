@@ -22,7 +22,6 @@ import { STATUS_APPROVAL } from "../constants/statusApproval";
 const RequestAccount = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [modalData, setModalData] = useState();
   const [openModal, setOpenModal] = useState(false);
   const { data, isLoading, refetch } = useGetRequests();
   const { mutate: approveRequest, isLoading: loadApproveRequest } =
@@ -45,12 +44,16 @@ const RequestAccount = () => {
 
   const handleOpenEdit = (e, record) => {
     e.stopPropagation();
-    setModalData(record);
+    form.setFieldsValue({
+      ...record,
+      from: formatDate(record.from),
+      to: formatDate(record.to),
+    });
     setOpenModal(true);
   };
 
   const handleCancelEdit = () => {
-    setModalData(null);
+    form.setFieldsValue(null);
     setOpenModal(false);
   };
 
@@ -65,13 +68,13 @@ const RequestAccount = () => {
 
   const onFinish = (values) => {
     updateRequest({
-      id: modalData.id,
-      values: { ...values, userRequestId: modalData.user.id },
+      id: form.getFieldValue("id"),
+      values: { ...values, userRequestId: form.getFieldValue("user").id },
     });
   };
 
   useEffect(() => {
-    if (!loadApproveRequest || !loadUpdateRequest) refetch();
+    refetch();
   }, [loadUpdateRequest, loadApproveRequest]);
 
   const columns = useMemo(() => {
@@ -225,15 +228,6 @@ const RequestAccount = () => {
         confirmLoading={loadUpdateRequest}
       >
         <Form
-          initialValues={
-            modalData
-              ? {
-                  ...modalData,
-                  from: formatDate(modalData.from),
-                  to: formatDate(modalData.to),
-                }
-              : null
-          }
           form={form}
           onFinish={onFinish}
           name="complex-form"

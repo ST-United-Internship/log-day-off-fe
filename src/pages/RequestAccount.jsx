@@ -168,7 +168,7 @@ const RequestAccount = () => {
                         handleConfirm(
                           e,
                           record.id,
-                          record.user.slackId,
+                          authUser.slackId,
                           STATUS_APPROVAL.ACCEPT
                         )
                       }
@@ -184,7 +184,7 @@ const RequestAccount = () => {
                       handleConfirm(
                         e,
                         record.id,
-                        record.user.slackId,
+                        authUser.slackId,
                         STATUS_APPROVAL.REJECT
                       )
                     }

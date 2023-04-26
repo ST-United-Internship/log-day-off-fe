@@ -30,4 +30,5 @@ export const API_URL = {
   LIST_STAFFS: "staffs",
   ADMIN_RESET_PASSWORD: "admin/change-user-password",
   GET_AUTH_USER_PROFILE: "auth/profile",
+  GET_USER_NOT_IN_GROUP: "users/groups",
 };

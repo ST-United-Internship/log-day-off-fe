@@ -5,7 +5,6 @@ import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
 import { PlusOutlined } from "@ant-design/icons";
 import { useAssignMemberGroup } from "../hooks/useAssignMemberGroup";
-import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import "../assets/css/GroupDetail/GroupDetail.css";
 import { useParams } from "react-router-dom";
 import { useGetGroupDetail } from "../hooks/useGroupDetail";
@@ -14,6 +13,7 @@ import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
 import { useGetListStaff } from "../hooks/useGetListStaff";
 import { useAssignMasterRole } from "../hooks/useAssignMasterRole";
 import NotFoundDetail from "./NotFound/NotFoundDetail";
+import { useGetUserNotInGroup } from "../hooks/useGetUserNotInGroup";
 
 const { TextArea } = Input;
 
@@ -33,7 +33,12 @@ const GroupDetail = () => {
     isError: isErrorGroupDetail,
   } = useGetGroupDetail(id);
 
-  const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+  const {
+    data: userNotInGroup,
+    isLoading: isLoadingUserNotInGroup,
+    refetch: refetchUserNotInGroup,
+  } = useGetUserNotInGroup(id);
+
   const {
     data: allStaffs,
     isLoading: loadAllStaffs,
@@ -69,11 +74,12 @@ const GroupDetail = () => {
   useEffect(() => {
     if (isSuccessAdd || isSuccessUnAssign) {
       refetch();
+      refetchUserNotInGroup();
     }
 
     if (isSuccessAssignMaster) {
-      refetchListStaffs();
       refetch();
+      refetchListStaffs();
     }
   });
 
@@ -94,12 +100,6 @@ const GroupDetail = () => {
   };
 
   const handleCloseStaffModal = () => setIsModalStaffOpen(false);
-
-  const usersModal =
-    allUser &&
-    allUser.filter(
-      (user) => user.role.name !== ROLE.ADMIN && user.role.name !== ROLE.MANAGER
-    );
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -199,8 +199,8 @@ const GroupDetail = () => {
               >
                 <Table
                   columns={rows}
-                  dataSource={usersModal}
-                  loading={loadAllUser}
+                  dataSource={userNotInGroup}
+                  loading={isLoadingUserNotInGroup}
                 ></Table>
               </Modal>
 

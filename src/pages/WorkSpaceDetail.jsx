@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Space, Switch, Table } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/WorkSpaceDetail/WorkSpaceDetail.css";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import withAuthorization from "../HOCs/withAuthorization";
@@ -16,27 +16,42 @@ const WorkSpaceDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenReset, setIsModalOpenReset] = useState(false);
   const [form] = Form.useForm();
+
   //get all user
   const {
     data,
     isLoading: loadWorkspace,
     error: errorWorkspaceDetail,
+    refetch: refetchWorkSpaceDetail,
   } = useWorkSpaceDetail();
-  const { data: allUser, isLoading: loadAllUser } = useGetAllUsers();
+  const {
+    data: allUser,
+    isLoading: loadAllUser,
+    refetch: refetchGetAllUsers,
+  } = useGetAllUsers();
+
   // assign user
-  const { mutate: assignUser, isLoading: loadingAssignUser } =
-    useAddAssignUser();
+  const {
+    mutate: assignUser,
+    isLoading: loadingAssignUser,
+    isSuccess: isSuccessAssignUser,
+  } = useAddAssignUser();
 
   const onAssignUser = (id) => {
     assignUser(id);
   };
+
   //unassign user
-  const { mutate: unAssignUser, isLoading: loadingUnAssign } =
-    useUnAssignUser();
+  const {
+    mutate: unAssignUser,
+    isLoading: loadingUnAssign,
+    isSuccess: isSuccessUnAssignUser,
+  } = useUnAssignUser();
 
   const onUnAssignUser = (id) => {
     unAssignUser(id);
   };
+
   //reset password
   const { mutate: resetPassword, isLoading: loadResetPassword } =
     useResetPassword();
@@ -60,6 +75,13 @@ const WorkSpaceDetail = () => {
   const handleCancelPassword = () => {
     setIsModalOpenReset(false);
   };
+
+  useEffect(() => {
+    if (isSuccessAssignUser || isSuccessUnAssignUser) {
+      refetchGetAllUsers();
+      refetchWorkSpaceDetail();
+    }
+  });
 
   const columns = [
     {

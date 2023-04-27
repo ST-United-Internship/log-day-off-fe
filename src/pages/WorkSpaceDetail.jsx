@@ -141,9 +141,29 @@ const WorkSpaceDetail = () => {
                           required: true,
                           message: "Please enter the password",
                         },
+                        {
+                          validator: (rule, value) => {
+                            if (!/[A-Z]/.test(value)) {
+                              return Promise.reject(
+                                "Password must contain at least one uppercase letter"
+                              );
+                            }
+                            if (!/[a-z]/.test(value)) {
+                              return Promise.reject(
+                                "Password must contain at least one lowercase letter"
+                              );
+                            }
+                            if (!/\d/.test(value)) {
+                              return Promise.reject(
+                                "Password must contain at least one number"
+                              );
+                            }
+                            return Promise.resolve();
+                          },
+                        },
                       ]}
                     >
-                      <Input placeholder="123" type="Input" />
+                      <Input.Password placeholder="Password" size="large" />
                     </Form.Item>
                   </Form.Item>
                   <Form.Item label="New passwork confirm">
@@ -157,7 +177,10 @@ const WorkSpaceDetail = () => {
                         },
                       ]}
                     >
-                      <Input placeholder="123" type="Input" />
+                      <Input.Password
+                        placeholder="New password "
+                        size="large"
+                      />
                     </Form.Item>
                   </Form.Item>
                 </Form>

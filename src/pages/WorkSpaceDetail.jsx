@@ -9,8 +9,8 @@ import { useUnAssignUser } from "../hooks/useUnAssignUser";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
 import NotFoundDetail from "./NotFound/NotFoundDetail";
 import { useResetPassword } from "../hooks/useResetPassword";
-import { useGetUserNotInGroup } from "../hooks/useGetUsersNotInWorkspace";
 import { useParams } from "react-router-dom";
+import { useGetUsersNotInWorkspace } from "../hooks/useGetUsersNotInWorkspace";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
@@ -33,7 +33,7 @@ const WorkSpaceDetail = () => {
     data: usersNotInWorkspace,
     isLoading: isLoadingUserNotInWorkspace,
     refetch: refetchUsersNotInWorkspace,
-  } = useGetUserNotInGroup(workspaceId);
+  } = useGetUsersNotInWorkspace(workspaceId);
 
   // assign user
   const {

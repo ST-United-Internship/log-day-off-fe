@@ -84,16 +84,16 @@ const RequestDetail = () => {
     [data]
   );
 
-  const acceptedBy = data?.requestApproves.some(
-    (item) =>
-      item.user.id === profile.id && item.status === STATUS_APPROVAL.ACCEPT
+  const LstAccepted = data?.requestApproves.filter(
+    (item) => item.status === STATUS_APPROVAL.ACCEPT
   );
+  const acceptedBy = LstAccepted?.some((item) => item.user.id === profile.id);
   const isRejected = data?.requestApproves.some(
     (item) => item.status === STATUS_APPROVAL.REJECT
   );
 
   const showMasterActions = profile.role.name === ROLE.MASTER && !acceptedBy;
-  const showEditAction = profile.id === data?.user.id;
+  const showEditAction = !LstAccepted?.length && profile.id === data?.user.id;
 
   useEffect(() => {
     refetch();

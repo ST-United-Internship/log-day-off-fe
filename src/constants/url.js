@@ -32,4 +32,5 @@ export const API_URL = {
   GET_AUTH_USER_PROFILE: "auth/profile",
   GET_USER_NOT_IN_GROUP: "users/groups",
   GET_USER_PROFILE: "profiles",
+  CHANGE_PASSWORD: "/auth/reset-password",
 };

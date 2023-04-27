@@ -8,7 +8,6 @@ import {
   FileExcelOutlined,
   AliwangwangOutlined,
   FormOutlined,
-  ProfileFilled,
   TeamOutlined,
 } from "@ant-design/icons";
 import { ROLE } from "./src/constants/roles";
@@ -18,11 +17,6 @@ export const navigations = [
     label: "ACCOUNT",
     key: "account",
     children: [
-      {
-        label: "Profile",
-        key: "profile",
-        icon: <ProfileFilled />,
-      },
       {
         label: "DASHBOARD",
         key: "dashboard",

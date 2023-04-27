@@ -4,7 +4,7 @@ import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./LayoutTopbar.css";
 
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getStorageData } from "../../helpers/storage";
 import { PROFILE } from "../../constants/auth";
 import axios from "axios";
@@ -26,10 +26,10 @@ const LayoutTopbar = ({ collapsed, setCollapsed }) => {
     {
       key: "1",
       label: (
-        <a target="_blank" rel="noopener noreferrer">
+        <Link rel="noopener noreferrer" to="/profile">
           <UserOutlined />
           &nbsp; Profile
-        </a>
+        </Link>
       ),
     },
     {

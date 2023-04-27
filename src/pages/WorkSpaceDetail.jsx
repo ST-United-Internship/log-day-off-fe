@@ -106,7 +106,6 @@ const WorkSpaceDetail = () => {
       title: "Actions",
       key: "action",
       render: (_, record) => {
-        console.log(record);
         return (
           <Space size="middle">
             <div>

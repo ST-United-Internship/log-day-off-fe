@@ -6,16 +6,19 @@ import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import { useWorkSpaceDetail } from "../hooks/useWorkSpaceDetail";
 import { useUnAssignUser } from "../hooks/useUnAssignUser";
-import { useGetAllUsers } from "../hooks/useGetAllUsers";
 import { useAddAssignUser } from "../hooks/useAddAssignUser";
 import NotFoundDetail from "./NotFound/NotFoundDetail";
 import { useResetPassword } from "../hooks/useResetPassword";
+import { useGetUserNotInGroup } from "../hooks/useGetUsersNotInWorkspace";
+import { useParams } from "react-router-dom";
 
 const WorkSpaceDetail = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenReset, setIsModalOpenReset] = useState(false);
   const [form] = Form.useForm();
+
+  const { id: workspaceId } = useParams();
 
   //get all user
   const {
@@ -24,11 +27,13 @@ const WorkSpaceDetail = () => {
     error: errorWorkspaceDetail,
     refetch: refetchWorkSpaceDetail,
   } = useWorkSpaceDetail();
+
+  //list users not in workspacs
   const {
-    data: allUser,
-    isLoading: loadAllUser,
-    refetch: refetchGetAllUsers,
-  } = useGetAllUsers();
+    data: usersNotInWorkspace,
+    isLoading: isLoadingUserNotInWorkspace,
+    refetch: refetchUsersNotInWorkspace,
+  } = useGetUserNotInGroup(workspaceId);
 
   // assign user
   const {
@@ -60,9 +65,6 @@ const WorkSpaceDetail = () => {
     const userId = form.getFieldValue("userId");
     resetPassword({ userId, ...values });
   };
-  // role admin can edit
-  const usersModal =
-    allUser && allUser.filter((user) => user.role.name !== ROLE.ADMIN);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -81,7 +83,7 @@ const WorkSpaceDetail = () => {
 
   useEffect(() => {
     if (isSuccessAssignUser || isSuccessUnAssignUser) {
-      refetchGetAllUsers();
+      refetchUsersNotInWorkspace();
       refetchWorkSpaceDetail();
     }
   });
@@ -174,8 +176,8 @@ const WorkSpaceDetail = () => {
         >
           <Table
             columns={rows}
-            dataSource={usersModal}
-            loading={loadAllUser}
+            dataSource={usersNotInWorkspace}
+            loading={isLoadingUserNotInWorkspace}
             rowKey={(record) => record.id}
           ></Table>
         </Modal>

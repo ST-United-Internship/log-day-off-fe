@@ -33,4 +33,5 @@ export const API_URL = {
   GET_USER_NOT_IN_GROUP: "users/groups",
   GET_USER_PROFILE: "profiles",
   CHANGE_PASSWORD: "/auth/reset-password",
+  GET_USER_NOT_IN_WORKSPACE: "admin/workspace",
 };

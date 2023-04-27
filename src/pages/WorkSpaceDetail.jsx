@@ -119,10 +119,13 @@ const WorkSpaceDetail = () => {
                 onCancel={handleCancelPassword}
                 onOk={form.submit}
                 confirmLoading={loadResetPassword}
+                destroyOnClose={true}
               >
                 <Form
+                  preserve={false}
                   form={form}
                   name="complex-form"
+                  key="complex-form"
                   labelCol={{
                     span: 8,
                   }}
@@ -135,6 +138,7 @@ const WorkSpaceDetail = () => {
                   <Form.Item label="New password">
                     <Form.Item
                       name="newPassword"
+                      key="newPassword"
                       rules={[
                         {
                           required: true,
@@ -168,6 +172,7 @@ const WorkSpaceDetail = () => {
                   <Form.Item label="New passwork confirm">
                     <Form.Item
                       name="newPasswordConfirm"
+                      key="newPasswordConfirm"
                       noStyle
                       rules={[
                         {

@@ -29,9 +29,10 @@ const Profile = () => {
     <div>
       <LoadingComponent isLoading={isLoadingProfile}>
         <Card style={{ width: 300 }}>
-          <p>{profile?.username}</p>
+          <p>Name : {profile?.username}</p>
           <p>Email: {profile?.email}</p>
           <p>Gender: {profile?.gender}</p>
+          <p>SlackID: {profile?.slackId}</p>
           <Button onClick={showModalPassword}>
             <EditOutlined />
             Change Password

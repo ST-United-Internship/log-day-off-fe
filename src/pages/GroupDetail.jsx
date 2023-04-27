@@ -75,11 +75,13 @@ const GroupDetail = () => {
     if (isSuccessAdd || isSuccessUnAssign) {
       refetch();
       refetchUserNotInGroup();
+      refetchListStaffs();
     }
 
     if (isSuccessAssignMaster) {
       refetch();
       refetchListStaffs();
+      refetchUserNotInGroup();
     }
   });
 

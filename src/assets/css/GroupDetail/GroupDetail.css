@@ -1,6 +1,7 @@
 .group-form .wrap-btn-group {
   display: flex;
   justify-content: end;
+  margin-bottom: 30px;
 }
 
 .group-form .footer-btn-groups {

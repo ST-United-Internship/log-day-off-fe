@@ -1,4 +1,4 @@
-import { Form, Input, Button, Modal, Table, Tag, Card } from "antd";
+import { Form, Button, Modal, Table, Tag, Card } from "antd";
 import { useEffect, useState } from "react";
 import "../assets/groupdetail/groupdetail.css";
 import { ROLE } from "../constants/roles";
@@ -14,8 +14,6 @@ import { useGetListStaff } from "../hooks/useGetListStaff";
 import { useAssignMasterRole } from "../hooks/useAssignMasterRole";
 import NotFoundDetail from "./NotFound/NotFoundDetail";
 import { useGetUserNotInGroup } from "../hooks/useGetUserNotInGroup";
-
-const { TextArea } = Input;
 
 const GroupDetail = () => {
   const [form] = Form.useForm();
@@ -72,18 +70,12 @@ const GroupDetail = () => {
   };
 
   useEffect(() => {
-    if (isSuccessAdd || isSuccessUnAssign) {
-      refetch();
-      refetchUserNotInGroup();
-      refetchListStaffs();
-    }
-
-    if (isSuccessAssignMaster) {
+    if (isSuccessAdd || isSuccessUnAssign || isSuccessAssignMaster) {
       refetch();
       refetchListStaffs();
       refetchUserNotInGroup();
     }
-  });
+  }, [isSuccessAdd, isSuccessUnAssign, isSuccessAssignMaster]);
 
   const onFinish = (values) => {
     setFormData(values);
@@ -220,9 +212,6 @@ const GroupDetail = () => {
               </Modal>
             </div>
           </div>
-          <Form.Item label="Name" className="vung1">
-            <TextArea className="otext1" rows={1} />
-          </Form.Item>
 
           <Form.Item label="Masters">
             <Card>

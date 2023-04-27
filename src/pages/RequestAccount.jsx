@@ -148,10 +148,11 @@ const RequestAccount = () => {
         title: "Action",
         key: "action",
         render: (_, record) => {
-          const acceptedBy = record.requestApproves.some(
-            (item) =>
-              item.user.id === authUser.id &&
-              item.status === STATUS_APPROVAL.ACCEPT
+          const LstAccepted = record.requestApproves.filter(
+            (item) => item.status === STATUS_APPROVAL.ACCEPT
+          );
+          const acceptedBy = LstAccepted.some(
+            (item) => item.user.id === authUser.id
           );
           const isRejected = record.requestApproves.some(
             (item) => item.status === STATUS_APPROVAL.REJECT
@@ -159,7 +160,9 @@ const RequestAccount = () => {
 
           const showMasterActions =
             authUser.role.name === ROLE.MASTER && !acceptedBy;
-          const showEditAction = authUser.id === record.user.id;
+          const showEditAction =
+            !LstAccepted.length && authUser.id === record.user.id;
+
           if (isRejected || (!showMasterActions && !showEditAction))
             return <label>No action required</label>;
           return (

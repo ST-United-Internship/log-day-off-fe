@@ -32,6 +32,16 @@ const privateRoutes = [
       {
         path: "profile",
         element: <Profile />,
+        children: [
+          {
+            index: true,
+            element: <Profile />,
+          },
+          {
+            path: ":userId",
+            element: <Profile />,
+          },
+        ],
       },
 
       {

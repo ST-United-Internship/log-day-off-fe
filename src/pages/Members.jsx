@@ -10,10 +10,12 @@ import { Notification } from "../components/Notifications/notification";
 import { useEffect, useState } from "react";
 import { useMember } from "../hooks/useMember";
 import LoadingComponent from "../components/LoadingComponent/LoadingComponent";
+import { useNavigate } from "react-router-dom";
 
 const Members = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const { mutate: createMember, isError, isSuccess } = useCreateMember();
 
@@ -58,6 +60,16 @@ const Members = () => {
       Notification(NOTIFICATION.ERROR, "Unsuccessfully!");
     }
   }, [isSuccess]);
+
+  const onRow = (record) => {
+    return {
+      onClick: (e) => {
+        e.stopPropagation();
+        navigate(`/profile/${record.id}`);
+      },
+    };
+  };
+
   return (
     <>
       <LoadingComponent isLoading={loadListMember}>
@@ -199,7 +211,12 @@ const Members = () => {
             </Form.Item>
           </Form>
         </Modal>
-        <Table columns={columns} dataSource={listMember} />
+        <Table
+          columns={columns}
+          dataSource={listMember}
+          onRow={onRow}
+          style={{ cursor: "pointer" }}
+        />
       </LoadingComponent>
     </>
   );

@@ -3,12 +3,8 @@ import "../assets/notification/notification.css";
 import { ROLE } from "../constants/roles";
 import withAuthorization from "../HOCs/withAuthorization";
 const Notification = () => {
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-  };
-
   return (
-    <Form onFinish={onFinish}>
+    <Form>
       <div>
         <h3>Slack</h3>
       </div>

@@ -95,10 +95,6 @@ const WorkSpace = () => {
     });
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
     <LoadingComponent isLoading={loadListWorkspace}>
       <div className="nav-container">
@@ -137,7 +133,6 @@ const WorkSpace = () => {
               remember: true,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="on"
             form={form}
           >

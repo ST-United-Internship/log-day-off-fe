@@ -103,10 +103,6 @@ const GroupDetail = () => {
 
   const handleCloseStaffModal = () => setIsModalStaffOpen(false);
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
   const onUnAssign = (e, id) => {
     e.preventDefault();
     unAssignMember(id);
@@ -185,7 +181,6 @@ const GroupDetail = () => {
           form={form}
           className="group-form"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
         >

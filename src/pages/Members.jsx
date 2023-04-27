@@ -28,10 +28,6 @@ const Members = () => {
     createMember(values);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
   const { data: listMember, isLoading: loadListMember } = useMember();
   const dataTable =
     listMember?.length > 0 &&
@@ -105,7 +101,6 @@ const Members = () => {
               maxWidth: 600,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="on"
             form={form}
           >

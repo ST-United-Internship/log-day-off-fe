@@ -56,7 +56,8 @@ const WorkSpaceDetail = () => {
   const { mutate: resetPassword, isLoading: loadResetPassword } =
     useResetPassword();
 
-  const onResetPassword = (userId, values) => {
+  const onResetPassword = (values) => {
+    const userId = form.getFieldValue("userId");
     resetPassword({ userId, ...values });
   };
   // role admin can edit
@@ -69,10 +70,12 @@ const WorkSpaceDetail = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const showModalPassword = () => {
+  const showModalPassword = (userId) => {
+    form.setFieldValue("userId", userId);
     setIsModalOpenReset(true);
   };
   const handleCancelPassword = () => {
+    form.setFieldValue("userId", null);
     setIsModalOpenReset(false);
   };
 
@@ -108,98 +111,21 @@ const WorkSpaceDetail = () => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <div>
-              <Button className="btn-space-reset" onClick={showModalPassword}>
-                <EditOutlined />
-                Reset Password
-              </Button>
-              <Modal
-                title="Reset Password"
-                open={isModalOpenReset}
-                onCancel={handleCancelPassword}
-                onOk={form.submit}
-                confirmLoading={loadResetPassword}
-                destroyOnClose={true}
-              >
-                <Form
-                  preserve={false}
-                  form={form}
-                  name="complex-form"
-                  key="complex-form"
-                  labelCol={{
-                    span: 8,
-                  }}
-                  wrapperCol={{
-                    span: 16,
-                  }}
-                  className="full-form"
-                  onFinish={(values) => onResetPassword(record.id, values)}
-                >
-                  <Form.Item label="New password">
-                    <Form.Item
-                      name="newPassword"
-                      key="newPassword"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter the password",
-                        },
-                        {
-                          validator: (rule, value) => {
-                            if (!/[A-Z]/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one uppercase letter"
-                              );
-                            }
-                            if (!/[a-z]/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one lowercase letter"
-                              );
-                            }
-                            if (!/\d/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one number"
-                              );
-                            }
-                            return Promise.resolve();
-                          },
-                        },
-                      ]}
-                    >
-                      <Input.Password placeholder="Password" size="large" />
-                    </Form.Item>
-                  </Form.Item>
-                  <Form.Item label="New passwork confirm">
-                    <Form.Item
-                      name="newPasswordConfirm"
-                      key="newPasswordConfirm"
-                      noStyle
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter the password",
-                        },
-                      ]}
-                    >
-                      <Input.Password
-                        placeholder="New password "
-                        size="large"
-                      />
-                    </Form.Item>
-                  </Form.Item>
-                </Form>
-              </Modal>
-            </div>
-            <div>
-              <Button
-                className="btn-space-remove"
-                name="username"
-                onClick={() => onUnAssignUser(record.id)}
-              >
-                <DeleteOutlined name="username" />
-                Remove
-              </Button>
-            </div>
+            <Button
+              className="btn-space-reset"
+              onClick={() => showModalPassword(record.id)}
+            >
+              <EditOutlined />
+              Reset Password
+            </Button>
+            <Button
+              className="btn-space-remove"
+              name="username"
+              onClick={() => onUnAssignUser(record.id)}
+            >
+              <DeleteOutlined name="username" />
+              Remove
+            </Button>
           </Space>
         );
       },
@@ -264,6 +190,87 @@ const WorkSpaceDetail = () => {
         loading={loadWorkspace || loadingUnAssign || loadingAssignUser}
         rowKey={(record) => record.id}
       />
+      <Modal
+        title="Reset Password"
+        open={isModalOpenReset}
+        onCancel={handleCancelPassword}
+        onOk={form.submit}
+        confirmLoading={loadResetPassword}
+        destroyOnClose={true}
+      >
+        <Form
+          preserve={false}
+          form={form}
+          name="complex-form"
+          key="complex-form"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          className="full-form"
+          onFinish={onResetPassword}
+          labelAlign="left"
+        >
+          <Form.Item
+            name="newPassword"
+            key="newPassword"
+            label="New password"
+            rules={[
+              {
+                required: true,
+                message: "Please enter the password",
+              },
+              {
+                validator: (rule, value) => {
+                  if (!/[A-Z]/.test(value)) {
+                    return Promise.reject(
+                      "Password must contain at least one uppercase letter"
+                    );
+                  }
+                  if (!/[a-z]/.test(value)) {
+                    return Promise.reject(
+                      "Password must contain at least one lowercase letter"
+                    );
+                  }
+                  if (!/\d/.test(value)) {
+                    return Promise.reject(
+                      "Password must contain at least one number"
+                    );
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
+            <Input.Password placeholder="Password" size="large" />
+          </Form.Item>
+          <Form.Item
+            name="newPasswordConfirm"
+            key="newPasswordConfirm"
+            label="Confirm Password"
+            rules={[
+              {
+                required: true,
+                message: "Please enter the password",
+              },
+              {
+                validator: (_, value) => {
+                  const newPassword = form.getFieldValue("newPassword");
+                  if (value !== newPassword)
+                    return Promise.reject(
+                      "Confirm Password must be the same as new Password"
+                    );
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
+            <Input.Password placeholder="New password " size="large" />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

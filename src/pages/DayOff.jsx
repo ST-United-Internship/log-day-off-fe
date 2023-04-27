@@ -42,7 +42,7 @@ const DayOff = () => {
         </Form.Item>
         <div className="form-container">
           <Form.Item label="From" className="full-form">
-            <Input.Group compact>
+            <Space.Compact>
               <Form.Item
                 name="from"
                 noStyle
@@ -90,12 +90,12 @@ const DayOff = () => {
                   style={{ width: "200px" }}
                   className="select-form"
                 >
-                  <Option value="one">Morning</Option>
-                  <Option value="two">Afternoon</Option>
-                  <Option value="three">All day</Option>
+                  <Select.Option value="one">Morning</Select.Option>
+                  <Select.Option value="two">Afternoon</Select.Option>
+                  <Select.Option value="three">All day</Select.Option>
                 </Select>
               </Form.Item>
-            </Input.Group>
+            </Space.Compact>
           </Form.Item>
         </div>
         <Form.Item

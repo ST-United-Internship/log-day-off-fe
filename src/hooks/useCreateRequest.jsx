@@ -13,7 +13,7 @@ export const useCreateRequest = () => {
     },
     {
       onSuccess: () => {
-        navigate("/dashboard");
+        navigate("/request-account");
       },
       onError: (err) => {
         Notification(NOTIFICATION.ERROR, err.response.data.message);

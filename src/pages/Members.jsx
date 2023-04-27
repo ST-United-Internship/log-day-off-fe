@@ -92,10 +92,10 @@ const Members = () => {
           <Form
             name="basic"
             labelCol={{
-              span: 4,
+              span: 6,
             }}
             wrapperCol={{
-              span: 20,
+              span: 18,
             }}
             style={{
               maxWidth: 600,

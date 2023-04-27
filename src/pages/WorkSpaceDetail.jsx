@@ -232,9 +232,6 @@ const WorkSpaceDetail = () => {
 
   return (
     <div className="workspace-container">
-      <Form.Item name={["user", "name"]} label="Name">
-        <Input placeholder="" className="workspace-text" />
-      </Form.Item>
       <div className="wrap-btn">
         <Button className="btn-workspace" onClick={showModal}>
           + New User

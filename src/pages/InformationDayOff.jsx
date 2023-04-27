@@ -1,5 +1,9 @@
 import { Table, Button } from "antd";
-import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  RollbackOutlined,
+} from "@ant-design/icons";
 import "../assets/Information-day-off/informationdayoff.css";
 import { useGetRequests } from "../hooks/useGetRequests";
 import { getTimeElapsedString } from "../helpers/timeAgo";
@@ -7,9 +11,32 @@ import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
 import { STATUS_APPROVAL } from "../constants/statusApproval";
 import { formatDate } from "../helpers/formatDate";
+import { useState } from "react";
 
 const InformationDayOff = () => {
   const { data, isLoading } = useGetRequests();
+  const [statusFilter, setStatusFilter] = useState(null);
+
+  const handleApprovedFilter = () => {
+    setStatusFilter(STATUS_APPROVAL.ACCEPT);
+  };
+
+  const handleRejectedFilter = () => {
+    setStatusFilter(STATUS_APPROVAL.REJECT);
+  };
+
+  const handleRevertedFilter = () => {
+    setStatusFilter(null);
+  };
+
+  const filteredData = statusFilter
+    ? data.filter((item) => {
+        const approves = item.requestApproves.filter(
+          (item) => item.status === statusFilter
+        );
+        return approves.length > 0;
+      })
+    : data;
 
   const columns = [
     {
@@ -80,18 +107,18 @@ const InformationDayOff = () => {
   return (
     <>
       <div className="button-dayoff">
-        <Button className="checkout-df">
+        <Button className="checkout-df" onClick={handleApprovedFilter}>
           <CheckOutlined /> Approved day off
         </Button>
-        <Button className="closeout-df">
+        <Button className="closeout-df" onClick={handleRejectedFilter}>
           <CloseOutlined /> Rejected day off
         </Button>
-        <Button className="editout-df">
-          <EditOutlined /> Reverted day off
+        <Button className="editout-df" onClick={handleRevertedFilter}>
+          <RollbackOutlined /> Reverted lists day off
         </Button>
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={filteredData}
           loading={isLoading}
           rowKey={(record) => record.id}
         />

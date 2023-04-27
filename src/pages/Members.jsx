@@ -216,6 +216,7 @@ const Members = () => {
           dataSource={listMember}
           onRow={onRow}
           style={{ cursor: "pointer" }}
+          rowKey={(record) => record.id}
         />
       </LoadingComponent>
     </>

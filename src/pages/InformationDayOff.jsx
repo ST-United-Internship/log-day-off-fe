@@ -73,7 +73,6 @@ const InformationDayOff = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (time) => {
-        console.log(new Date(time));
         return <span>{getTimeElapsedString(new Date(time))}</span>;
       },
     },
@@ -90,7 +89,12 @@ const InformationDayOff = () => {
         <Button className="editout-df">
           <EditOutlined /> Reverted day off
         </Button>
-        <Table columns={columns} dataSource={data} loading={isLoading} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          loading={isLoading}
+          rowKey={(record) => record.id}
+        />
       </div>
     </>
   );

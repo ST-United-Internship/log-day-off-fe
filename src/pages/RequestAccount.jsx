@@ -224,6 +224,7 @@ const RequestAccount = () => {
         dataSource={data}
         loading={isLoading}
         onRow={onRow}
+        rowKey={(record) => record.id}
       />
       <Modal
         open={openModal}

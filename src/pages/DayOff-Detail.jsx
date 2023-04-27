@@ -61,6 +61,7 @@ const TableExample = () => {
               dataSource={data}
               pagination={false}
               style={tableStyle}
+              rowKey={(record) => record.id}
             />
             <h1>Actions</h1>
             <Button

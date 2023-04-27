@@ -203,6 +203,7 @@ const GroupDetail = () => {
                   columns={rows}
                   dataSource={userNotInGroup}
                   loading={isLoadingUserNotInGroup}
+                  rowKey={(record) => record.id}
                 ></Table>
               </Modal>
 
@@ -219,6 +220,7 @@ const GroupDetail = () => {
                   columns={staffRows}
                   dataSource={allStaffs}
                   loading={loadAllStaffs}
+                  rowKey={(record) => record.id}
                 ></Table>
               </Modal>
             </div>

@@ -246,6 +246,7 @@ const WorkSpaceDetail = () => {
             columns={rows}
             dataSource={usersModal}
             loading={loadAllUser}
+            rowKey={(record) => record.id}
           ></Table>
         </Modal>
       </div>
@@ -257,6 +258,7 @@ const WorkSpaceDetail = () => {
         columns={columns}
         dataSource={data?.users}
         loading={loadWorkspace || loadingUnAssign || loadingAssignUser}
+        rowKey={(record) => record.id}
       />
     </div>
   );

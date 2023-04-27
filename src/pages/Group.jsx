@@ -8,11 +8,15 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useGetListWorkspace } from "../hooks/useGetListWorkSpace";
 import { useCreateGroup } from "../hooks/useCreateGroup";
 import { useGetListGroup } from "../hooks/useGetListGroup";
+import { getStorageData } from "../helpers/storage";
+import { PROFILE } from "../constants/auth";
 
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
+
+  const profile = getStorageData(PROFILE);
 
   const { mutate: createGroup, isLoading, isSuccess } = useCreateGroup();
 
@@ -78,6 +82,7 @@ const Group = () => {
             to={`/workspace-detail/${id}`}
             onClick={(e) => {
               e.stopPropagation();
+              if (profile.role.name !== ROLE.ADMIN) e.preventDefault();
             }}
           >
             <Tag color="#108ee9">{workspace}</Tag>
@@ -190,7 +195,12 @@ const Group = () => {
             </Form>
           </LoadingComponent>
         </Modal>
-        <Table columns={columns} dataSource={mapping} onRow={onRow} />
+        <Table
+          columns={columns}
+          dataSource={mapping}
+          onRow={onRow}
+          rowKey={(record) => record.id}
+        />
       </LoadingComponent>
     </>
   );

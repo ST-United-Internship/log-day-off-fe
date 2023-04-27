@@ -157,7 +157,12 @@ const WorkSpace = () => {
           </Form>
         </LoadingComponent>
       </Modal>
-      <Table columns={columns} dataSource={listWorkspace} onRow={onRow} />
+      <Table
+        columns={columns}
+        dataSource={listWorkspace}
+        onRow={onRow}
+        rowKey={(record) => record.id}
+      />
     </LoadingComponent>
   );
 };

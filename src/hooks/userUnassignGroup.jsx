@@ -11,7 +11,6 @@ export const useUnAssignMemberGroup = (id) => {
     },
     {
       onSuccess: (data) => {
-        console.log(data);
         Notification(NOTIFICATION.SUCCESS, data.message);
       },
       onError: (error) => {

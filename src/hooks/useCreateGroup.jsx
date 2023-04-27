@@ -11,7 +11,6 @@ export const useCreateGroup = () => {
     },
     {
       onSuccess: (data) => {
-        console.log(data);
         Notification(NOTIFICATION.SUCCESS, `Create Group ${data.message}!`);
       },
       onError: (err) => {

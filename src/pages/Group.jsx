@@ -107,10 +107,6 @@ const Group = () => {
     setIsModalOpen(false);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
     <>
       <LoadingComponent isLoading={loadListGroup}>
@@ -151,7 +147,6 @@ const Group = () => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
               autoComplete="on"
               form={form}
             >

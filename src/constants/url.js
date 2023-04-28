@@ -34,4 +34,5 @@ export const API_URL = {
   GET_USER_PROFILE: "profiles",
   CHANGE_PASSWORD: "auth/reset-password",
   CHANGE_USER_NAME: "auth/reset-username",
+  GET_USER_NOT_IN_WORKSPACE: "admin/workspace",
 };

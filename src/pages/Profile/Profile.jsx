@@ -62,7 +62,19 @@ const Profile = () => {
               confirmLoading={isLoadingChangePassword}
               destroyOnClose={true}
             >
-              <Form onFinish={onChangePassword} preserve={false} form={form}>
+              <Form
+                onFinish={onChangePassword}
+                preserve={false}
+                form={form}
+                name="complex-form"
+                key="complex-form"
+                labelCol={{
+                  span: 8,
+                }}
+                wrapperCol={{
+                  span: 16,
+                }}
+              >
                 <Form.Item
                   label="Old Password"
                   style={{
@@ -70,42 +82,35 @@ const Profile = () => {
                   }}
                 >
                   <Form.Item
-                    label="Old Password"
-                    style={{
-                      marginBottom: 0,
-                    }}
+                    name="oldPassword"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select a date",
+                      },
+                      {
+                        validator: (rule, value) => {
+                          if (!/[A-Z]/.test(value)) {
+                            return Promise.reject(
+                              "Password must contain at least one uppercase letter"
+                            );
+                          }
+                          if (!/[a-z]/.test(value)) {
+                            return Promise.reject(
+                              "Password must contain at least one lowercase letter"
+                            );
+                          }
+                          if (!/\d/.test(value)) {
+                            return Promise.reject(
+                              "Password must contain at least one number"
+                            );
+                          }
+                          return Promise.resolve();
+                        },
+                      },
+                    ]}
                   >
-                    <Form.Item
-                      name="oldPassword"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please select a date",
-                        },
-                        {
-                          validator: (rule, value) => {
-                            if (!/[A-Z]/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one uppercase letter"
-                              );
-                            }
-                            if (!/[a-z]/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one lowercase letter"
-                              );
-                            }
-                            if (!/\d/.test(value)) {
-                              return Promise.reject(
-                                "Password must contain at least one number"
-                              );
-                            }
-                            return Promise.resolve();
-                          },
-                        },
-                      ]}
-                    >
-                      <Input.Password placeholder="password" type="Input" />
-                    </Form.Item>
+                    <Input.Password placeholder="password" type="Input" />
                   </Form.Item>
                 </Form.Item>
                 <Form.Item

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Form, Input, Modal, Select, Space, Table, Tag } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
@@ -14,7 +14,6 @@ import { PROFILE } from "../constants/auth";
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
-  const navigate = useNavigate();
 
   const profile = getStorageData(PROFILE);
 
@@ -31,22 +30,15 @@ const Group = () => {
   const mapping = listGroup?.map((item) => ({
     ...item,
     workspace: item.workspace.name,
+    workspaceId: item.workspace.id,
   }));
-
-  const onRow = (record) => {
-    return {
-      onClick: (e) => {
-        e.stopPropagation();
-        navigate(`/group/${record.id}`);
-      },
-    };
-  };
 
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      render: (record) => {
+        return <Link to={`/group/${record.id}`}>{record.name}</Link>;
+      },
     },
     {
       title: "Member (s)",
@@ -74,18 +66,16 @@ const Group = () => {
     },
     {
       title: "Workspace (s)",
-      dataIndex: "workspace",
-      key: "workspace",
-      render: (_, { workspace, id }) => {
+      render: (_, workspace) => {
         return (
           <Link
-            to={`/workspace-detail/${id}`}
+            to={`/workspace-detail/${workspace.workspaceId}`}
             onClick={(e) => {
               e.stopPropagation();
               if (profile.role.name !== ROLE.ADMIN) e.preventDefault();
             }}
           >
-            <Tag color="#108ee9">{workspace}</Tag>
+            <Tag color="#108ee9">{workspace.workspace}</Tag>
           </Link>
         );
       },
@@ -193,7 +183,7 @@ const Group = () => {
         <Table
           columns={columns}
           dataSource={mapping}
-          onRow={onRow}
+          // onRow={onRow}
           rowKey={(record) => record.id}
         />
       </LoadingComponent>

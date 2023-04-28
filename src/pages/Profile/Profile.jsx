@@ -44,7 +44,7 @@ const Profile = () => {
   return (
     <div>
       <LoadingComponent isLoading={isLoadingProfile}>
-        <Card style={{ width: 300 }}>
+        <Card style={{ width: 400 }}>
           <p>Name : {profile?.username}</p>
           <p>Email: {profile?.email}</p>
           <p>Gender: {profile?.gender}</p>

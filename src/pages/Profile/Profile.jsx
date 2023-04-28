@@ -3,17 +3,34 @@ import { useGetAuthProfile } from "../../hooks/useGetAuthProfile";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 import { EditOutlined } from "@ant-design/icons";
 import { useChangePassWord } from "../../hooks/useChangePassworkd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getStorageData } from "../../helpers/storage";
 import { PROFILE } from "../../constants/auth";
 import { useChangeUserName } from "../../hooks/useChangeUserNamel";
 
 const Profile = () => {
   const authUser = getStorageData(PROFILE);
-  const { data: profile, isLoading: isLoadingProfile } = useGetAuthProfile();
   const [isModalOpenUserName, setIsModalOpenUserName] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+
+  const {
+    data: profile,
+    isLoading: isLoadingProfile,
+    refetch,
+  } = useGetAuthProfile();
+
+  const {
+    mutate: changeUserName,
+    isLoading: isLoadingChangeUserName,
+    isSuccess: successChangeName,
+  } = useChangeUserName();
+
+  const {
+    mutate: changePassWord,
+    isLoading: isLoadingChangePassword,
+    isSuccess: successChangePassword,
+  } = useChangePassWord();
 
   const showModalPassword = () => {
     setIsModalOpen(true);
@@ -28,19 +45,19 @@ const Profile = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const { mutate: changePassWord, isLoading: isLoadingChangePassword } =
-    useChangePassWord();
 
   const onChangePassword = (values) => {
     changePassWord({ ...values, userRequestId: authUser.id });
   };
 
-  const { mutate: changeUserName, isLoading: isLoadingChangeUserName } =
-    useChangeUserName();
-
   const onChangeUserName = (values) => {
     changeUserName({ ...values, userRequestId: authUser.id });
   };
+
+  useEffect(() => {
+    if (successChangeName || successChangePassword) refetch();
+  }, [successChangeName, successChangePassword]);
+
   return (
     <div>
       <LoadingComponent isLoading={isLoadingProfile}>

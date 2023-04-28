@@ -216,7 +216,9 @@ const GroupDetail = () => {
           <Form.Item label="Masters">
             <Card>
               {groupDetail?.masters.map((item) => (
-                <Tag color="#2db7f5">{item.username}</Tag>
+                <Tag key={item.id} color="#2db7f5">
+                  {item.username}
+                </Tag>
               ))}
             </Card>
           </Form.Item>
@@ -225,6 +227,7 @@ const GroupDetail = () => {
             <Card>
               {groupDetail?.users.map((item) => (
                 <Tag
+                  key={item.id}
                   closable
                   onClose={(e) => onUnAssign(e, item.id)}
                   color="#2db7f5"

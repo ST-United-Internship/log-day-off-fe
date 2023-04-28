@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Modal, Select, Space, Table, Tag } from "antd";
 import withAuthorization from "../HOCs/withAuthorization";
 import { ROLE } from "../constants/roles";
@@ -14,6 +14,7 @@ import { PROFILE } from "../constants/auth";
 const Group = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const profile = getStorageData(PROFILE);
 
@@ -27,24 +28,26 @@ const Group = () => {
     refetch,
   } = useGetListGroup();
 
-  const mapping = listGroup?.map((item) => ({
-    ...item,
-    workspace: item.workspace.name,
-    workspaceId: item.workspace.id,
-  }));
+  const onRow = (record) => {
+    return {
+      onClick: (e) => {
+        e.stopPropagation();
+        navigate(`/group/${record.id}`);
+      },
+    };
+  };
 
   const columns = [
     {
       title: "Name",
-      render: (record) => {
-        return <Link to={`/group/${record.id}`}>{record.name}</Link>;
-      },
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Member (s)",
       dataIndex: "users",
       key: "users",
-      render: (_, { users }) => {
+      render: (users) => {
         return users.map((item) => (
           <Tag color="#2db7f5" key={item.id}>
             {item.username}
@@ -56,7 +59,7 @@ const Group = () => {
       title: "Master (s)",
       dataIndex: "master",
       key: "master",
-      render: (_, { master }) => {
+      render: (master) => {
         return master.map((item) => (
           <Tag color="#2db7f5" key={item.id}>
             {item.username}
@@ -66,17 +69,21 @@ const Group = () => {
     },
     {
       title: "Workspace (s)",
-      render: (_, workspace) => {
+      dataIndex: "workspace",
+      key: "workspace",
+      render: (workspace) => {
         return (
-          <Link
-            to={`/workspace-detail/${workspace.workspaceId}`}
+          <Tag
+            color="#108ee9"
             onClick={(e) => {
               e.stopPropagation();
-              if (profile.role.name !== ROLE.ADMIN) e.preventDefault();
+              if (profile.role.name === ROLE.ADMIN)
+                navigate(`/workspace-detail/${workspace.id}`);
             }}
+            style={{ cursor: "pointer" }}
           >
-            <Tag color="#108ee9">{workspace.workspace}</Tag>
-          </Link>
+            {workspace.name}
+          </Tag>
         );
       },
     },
@@ -182,8 +189,8 @@ const Group = () => {
         </Modal>
         <Table
           columns={columns}
-          dataSource={mapping}
-          // onRow={onRow}
+          dataSource={listGroup}
+          onRow={onRow}
           rowKey={(record) => record.id}
         />
       </LoadingComponent>
